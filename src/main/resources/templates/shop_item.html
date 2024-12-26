@@ -10,8 +10,36 @@
         <link rel="icon" type="image/x-icon" href="../static/shop_item/assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!--fontawesome icons-->
+        <script src="https://kit.fontawesome.com/e1f0f1815b.js" crossorigin="anonymous"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/shop_item/css/styles.css" rel="stylesheet" />
+        <style>
+
+            .fa-user{
+                font-size: 30px;
+                line-height: 30px;
+            }
+            .btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            }
+
+            .btn i {
+            margin-bottom: 4px; /* 아이콘과 텍스트 사이 간격 */
+            }
+
+            .btn span {
+            font-size: 10px; /* 글씨 크기 */
+            font-family: 'Arial', sans-serif; /* 글씨 폰트 */
+            font-weight: bold; /* 글씨 굵기 (선택 사항) */
+            color: #333; /* 글씨 색상 (선택 사항) */
+            white-space: nowrap; /* 줄 바꿈 방지 */
+            }
+
+        </style>
+
     </head>
     <body>
         <!-- Navigation-->
@@ -21,7 +49,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -43,10 +71,9 @@
                     </nav>
 
                     <!-- 임시 링크 마이페이지 구하고 다시 넣을것-->
-                    <button class="btn btn-outline-dark"  type="button" th:onclick="|location.href='@{/}'|" >
-                        <svg xmlns="http://www.w3.org/2000/svg"  width="30" height="30" viewBox="0 0 448 512">
-                            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/>
-                        </svg>
+                    <button class="btn btn-outline-White"  type="button" th:onclick="|location.href='@{/}'|" >
+                        <i class="fa-solid fa-user"></i>
+                        <span>마이페이지</span>
                     </button>
                 </div>
             </div>

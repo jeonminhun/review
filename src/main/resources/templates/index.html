@@ -20,6 +20,23 @@
                 font-size: 30px;
                 line-height: 30px;
             }
+            .btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            }
+
+            .btn i {
+            margin-bottom: 4px; /* 아이콘과 텍스트 사이 간격 */
+            }
+
+            .btn span {
+            font-size: 10px; /* 글씨 크기 */
+            font-family: 'Arial', sans-serif; /* 글씨 폰트 */
+            font-weight: bold; /* 글씨 굵기 (선택 사항) */
+            color: #333; /* 글씨 색상 (선택 사항) */
+            white-space: nowrap; /* 줄 바꿈 방지 */
+            }
 
         </style>
     </head>
@@ -31,7 +48,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -52,8 +69,9 @@
                         </div>
                     </nav>
                     <!-- 임시 링크 마이페이지 구하고 다시 넣을것-->
-                        <button class="btn btn-outline-dark"  type="button" th:onclick="|location.href='@{shop}'|" >
+                        <button class="btn btn-outline-White"  type="button" th:onclick="|location.href='@{shop}'|" >
                             <i class="fa-solid fa-user"></i>
+                            <span>마이페이지</span>
                         </button>
                 </div>
             </div>
