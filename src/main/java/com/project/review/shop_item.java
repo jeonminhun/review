@@ -9,7 +9,7 @@ public class shop_item {
         @RequestMapping("/shop")
         public String main(Model model){
             model.addAttribute("data","hi my name is review!");
-            return "shop_item";
+            return "product-details";
         }
 
 }
