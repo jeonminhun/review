@@ -1,4 +1,10 @@
 package com.project.review.user.service;
 
-public interface userservice {
+import com.project.review.user.dto.userCreateDto;
+
+public interface userService {
+    boolean checkPassWord(userCreateDto userCreateDto);
+
+    String createUser(userCreateDto userCreateDto);
+
 }

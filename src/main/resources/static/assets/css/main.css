@@ -8144,3 +8144,8 @@ blockquote span {
     display: none;
   }
 }
+/*에러 메시지 css 추가*/
+.field-error {
+ border-color: #dc3545;
+ color: #dc3545;
+ }
