@@ -33,7 +33,7 @@ public class userController {
             bindingResult.addError(new FieldError("userCreateDto","user_password","비밀번호가 다릅니다."));
             return "Register";
         }
-        if (bindingResult.hasErrors()) { return "Register"; }
+        userService.createUser(userCreateDto);
         return "redirect:/login";
 
     }
