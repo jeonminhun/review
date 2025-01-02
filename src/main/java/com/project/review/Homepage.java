@@ -11,5 +11,10 @@ public class Homepage {
             model.addAttribute("data","hi my name is review!");
             return "index";
         }
+    @RequestMapping("/home")
+    public String home(Model model){
+        model.addAttribute("data","hi my name is review!");
+        return "index";
+    }
 
 }

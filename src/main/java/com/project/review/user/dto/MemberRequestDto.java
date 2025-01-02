@@ -8,10 +8,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @Setter
 public class MemberRequestDto {
 
-    private Long id;
-    private String password;
+    private String user_email;
+    private String user_password;
 
     public UsernamePasswordAuthenticationToken toAuthentication() {
-        return new UsernamePasswordAuthenticationToken(id, password);
+        return new UsernamePasswordAuthenticationToken(user_email, user_password);
     }
 }

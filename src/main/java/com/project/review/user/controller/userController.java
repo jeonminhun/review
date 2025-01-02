@@ -1,9 +1,14 @@
 package com.project.review.user.controller;
 
+import com.project.review.user.dto.MemberRequestDto;
+import com.project.review.user.dto.TokenDto;
 import com.project.review.user.dto.userCreateDto;
 import com.project.review.user.service.userService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class userController {
 
     private final userService userService;
@@ -40,12 +46,27 @@ public class userController {
 
     @GetMapping("/login")
     public String login_form(Model model) {
+        log.debug("로그인 페이지 로그");
+        log.info("로그인 페이지 로그");
         return "login";
+
 
     }
     @PostMapping("/login")
-    public String login_form(userCreateDto userCreateDto, Model model) {
-        return "login";
+    public ResponseEntity<TokenDto> login_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, Model model) {
+        log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email()+"비번"+memberRequestDto.getUser_password());
+        return ResponseEntity.ok(userService.login(request,memberRequestDto));
+//        return "redirect:/home";
+
+    }
+
+    @PostMapping("/test")
+    public ResponseEntity<String> test_form(@ModelAttribute MemberRequestDto memberRequestDto) {
+        log.info("테스트 시작");
+        userService.test(memberRequestDto);
+        log.info("테스트 성공");
+        return ResponseEntity.ok("asdf");
+//        return "redirect:/home";
 
     }
 
