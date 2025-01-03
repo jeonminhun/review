@@ -2,9 +2,12 @@ package com.project.review.user.controller;
 
 import com.project.review.user.dto.MemberRequestDto;
 import com.project.review.user.dto.TokenDto;
+import com.project.review.user.dto.TokenRequestDto;
 import com.project.review.user.dto.userCreateDto;
 import com.project.review.user.service.userService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,30 +49,58 @@ public class userController {
 
     @GetMapping("/login")
     public String login_form(Model model) {
-        log.debug("로그인 페이지 로그");
         log.info("로그인 페이지 로그");
         return "login";
 
 
     }
+
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, Model model) {
+    public String login_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, HttpServletResponse response, Model model) {
         log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email()+"비번"+memberRequestDto.getUser_password());
-        return ResponseEntity.ok(userService.login(request,memberRequestDto));
-//        return "redirect:/home";
+       TokenDto accessToken =  userService.login(request,memberRequestDto);
+
+        setCookie(response, accessToken);
+
+
+        return "redirect:/home";
 
     }
 
     @PostMapping("/test")
-    public ResponseEntity<String> test_form(@ModelAttribute MemberRequestDto memberRequestDto) {
-        log.info("테스트 시작");
-        userService.test(memberRequestDto);
-        log.info("테스트 성공");
-        return ResponseEntity.ok("asdf");
-//        return "redirect:/home";
-
+    public ResponseEntity<TokenDto> test_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, Model model) {
+        log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email()+"비번"+memberRequestDto.getUser_password());
+        return ResponseEntity.ok(userService.login(request,memberRequestDto));
     }
 
+    public void reissue(TokenRequestDto tokenRequestDto, HttpServletRequest request, HttpServletResponse response) {
+        TokenDto accessToken = userService.reissue(tokenRequestDto, request);
+        setCookie(response, accessToken);
+    }
+
+    private static void setCookie(HttpServletResponse response, TokenDto accessToken) {
+        Cookie accessCookie = new Cookie("Authorization", accessToken.getGrantType()+ accessToken.getAccessToken());
+        accessCookie.setMaxAge(60 * 30); // 30분 동안 유효
+        accessCookie.setPath("/");
+        accessCookie.setDomain("localhost");
+        accessCookie.setSecure(false);
+        response.addCookie(accessCookie);
+
+        Cookie accesstimeCookie = new Cookie("time", accessToken.getAccessTokenExpiresIn().toString());
+        accesstimeCookie.setMaxAge(60 * 30); // 30분 동안 유효
+        accesstimeCookie.setPath("/");
+        accesstimeCookie.setDomain("localhost");
+        accesstimeCookie.setSecure(false);
+        response.addCookie(accesstimeCookie);
+
+        Cookie refreshCookie = new Cookie("RefreshToken", accessToken.getGrantType()+ accessToken.getRefreshToken());
+        refreshCookie.setMaxAge(60 * 60 * 24 * 7); // 7일 동안 유효
+        refreshCookie.setPath("/");
+        refreshCookie.setDomain("localhost");
+        refreshCookie.setSecure(false);
+
+        response.addCookie(refreshCookie);
+    }
 
 
 }
