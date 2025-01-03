@@ -1,6 +1,6 @@
 package com.project.review.user.service;
 
-import com.project.review.jwt.TokenProvider;
+import com.project.review.user.jwt.TokenProvider;
 import com.project.review.user.Helper;
 import com.project.review.user.dto.MemberRequestDto;
 import com.project.review.user.dto.TokenDto;
@@ -57,7 +57,7 @@ public class userServiceImpl implements userService {
         userRepository.save(user);
         return true;
     }
-
+    @Override
     @Transactional
     public TokenDto login(HttpServletRequest request, MemberRequestDto memberRequestDto) {
         log.info("로그인 시작");
@@ -90,7 +90,7 @@ public class userServiceImpl implements userService {
     }
 
     @Transactional
-    public TokenDto reissue(HttpServletRequest request, TokenRequestDto tokenRequestDto) {
+    public TokenDto reissue(TokenRequestDto tokenRequestDto, HttpServletRequest request) {
         System.out.println("이거맞아? : " + tokenRequestDto.getRefreshToken());
 
         // 1. Refresh Token 검증
