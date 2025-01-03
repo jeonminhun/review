@@ -1,4 +1,4 @@
-package com.project.review.jwt;
+package com.project.review.user.jwt;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

@@ -1,4 +1,4 @@
-package com.project.review.jwt;
+package com.project.review.user.jwt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

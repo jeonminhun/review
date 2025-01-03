@@ -1,4 +1,4 @@
-package com.project.review.jwt;
+package com.project.review.user.jwt;
 
 import com.project.review.user.dto.TokenDto;
 import io.jsonwebtoken.*;
@@ -123,6 +123,7 @@ public class TokenProvider {
         return claims.getSubject(); // sub 필드의 값을 반환
     }
 
+    /* 내정보 수정용 리졸브 토큰*/
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {

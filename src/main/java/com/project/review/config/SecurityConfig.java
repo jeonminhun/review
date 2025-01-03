@@ -1,9 +1,9 @@
 package com.project.review.config;
 
-import com.project.review.jwt.JwtAccessDeniedHandler;
-import com.project.review.jwt.JwtAuthenticationEntryPoint;
-import com.project.review.jwt.JwtFilter;
-import com.project.review.jwt.TokenProvider;
+import com.project.review.user.jwt.JwtAccessDeniedHandler;
+import com.project.review.user.jwt.JwtAuthenticationEntryPoint;
+import com.project.review.user.jwt.JwtFilter;
+import com.project.review.user.jwt.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -11,12 +11,9 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
