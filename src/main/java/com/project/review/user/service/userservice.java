@@ -16,6 +16,6 @@ public interface userService {
 
     TokenDto login(HttpServletRequest request, MemberRequestDto memberRequestDto);
 
-    TokenDto reissue(HttpServletRequest request, TokenRequestDto  tokenRequestDto);
+    TokenDto reissue(TokenRequestDto tokenRequestDto, HttpServletRequest request);
 
 }
