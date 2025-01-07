@@ -29,7 +29,11 @@ public class userController {
     private final userService userService;
 
     @GetMapping("/Register")
-    public String create_form(Model model) {
+    public String create_form(Model model, HttpServletRequest request) {
+        if (request.getCookies() != null) {
+            return "바뀐거";
+        }
+
         userCreateDto userCreateDto = new userCreateDto();
         model.addAttribute("userCreateDto",userCreateDto);
         return "Register";
@@ -48,7 +52,10 @@ public class userController {
     }
 
     @GetMapping("/login")
-    public String login_form(Model model) {
+    public String login_form(Model model, HttpServletRequest request) {
+        if (request.getCookies() != null) {
+            return "바뀐거";
+        }
         log.info("로그인 페이지 로그");
         return "login";
 
@@ -57,26 +64,25 @@ public class userController {
 
     @PostMapping("/login")
     public String login_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, HttpServletResponse response, Model model) {
-        log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email()+"비번"+memberRequestDto.getUser_password());
-       TokenDto accessToken =  userService.login(request,memberRequestDto);
 
+        log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email());
+        TokenDto accessToken =  userService.login(request,memberRequestDto);
         setCookie(response, accessToken);
 
+        return "redirect:/";
 
-        return "redirect:/home";
-
-    }
-
-    @PostMapping("/test")
-    public ResponseEntity<TokenDto> test_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, Model model) {
-        log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email()+"비번"+memberRequestDto.getUser_password());
-        return ResponseEntity.ok(userService.login(request,memberRequestDto));
     }
 
     public void reissue(TokenRequestDto tokenRequestDto, HttpServletRequest request, HttpServletResponse response) {
         TokenDto accessToken = userService.reissue(tokenRequestDto, request);
         setCookie(response, accessToken);
     }
+
+    /*@PostMapping("/test")
+    public ResponseEntity<TokenDto> test_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, Model model) {
+        log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email()+"비번"+memberRequestDto.getUser_password());
+        return ResponseEntity.ok(userService.login(request,memberRequestDto));
+    }*/
 
     private static void setCookie(HttpServletResponse response, TokenDto accessToken) {
         Cookie accessCookie = new Cookie("Authorization", accessToken.getGrantType()+ accessToken.getAccessToken());
