@@ -30,13 +30,13 @@ public class userController {
 
     @GetMapping("/Register")
     public String create_form(Model model, HttpServletRequest request) {
-        if (request.getCookies() != null) {
+       /* if (request.getCookies().length == 3) {
             return "바뀐거";
-        }
+        }*/
 
         userCreateDto userCreateDto = new userCreateDto();
         model.addAttribute("userCreateDto",userCreateDto);
-        return "Register";
+        return "default/Register";
 
     }
 
@@ -44,7 +44,7 @@ public class userController {
     public String create_form(@ModelAttribute userCreateDto userCreateDto, BindingResult bindingResult, Model model) {
         if (!userService.checkPassWord(userCreateDto)) {
             bindingResult.addError(new FieldError("userCreateDto","user_password","비밀번호가 다릅니다."));
-            return "Register";
+            return "default/Register";
         }
         userService.createUser(userCreateDto);
         return "redirect:/login";
@@ -53,11 +53,11 @@ public class userController {
 
     @GetMapping("/login")
     public String login_form(Model model, HttpServletRequest request) {
-        if (request.getCookies() != null) {
+        /*if (request.getCookies().length == 3) {
             return "바뀐거";
-        }
+        }*/
         log.info("로그인 페이지 로그");
-        return "login";
+        return "default/login";
 
 
     }
