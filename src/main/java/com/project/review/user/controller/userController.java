@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.util.WebUtils;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,9 +31,10 @@ public class userController {
 
     @GetMapping("/Register")
     public String create_form(Model model, HttpServletRequest request) {
-       /* if (request.getCookies().length == 3) {
-            return "바뀐거";
-        }*/
+        Cookie authCookie = WebUtils.getCookie(request, "Authorization");
+        if (authCookie != null) {
+            return "after/index";
+        }
 
         userCreateDto userCreateDto = new userCreateDto();
         model.addAttribute("userCreateDto",userCreateDto);
@@ -53,9 +55,10 @@ public class userController {
 
     @GetMapping("/login")
     public String login_form(Model model, HttpServletRequest request) {
-        /*if (request.getCookies().length == 3) {
-            return "바뀐거";
-        }*/
+        Cookie authCookie = WebUtils.getCookie(request, "Authorization");
+        if (authCookie != null) {
+            return "after/index";
+        }
         log.info("로그인 페이지 로그");
         return "default/login";
 
