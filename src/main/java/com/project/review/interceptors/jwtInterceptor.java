@@ -17,11 +17,11 @@ import static com.project.review.user.jwt.JwtFilter.BEARER_PREFIX;
 @RequiredArgsConstructor
 @Slf4j
 public class jwtInterceptor implements HandlerInterceptor {
-    long startTime = System.currentTimeMillis();
 
     private final userController userController;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        long startTime = System.currentTimeMillis();
         TokenRequestDto tokenRequestDto = new TokenRequestDto();
 
         Cookie[] cookies = request.getCookies(); // 모든 쿠키 가져오기
