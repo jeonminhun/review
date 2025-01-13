@@ -19,6 +19,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new jwtInterceptor(userController))
                 .addPathPatterns("/**") // 모든 요청에 대해 인터셉터를 적용
-                .excludePathPatterns("/login", "/Register");
+                .excludePathPatterns("/login", "/Register"); // 예외 적용
     }
 }
