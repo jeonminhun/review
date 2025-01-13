@@ -96,7 +96,7 @@ public class SecurityConfig {
                 //경로별 인가 작업
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/","/assets/**").permitAll()
-                        .requestMatchers("/","/Register","/login","/test").permitAll()
+                        .requestMatchers("/","/Register","/login","/shop" ).permitAll()
                         .requestMatchers("/admin").hasRole("ADMINISTRATOR")
                         .anyRequest().authenticated())
                 // tokenProvider 주입
