@@ -76,14 +76,6 @@ public class userController {
 
     }
 
-    @PostMapping("/logout")
-    public String logout(HttpServletResponse response) {
-        DeleteCookie(response);
-
-        return "redirect:/";
-
-    }
-
     public void reissue(TokenRequestDto tokenRequestDto, HttpServletRequest request, HttpServletResponse response) {
         TokenDto accessToken = userService.reissue(tokenRequestDto, request);
         setCookie(response, accessToken);
@@ -111,22 +103,6 @@ public class userController {
         refreshCookie.setDomain("localhost");
         refreshCookie.setSecure(false);
 
-        response.addCookie(refreshCookie);
-    }
-    private static void DeleteCookie(HttpServletResponse response) {
-        Cookie accessCookie = new Cookie("Authorization",null);
-        accessCookie.setMaxAge(0); // 30분 동안 유효
-        accessCookie.setPath("/");
-        response.addCookie(accessCookie);
-
-        Cookie accesstimeCookie = new Cookie("time", null);
-        accesstimeCookie.setMaxAge(0); // 30분 동안 유효
-        accesstimeCookie.setPath("/");
-        response.addCookie(accesstimeCookie);
-
-        Cookie refreshCookie = new Cookie("RefreshToken", null);
-        refreshCookie.setMaxAge(0); // 7일 동안 유효
-        refreshCookie.setPath("/");
         response.addCookie(refreshCookie);
     }
 
