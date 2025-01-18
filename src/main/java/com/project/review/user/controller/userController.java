@@ -76,16 +76,19 @@ public class userController {
 
     }
 
+    @PostMapping("/logout")
+    public String logout(HttpServletResponse response) {
+        DeleteCookie(response);
+
+        return "redirect:/";
+
+    }
+
     public void reissue(TokenRequestDto tokenRequestDto, HttpServletRequest request, HttpServletResponse response) {
         TokenDto accessToken = userService.reissue(tokenRequestDto, request);
         setCookie(response, accessToken);
     }
 
-    /*@PostMapping("/test")
-    public ResponseEntity<TokenDto> test_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, Model model) {
-        log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email()+"비번"+memberRequestDto.getUser_password());
-        return ResponseEntity.ok(userService.login(request,memberRequestDto));
-    }*/
 
     private static void setCookie(HttpServletResponse response, TokenDto accessToken) {
         Cookie accessCookie = new Cookie("Authorization", accessToken.getGrantType()+ accessToken.getAccessToken());
@@ -110,6 +113,27 @@ public class userController {
 
         response.addCookie(refreshCookie);
     }
+    private static void DeleteCookie(HttpServletResponse response) {
+        Cookie accessCookie = new Cookie("Authorization",null);
+        accessCookie.setMaxAge(0); // 30분 동안 유효
+        accessCookie.setPath("/");
+        response.addCookie(accessCookie);
 
+        Cookie accesstimeCookie = new Cookie("time", null);
+        accesstimeCookie.setMaxAge(0); // 30분 동안 유효
+        accesstimeCookie.setPath("/");
+        response.addCookie(accesstimeCookie);
+
+        Cookie refreshCookie = new Cookie("RefreshToken", null);
+        refreshCookie.setMaxAge(0); // 7일 동안 유효
+        refreshCookie.setPath("/");
+        response.addCookie(refreshCookie);
+    }
+
+   /*@PostMapping("/test")
+    public ResponseEntity<TokenDto> test_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, Model model) {
+        log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email()+"비번"+memberRequestDto.getUser_password());
+        return ResponseEntity.ok(userService.login(request,memberRequestDto));
+    }*/
 
 }
