@@ -283,13 +283,12 @@
     <div class="row align-items-center">
       <div class="col-lg-6 col-md-6 col-12">
         <div class="breadcrumbs-content">
-          <h1 class="page-title">Login</h1>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-12">
         <ul class="breadcrumb-nav">
-          <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-          <li>Login</li>
+          <li><a href="index.html"><i class="lni lni-home"></i> 홈</a></li>
+          <li>로그인</li>
         </ul>
       </div>
     </div>
@@ -305,8 +304,7 @@
         <form class="card login-form" th:action="@{/login}" th:object="${MemberRequestDto}" method="post">
           <div class="card-body">
             <div class="title">
-              <h3>Login Now</h3>
-              <p>You can login using your social media account or email address.</p>
+              <h3>로그인</h3>
             </div>
             <div class="social-login">
               <div class="row">
@@ -335,14 +333,14 @@
             <div class="d-flex flex-wrap justify-content-between bottom-content">
               <div class="form-check">
                 <input type="checkbox" class="form-check-input width-auto" id="exampleCheck1">
-                <label class="form-check-label">Remember me</label>
+                <label class="form-check-label">로그인 유지하기</label>
               </div>
-              <a class="lost-pass" href="account-password-recovery.html">Forgot password?</a>
+              <a class="lost-pass" href="account-password-recovery.html">비밀번호를 잊어버렸다면?</a>
             </div>
             <div class="button">
-              <button class="btn" type="submit">Login</button>
+              <button class="btn" type="submit">로그인</button>
             </div>
-            <p class="outer-link">Don't have an account? <a href="register.html">Register here </a>
+            <p class="outer-link">계정이 없으신가요? <a th:href="@{/register}">회원가입 하러가기</a>
             </p>
           </div>
         </form>
