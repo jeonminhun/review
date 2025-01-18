@@ -92,13 +92,22 @@ public class SecurityConfig {
                         .frameOptions(frameOptions -> frameOptions.sameOrigin())
                 )
 
-
                 //경로별 인가 작업
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/","/assets/**").permitAll()
                         .requestMatchers("/","/Register","/login","/shop","/search").permitAll()
                         .requestMatchers("/admin").hasRole("ADMINISTRATOR")
                         .anyRequest().authenticated())
+
+                //로그아웃 설정
+                .logout((logout)->
+                        logout.logoutUrl("/logout")// 로그아웃 요청 URL
+                                .logoutSuccessUrl("/")// 로그아웃 후 리다이렉트 경로 설정
+                                .deleteCookies("Authorization")// 로그아웃 시 쿠키 삭제
+                                .deleteCookies("time")// 로그아웃 시 쿠키 삭제
+                                .deleteCookies("RefreshToken")// 로그아웃 시 쿠키 삭제
+                                .invalidateHttpSession(true))// 세션 무효화
+
                 // tokenProvider 주입
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
 
