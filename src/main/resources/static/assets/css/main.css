@@ -6176,6 +6176,15 @@ blockquote span {
 .product-sidebar .single-widget.range #rangePrimary {
   display: inline-block;
   border: none;
+}.product-sidebar .single-widget.range #rangePrimary2 {
+  display: inline-block;
+  border: none;
+}.product-sidebar .single-widget.range #rangePrimary3 {
+  display: inline-block;
+  border: none;
+}.product-sidebar .single-widget.range #rangePrimary4 {
+  display: inline-block;
+  border: none;
 }
 
 .product-sidebar .single-widget.range input[type="range"]::-webkit-slider-thumb {
