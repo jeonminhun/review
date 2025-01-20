@@ -287,21 +287,20 @@
 
 
 
-
 <!-- Start Breadcrumbs -->
 <div class="breadcrumbs">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-6 col-md-6 col-12">
         <div class="breadcrumbs-content">
-          <h1 class="page-title">Shop Grid</h1>
+          <h1 class="page-title">검색 페이지</h1>
         </div>
       </div>
       <div class="col-lg-6 col-md-6 col-12">
         <ul class="breadcrumb-nav">
-          <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-          <li><a href="javascript:void(0)">Shop</a></li>
-          <li>Shop Grid</li>
+          <li><a href="index.html"><i class="lni lni-home"></i> 홈</a></li>
+          <li><a href="javascript:void(0)"> 샵(여기도 변수 받아서 처리할것)</a></li>
+          <li>검색 페이지</li>
         </ul>
       </div>
     </div>
@@ -318,131 +317,76 @@
         <div class="product-sidebar">
           <!-- Start Single Widget -->
           <div class="single-widget search">
-            <h3>Search Product</h3>
+            <h3>상품 검색</h3>
             <form action="#">
-              <input type="text" placeholder="Search Here...">
+              <input type="text" placeholder="제품 검색">
               <button type="submit"><i class="lni lni-search-alt"></i></button>
             </form>
           </div>
           <!-- End Single Widget -->
           <!-- Start Single Widget -->
           <div class="single-widget">
-            <h3>All Categories</h3>
+            <h3>카테고리</h3>
             <ul class="list">
               <li>
-                <a href="product-grids.html">Computers & Accessories </a><span>(1138)</span>
+                <a href="product-grids.html">1 </a><span>(1138)</span>
               </li>
               <li>
-                <a href="product-grids.html">Smartphones & Tablets</a><span>(2356)</span>
+                <a href="product-grids.html">2</a><span>(2356)</span>
               </li>
               <li>
-                <a href="product-grids.html">TV, Video & Audio</a><span>(420)</span>
+                <a href="product-grids.html">3</a><span>(420)</span>
               </li>
               <li>
-                <a href="product-grids.html">Cameras, Photo & Video</a><span>(874)</span>
+                <a href="product-grids.html">4</a><span>(874)</span>
               </li>
               <li>
-                <a href="product-grids.html">Headphones</a><span>(1239)</span>
-              </li>
-              <li>
-                <a href="product-grids.html">Wearable Electronics</a><span>(340)</span>
-              </li>
-              <li>
-                <a href="product-grids.html">Printers & Ink</a><span>(512)</span>
+                <a href="product-grids.html">5</a><span>(1239)</span>
               </li>
             </ul>
           </div>
           <!-- End Single Widget -->
+
           <!-- Start Single Widget -->
           <div class="single-widget range">
-            <h3>Price Range</h3>
-            <input type="range" class="form-range" name="range" step="1" min="100" max="10000"
-                   value="10" onchange="rangePrimary.value=value">
+            <h3>가성비</h3>
+            <input type="range" class="form-range" name="range" step="0.5" min="0" max="5"
+                   value="5" onchange="rangePrimary.value=value">
             <div class="range-inner">
-              <label>$</label>
-              <input type="text" id="rangePrimary" placeholder="100" />
+              <input type="text" id="rangePrimary" placeholder="5"/>
             </div>
           </div>
           <!-- End Single Widget -->
+
           <!-- Start Single Widget -->
-          <div class="single-widget condition">
-            <h3>Filter by Price</h3>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-              <label class="form-check-label" for="flexCheckDefault1">
-                $50 - $100L (208)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-              <label class="form-check-label" for="flexCheckDefault2">
-                $100L - $500 (311)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-              <label class="form-check-label" for="flexCheckDefault3">
-                $500 - $1,000 (485)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
-              <label class="form-check-label" for="flexCheckDefault4">
-                $1,000 - $5,000 (213)
-              </label>
+          <div class="single-widget range">
+            <h3>내구성</h3>
+            <input type="range" class="form-range" name="range" step="0.5" min="0" max="5"
+                   value="5" onchange="rangePrimary2.value=value">
+            <div class="range-inner">
+              <input type="text" id="rangePrimary2" placeholder="5" 점 />
             </div>
           </div>
           <!-- End Single Widget -->
+
           <!-- Start Single Widget -->
-          <div class="single-widget condition">
-            <h3>Filter by Brand</h3>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11">
-              <label class="form-check-label" for="flexCheckDefault11">
-                Apple (254)
-              </label>
+          <div class="single-widget range">
+            <h3>품질</h3>
+            <input type="range" class="form-range" name="range" step="0.5" min="0" max="5"
+                   value="5" onchange="rangePrimary3.value=value">
+            <div class="range-inner">
+              <input type="text" id="rangePrimary3" placeholder="5" />
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault22">
-              <label class="form-check-label" for="flexCheckDefault22">
-                Bosh (39)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault33">
-              <label class="form-check-label" for="flexCheckDefault33">
-                Canon Inc. (128)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault44">
-              <label class="form-check-label" for="flexCheckDefault44">
-                Dell (310)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault55">
-              <label class="form-check-label" for="flexCheckDefault55">
-                Hewlett-Packard (42)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault66">
-              <label class="form-check-label" for="flexCheckDefault66">
-                Hitachi (217)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault77">
-              <label class="form-check-label" for="flexCheckDefault77">
-                LG Electronics (310)
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault88">
-              <label class="form-check-label" for="flexCheckDefault88">
-                Panasonic (74)
-              </label>
+          </div>
+          <!-- End Single Widget -->
+
+          <!-- Start Single Widget -->
+          <div class="single-widget range">
+            <h3>디자인</h3>
+            <input type="range" class="form-range" name="range" step="0.5" min="0" max="5"
+                   value="5" onchange="rangePrimary4.value=value">
+            <div class="range-inner">
+              <input type="text" id="rangePrimary4" placeholder="5" />
             </div>
           </div>
           <!-- End Single Widget -->
@@ -455,16 +399,12 @@
             <div class="row align-items-center">
               <div class="col-lg-7 col-md-8 col-12">
                 <div class="product-sorting">
-                  <label for="sorting">Sort by:</label>
+                  <label for="sorting">정렬:</label>
                   <select class="form-control" id="sorting">
-                    <option>Popularity</option>
-                    <option>Low - High Price</option>
-                    <option>High - Low Price</option>
-                    <option>Average Rating</option>
-                    <option>A - Z Order</option>
-                    <option>Z - A Order</option>
+                    <option>별점 높은 순</option>
+                    <option>별점 낮은 순</option>
+                    <option>리뷰량 순</option>
                   </select>
-                  <h3 class="total-show-product">Showing: <span>1 - 12 items</span></h3>
                 </div>
               </div>
               <div class="col-lg-5 col-md-4 col-12">
@@ -999,6 +939,7 @@
   </div>
 </section>
 <!-- End Product Grids -->
+
 
 <!--푸터 시작-->
 <!-- Start Footer Area -->
