@@ -297,7 +297,8 @@
       <div class="col-lg-6 col-md-6 col-12">
         <ul class="breadcrumb-nav">
           <li><a href="../default/index.html"><i class="lni lni-home"></i> 홈</a></li>
-          <li>마이페이지</li>
+          <li><a th:href="@{/myPage}">마이페이지</a></li>
+          <li><a th:href="@{/myWish}">찜 목록</a></li>
         </ul>
       </div>
     </div>
@@ -320,15 +321,15 @@
           <div class="single-widget">
             <h3>카테고리</h3>
             <ul class="list">
-                <li>
-                  <a href="product-grids.html">내정보</a>
-                </li>
-                <li>
-                  <a href="product-grids.html">리뷰 목록</a>
-                </li>
-                <li>
-                  <a href="product-grids.html">찜 리스트</a>
-                </li>
+              <li>
+                <a th:href="@{/myData}">내정보</a>
+              </li>
+              <li>
+                <a th:href="@{/myPage}">리뷰 목록</a>
+              </li>
+              <li>
+                <a th:href="@{/myWish}">찜 목록</a>
+              </li>
               </ul>
             </div>
             <!-- End Single Widget -->
