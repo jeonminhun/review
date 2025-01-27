@@ -8158,3 +8158,86 @@ blockquote span {
  border-color: #dc3545;
  color: #dc3545;
  }
+
+ /*제품 페이지 별점*/
+ .stars li i.lni-star-filled {
+   display: inline-block;
+   color: #ffa000;
+ }
+ .stars li i.lni-star{
+    display: inline-block;
+    color: #ffa000;
+  }
+  /*제품 페이지 별점*/
+ .stars2 li i.lni-star-filled {
+   display: inline-block;
+   color: #ffa000;
+ }
+ .stars2 li i.lni-star{
+    display: inline-block;
+    color: #ffa000;
+  }
+   /* ul 기본 스타일 제거 */
+      .stars {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+      }
+
+      /* li 항목 간격 조정 */
+      .stars li {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px; /* 항목 간 간격 */
+      }
+
+      /* span의 간격 및 정렬 */
+      .stars li span {
+          display: inline-block;
+          width: 120px; /* 라벨 간격 맞춤 */
+          font-weight: bold;
+      }
+
+      /* 아이콘 간 간격 */
+      .stars li i {
+          margin-right: 4px; /* 별점 아이콘 간 간격 */
+          font-size: 20px; /* 별 아이콘 크기 */
+          color: #FFD700; /* 별점 색깔 */
+      }
+
+      /* li 마지막 항목 간격 제거 */
+      .stars li:last-child {
+          margin-bottom: 0;
+      }
+      /* ul 기본 스타일 제거 */
+      .stars2 {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+      }
+
+      /* li 항목 간격 조정 */
+      .stars2 li {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px; /* 항목 간 간격 */
+      }
+
+      /* span의 간격 및 정렬 */
+            .stars2 li span {
+                display: inline-block;
+                width: 100px; /* 라벨 간격 맞춤 */
+                font-weight: bold;
+            }
+
+      /* 아이콘 간 간격 */
+      .stars2 li i {
+          margin-right: 4px; /* 별점 아이콘 간 간격 */
+          font-size: 20px; /* 별 아이콘 크기 */
+          color: #FFD700; /* 별점 색깔 */
+      }
+
+      /* li 마지막 항목 간격 제거 */
+      .stars2 li:last-child {
+          margin-bottom: 0;
+      }

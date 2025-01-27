@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8" />
@@ -15,7 +14,9 @@
     <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="assets/css/glightbox.min.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/main.css?after" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 </head>
 
@@ -390,11 +391,66 @@
                         <h2 class="title">리뷰 할 제품 이름</h2>
                         <p class="category"><i class="lni lni-tag"></i> 카테고리:<a href="javascript:void(0)">Action
                             cameras</a></p>
-                        <h3 class="price">총 별점 : </h3>
-                        <h2 class="price">가성비 별점 : </h2>
-                        <h2 class="price">내구성 별점 : </h2>
-                        <h2 class="price">품질 별점 : </h2>
-                        <h2 class="price">디자인 별점 : </h2>
+                        <div class="single-block give-review">
+                            <ul class="stars">
+                                <li>
+                                    <h4>
+                                        <span>총 별점 : </span>
+                                    </h4>
+                                    <h3>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star"></i>
+                                    </h3>
+                                </li>
+
+                                <li>
+                                    <h5>
+                                        <span>가성비 별점 : </span>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                    </h5>
+                                </li>
+
+                                <li>
+                                    <h5>
+                                        <span>내구성 별점 : </span>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                    </h5>
+                                </li>
+
+                                <li>
+                                    <h5>
+                                        <span>품질 별점 : </span>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                    </h5>
+                                </li>
+
+                                <li>
+                                    <h5>
+                                        <span>디자인 별점 : </span>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                        <i class="lni lni-star-filled"></i>
+                                    </h5>
+                                </li>
+                            </ul>
+                        </div>
                         <p class="info-text">제품 정보 설명 하는 구간.</p>
                         <div class="bottom-content">
                             <div class="row align-items-end">
@@ -409,43 +465,191 @@
                 </div>
             </div>
         </div>
+
         <div class="product-details-info">
             <div class="single-block">
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="info-body custom-responsive-margin">
-                            <h4>데이터 시각화 구역</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
-                            <h4>Features</h4>
-                            <ul class="features">
-                                <li>Capture 4K30 Video and 12MP Photos</li>
-                                <li>Game-Style Controller with Touchscreen</li>
-                                <li>View Live Camera Feed</li>
-                                <li>Full Control of HERO6 Black</li>
-                                <li>Use App for Dedicated Camera Operation</li>
-                            </ul>
+                            <!-- 시작 -->
+                            <!-- ====== Chart Three Start -->
+                            <div class="mb-3 justify-between gap-4 sm:flex">
+                                <div>
+                                    <h4 class="text-xl font-bold text-black dark:text-white">
+                                        별점 퍼센트
+                                    </h4>
+                                </div>
+                                <div>
+                                    <div class="relative z-20 inline-block">
+                                        <select
+                                                name=""
+                                                id=""
+                                                class="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
+                                        >
+                                            <option value="">Monthly</option>
+                                            <option value="">Yearly</option>
+                                        </select>
+                                        <span class="absolute right-3 top-1/2 z-10 -translate-y-1/2">
+                                                  <svg
+                                                          width="10"
+                                                          height="6"
+                                                          viewBox="0 0 10 6"
+                                                          fill="none"
+                                                          xmlns="http://www.w3.org/2000/svg"
+                                                  >
+                                                    <path
+                                                            d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                                                            fill="#637381"
+                                                    />
+                                                    <path
+                                                            fill-rule="evenodd"
+                                                            clip-rule="evenodd"
+                                                            d="M1.22659 0.546578L5.00141 4.09604L8.76422 0.557869C9.08459 0.244537 9.54201 0.329403 9.79139 0.578788C10.112 0.899434 10.0277 1.36122 9.77668 1.61224L9.76644 1.62248L5.81552 5.33722C5.36257 5.74249 4.6445 5.7544 4.19352 5.32924C4.19327 5.32901 4.19377 5.32948 4.19352 5.32924L0.225953 1.61241C0.102762 1.48922 -4.20186e-08 1.31674 -3.20269e-08 1.08816C-2.40601e-08 0.905899 0.0780105 0.712197 0.211421 0.578787C0.494701 0.295506 0.935574 0.297138 1.21836 0.539529L1.22659 0.546578ZM4.51598 4.98632C4.78076 5.23639 5.22206 5.23639 5.50155 4.98632L9.44383 1.27939C9.5468 1.17642 9.56151 1.01461 9.45854 0.911642C9.35557 0.808672 9.19376 0.793962 9.09079 0.896932L5.14851 4.60386C5.06025 4.67741 4.92785 4.67741 4.85431 4.60386L0.912022 0.896932C0.809051 0.808672 0.647241 0.808672 0.54427 0.911642C0.500141 0.955772 0.47072 1.02932 0.47072 1.08816C0.47072 1.16171 0.50014 1.22055 0.558981 1.27939L4.51598 4.98632Z"
+                                                            fill="#637381"
+                                                    />
+                                                  </svg>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <div id="chartThree" class="mx-auto flex justify-center"></div>
+                            </div>
+                            <div class="-mx-8 flex flex-wrap items-center justify-center gap-y-3">
+                                <div class="w-full px-8 sm:w-1/2">
+                                    <div class="flex w-full items-center">
+                                            <span
+                                                    class="mr-2 block h-3 w-full max-w-3 rounded-full bg-primary"
+                                            ></span>
+                                        <p
+                                                class="flex w-full justify-between text-sm font-medium text-black dark:text-white"
+                                        >
+                                            <span> 5점 </span>
+                                            <span> 65% </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-full px-8 sm:w-1/2">
+                                    <div class="flex w-full items-center">
+                                            <span
+                                                    class="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#6577F3]"
+                                            ></span>
+                                        <p
+                                                class="flex w-full justify-between text-sm font-medium text-black dark:text-white"
+                                        >
+                                            <span> 4점 </span>
+                                            <span> 34% </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-full px-8 sm:w-1/2">
+                                    <div class="flex w-full items-center">
+                                            <span
+                                                    class="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#8FD0EF]"
+                                            ></span>
+                                        <p
+                                                class="flex w-full justify-between text-sm font-medium text-black dark:text-white"
+                                        >
+                                            <span> 3점 </span>
+                                            <span> 45% </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-full px-8 sm:w-1/2">
+                                    <div class="flex w-full items-center">
+                                            <span
+                                                    class="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#0FADCF]"
+                                            ></span>
+                                        <p
+                                                class="flex w-full justify-between text-sm font-medium text-black dark:text-white"
+                                        >
+                                            <span> 2점 </span>
+                                            <span> 12% </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-full px-8 sm:w-1/2">
+                                    <div class="flex w-full items-center">
+                                            <span
+                                                    class="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#FF6F61]"
+                                            ></span>
+                                        <p
+                                                class="flex w-full justify-between text-sm font-medium text-black dark:text-white"
+                                        >
+                                            <span> 1점 </span>
+                                            <span> 12% </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="w-full px-8 sm:w-1/2">
+                                    <div class="flex w-full items-center">
+                                            <span
+                                                    class="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#FFB400]"
+                                            ></span>
+                                        <p
+                                                class="flex w-full justify-between text-sm font-medium text-black dark:text-white"
+                                        >
+                                            <span> 0점 </span>
+                                            <span> 12% </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ====== Chart Three End -->
+                            <!-- 끝 -->
                         </div>
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="info-body">
-                            <h4>Specifications</h4>
-                            <ul class="normal-list">
-                                <li><span>Weight:</span> 35.5oz (1006g)</li>
-                                <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
-                                <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
-                                <li><span>Operating Frequency:</span> 2.4GHz</li>
-                                <li><span>Manufacturer:</span> GoPro, USA</li>
-                            </ul>
-                            <h4>Shipping Options:</h4>
-                            <ul class="normal-list">
-                                <li><span>Courier:</span> 2 - 4 days, $22.50</li>
-                                <li><span>Local Shipping:</span> up to one week, $10.00</li>
-                                <li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
-                                <li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
-                            </ul>
+                            <!--시작-->
+                            <!-- ====== Chart Two Start -->
+                            <div class="mb-4 justify-between gap-4 sm:flex">
+                                <div>
+                                    <h4 class="text-xl font-bold text-black dark:text-white">
+                                        분야별 별점
+                                    </h4>
+                                </div>
+                                <div>
+                                    <div class="relative z-20 inline-block">
+                                        <select
+                                                name="#"
+                                                id="#"
+                                                class="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
+                                        >
+                                            <option value="">This Week</option>
+                                            <option value="">Last Week</option>
+                                        </select>
+                                        <span class="absolute right-3 top-1/2 z-10 -translate-y-1/2">
+                                                <svg
+                                                        width="10"
+                                                        height="6"
+                                                        viewBox="0 0 10 6"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                            d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                                                            fill="#637381"
+                                                    />
+                                                    <path
+                                                            fill-rule="evenodd"
+                                                            clip-rule="evenodd"
+                                                            d="M1.22659 0.546578L5.00141 4.09604L8.76422 0.557869C9.08459 0.244537 9.54201 0.329403 9.79139 0.578788C10.112 0.899434 10.0277 1.36122 9.77668 1.61224L9.76644 1.62248L5.81552 5.33722C5.36257 5.74249 4.6445 5.7544 4.19352 5.32924C4.19327 5.32901 4.19377 5.32948 4.19352 5.32924L0.225953 1.61241C0.102762 1.48922 -4.20186e-08 1.31674 -3.20269e-08 1.08816C-2.40601e-08 0.905899 0.0780105 0.712197 0.211421 0.578787C0.494701 0.295506 0.935574 0.297138 1.21836 0.539529L1.22659 0.546578ZM4.51598 4.98632C4.78076 5.23639 5.22206 5.23639 5.50155 4.98632L9.44383 1.27939C9.5468 1.17642 9.56151 1.01461 9.45854 0.911642C9.35557 0.808672 9.19376 0.793962 9.09079 0.896932L5.14851 4.60386C5.06025 4.67741 4.92785 4.67741 4.85431 4.60386L0.912022 0.896932C0.809051 0.808672 0.647241 0.808672 0.54427 0.911642C0.500141 0.955772 0.47072 1.02932 0.47072 1.08816C0.47072 1.16171 0.50014 1.22055 0.558981 1.27939L4.51598 4.98632Z"
+                                                            fill="#637381"
+                                                    />
+                                                </svg>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="fetchDataBtn">데이터 로드</button>
+                            <div>
+                                <div id="chartTwo" class="-mb-9 -ml-5"></div>
+                            </div>
+                            <!-- ====== Chart Two End -->
+                            <!--끝-->
+                            <p>제품에 대한 정보 및 데이터 들을 작성하는 공간</p>
                         </div>
                     </div>
                 </div>
@@ -499,14 +703,14 @@
                         <!-- Button trigger modal -->
                         <button type="button" class="btn review-btn" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
-                            Leave a Review
+                            리뷰 남기기
                         </button>
                     </div>
                 </div>
                 <div class="col-lg-8 col-12">
                     <div class="single-block">
                         <div class="reviews">
-                            <h4 class="title">Latest Reviews</h4>
+                            <h4 class="title">리뷰 리스트</h4>
                             <!-- Start Single Review -->
                             <div class="single-review">
                                 <img src="assets/images/blog/comment1.jpg" alt="#">
@@ -515,12 +719,59 @@
                                         <span>Jacob Hammond
                                             </span>
                                     </h4>
-                                    <ul class="stars">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
+                                    <ul class="stars2">
+                                        <li>
+                                            <span>총 별점 : </span>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                        </li>
+
+                                        <br>
+
+                                        <li>
+                                            <span>가성비 별점 : </span>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                        </li>
+
+                                        <br>
+
+                                        <li>
+                                            <span>내구성 별점 : </span>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                        </li>
+
+                                        <br>
+
+                                        <li>
+                                            <span>품질 별점 : </span>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                        </li>
+
+                                        <br>
+
+                                        <li>
+                                            <span>디자인 별점 : </span>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                            <i class="lni lni-star-filled"></i>
+                                        </li>
                                     </ul>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                                         tempor...</p>
@@ -808,6 +1059,17 @@
         });
     });
 </script>
+<script
+        defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"rayId":"908827fb5bd27bd3","version":"2025.1.0","r":1,"token":"67f7a278e3374824ae6dd92295d38f77","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+        crossorigin="anonymous">
+
+</script>
+
+<!-- JavaScript 코드 -->
+<script src="assets/js/chart-03.js"></script>
+
 </body>
 
 </html>

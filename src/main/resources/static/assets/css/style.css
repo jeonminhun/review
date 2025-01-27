@@ -904,7 +904,7 @@ abbr:where([title]) {
 Remove the default font size and weight for headings.
 */
 
-h1,
+/*h1,
 h2,
 h3,
 h4,
@@ -912,7 +912,7 @@ h5,
 h6 {
   font-size: inherit;
   font-weight: inherit;
-}
+}*/
 
 /*
 Reset links to optimize for opt-in styling instead of opt-out.
@@ -3330,6 +3330,14 @@ body{
 }
 .bg-\[\#000\]\/20{
   background-color: rgb(0 0 0 / 0.2);
+}
+.bg-\[\#FF6F61\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 111 97 / var(--tw-bg-opacity));
+}
+.bg-\[\#FFB400\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 180 0 / var(--tw-bg-opacity));
 }
 .bg-\[\#0FADCF\]{
   --tw-bg-opacity: 1;
