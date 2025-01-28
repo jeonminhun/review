@@ -101,7 +101,7 @@
       <div class="row align-items-center">
         <div class="col-lg-3 col-md-3 col-7">
           <!-- Start Header Logo -->
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" th:href="@{/}">
             <img src="assets/images/logo/logo.svg" alt="Logo">
           </a>
           <!-- End Header Logo -->
@@ -136,71 +136,6 @@
             <!-- navbar search Ends -->
           </div>
           <!-- End Main Menu Search -->
-        </div>
-        <div class="col-lg-4 col-md-2 col-5">
-          <div class="middle-right-area">  <!--공백을 위한-->
-            <div class="nav-hotline">  <!--공백을 위한-->
-            </div>  <!--공백을 위한-->
-            <div class="navbar-cart">
-              <div class="wishlist">
-                <a href="javascript:void(0)">
-                  <i class="lni lni-heart"></i>
-                  <span class="total-items">0</span>
-                </a>
-              </div>
-              <div class="cart-items">
-                <a href="javascript:void(0)" class="main-btn">
-                  <i class="lni lni-cart"></i>
-                  <span class="total-items">2</span>
-                </a>
-                <!-- Shopping Item -->
-                <div class="shopping-item">
-                  <div class="dropdown-cart-header">
-                    <span>2 Items</span>
-                    <a href="cart.html">View Cart</a>
-                  </div>
-                  <ul class="shopping-list">
-                    <li>
-                      <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                              class="lni lni-close"></i></a>
-                      <div class="cart-img-head">
-                        <a class="cart-img" th:href="@{/shop}"><img
-                                src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
-                      </div>
-
-                      <div class="content">
-                        <h4><a th:href="@{/shop}">
-                          Apple Watch Series 6</a></h4>
-                        <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                      </div>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                              class="lni lni-close"></i></a>
-                      <div class="cart-img-head">
-                        <a class="cart-img" th:href="@{/shop}"><img
-                                src="assets/images/header/cart-items/item2.jpg" alt="#"></a>
-                      </div>
-                      <div class="content">
-                        <h4><a th:href="@{/shop}">Wi-Fi Smart Camera</a></h4>
-                        <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                      </div>
-                    </li>
-                  </ul>
-                  <div class="bottom">
-                    <div class="total">
-                      <span>Total</span>
-                      <span class="total-amount">$134.00</span>
-                    </div>
-                    <div class="button">
-                      <a href="checkout.html" class="btn animate">Checkout</a>
-                    </div>
-                  </div>
-                </div>
-                <!--/ End Shopping Item -->
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -433,7 +368,7 @@
                     <div class="product-image">
                       <img src="assets/images/products/product-1.jpg" alt="#">
                       <div class="button">
-                        <a href="product-details.html" class="btn"><i
+                        <a th:href="@{/shop}" class="btn"><i
                                 class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                     </div>
@@ -464,7 +399,7 @@
                       <img src="assets/images/products/product-2.jpg" alt="#">
                       <span class="sale-tag">-25%</span>
                       <div class="button">
-                        <a href="product-details.html" class="btn"><i
+                        <a th:href="@{/shop}" class="btn"><i
                                 class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                     </div>
@@ -495,7 +430,7 @@
                     <div class="product-image">
                       <img src="assets/images/products/product-3.jpg" alt="#">
                       <div class="button">
-                        <a href="product-details.html" class="btn"><i
+                        <a th:href="@{/shop}" class="btn"><i
                                 class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                     </div>
@@ -526,7 +461,7 @@
                       <img src="assets/images/products/product-4.jpg" alt="#">
                       <span class="new-tag">New</span>
                       <div class="button">
-                        <a href="product-details.html" class="btn"><i
+                        <a th:href="@{/shop}" class="btn"><i
                                 class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                     </div>
@@ -556,7 +491,7 @@
                     <div class="product-image">
                       <img src="assets/images/products/product-5.jpg" alt="#">
                       <div class="button">
-                        <a href="product-details.html" class="btn"><i
+                        <a th:href="@{/shop}" class="btn"><i
                                 class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                     </div>
@@ -586,7 +521,7 @@
                     <div class="product-image">
                       <img src="assets/images/products/product-6.jpg" alt="#">
                       <div class="button">
-                        <a href="product-details.html" class="btn"><i
+                        <a th:href="@{/shop}" class="btn"><i
                                 class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                     </div>
@@ -617,7 +552,7 @@
                       <img src="assets/images/products/product-7.jpg" alt="#">
                       <span class="sale-tag">-50%</span>
                       <div class="button">
-                        <a href="product-details.html" class="btn"><i
+                        <a th:href="@{/shop}" class="btn"><i
                                 class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                     </div>
@@ -648,7 +583,7 @@
                     <div class="product-image">
                       <img src="assets/images/products/product-8.jpg" alt="#">
                       <div class="button">
-                        <a href="product-details.html" class="btn"><i
+                        <a th:href="@{/shop}" class="btn"><i
                                 class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                     </div>
@@ -679,7 +614,7 @@
                       <img src="assets/images/products/product-2.jpg" alt="#">
                       <span class="sale-tag">-25%</span>
                       <div class="button">
-                        <a href="product-details.html" class="btn"><i
+                        <a th:href="@{/shop}" class="btn"><i
                                 class="lni lni-cart"></i> Add to Cart</a>
                       </div>
                     </div>
@@ -732,7 +667,7 @@
                         <div class="product-image">
                           <img src="assets/images/products/product-1.jpg" alt="#">
                           <div class="button">
-                            <a href="product-details.html" class="btn"><i
+                            <a th:href="@{/shop}" class="btn"><i
                                     class="lni lni-cart"></i> Add to
                               Cart</a>
                           </div>
@@ -770,7 +705,7 @@
                           <img src="assets/images/products/product-2.jpg" alt="#">
                           <span class="sale-tag">-25%</span>
                           <div class="button">
-                            <a href="product-details.html" class="btn"><i
+                            <a th:href="@{/shop}" class="btn"><i
                                     class="lni lni-cart"></i> Add to
                               Cart</a>
                           </div>
@@ -808,7 +743,7 @@
                         <div class="product-image">
                           <img src="assets/images/products/product-3.jpg" alt="#">
                           <div class="button">
-                            <a href="product-details.html" class="btn"><i
+                            <a th:href="@{/shop}" class="btn"><i
                                     class="lni lni-cart"></i> Add to
                               Cart</a>
                           </div>
@@ -846,7 +781,7 @@
                           <img src="assets/images/products/product-4.jpg" alt="#">
                           <span class="new-tag">New</span>
                           <div class="button">
-                            <a href="product-details.html" class="btn"><i
+                            <a th:href="@{/shop}" class="btn"><i
                                     class="lni lni-cart"></i> Add to
                               Cart</a>
                           </div>
@@ -884,7 +819,7 @@
                           <img src="assets/images/products/product-7.jpg" alt="#">
                           <span class="sale-tag">-50%</span>
                           <div class="button">
-                            <a href="product-details.html" class="btn"><i
+                            <a th:href="@{/shop}" class="btn"><i
                                     class="lni lni-cart"></i> Add to
                               Cart</a>
                           </div>
