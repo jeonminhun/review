@@ -17,7 +17,7 @@ public class ProductImg {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private com.project.review.product.entity.product product;
+    private product product;
 
     @Column(nullable = false)
     private String product_img_name;
