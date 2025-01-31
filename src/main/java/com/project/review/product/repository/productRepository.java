@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface productRepository extends JpaRepository<product, Long> {
-    @Override
-    <S extends product> S save(S entity);
 }

@@ -1,14 +1,15 @@
 package com.project.review.admin.controller;
 
 import com.project.review.admin.dto.productCreateDto;
+import com.project.review.admin.entity.productDeleteDto;
 import com.project.review.admin.service.adminService;
+import com.project.review.product.dto.productDto;
+import com.project.review.product.dto.productImgDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
@@ -22,8 +23,15 @@ public class adminController { // 사진 받는것도 추가 해야함
             @RequestPart(name = "productCreateDto") productCreateDto productCreateDto,
             @RequestPart(required = false, name = "files") MultipartFile files, HttpServletRequest request
     ) {
-        log.info("작동은 시작");
+        log.info("productInsert 호출 : "+ productCreateDto.getProduct_name());
         adminService.productCreate(productCreateDto,files, request);
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete")
+    public String productDelete(@RequestBody productDeleteDto productDeleteDto) {
+        log.info("제품 삭제 : " + productDeleteDto.getProductDto().getProduct_name());
+        adminService.productDelete(productDeleteDto);
         return "redirect:/";
     }
 }

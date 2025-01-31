@@ -1,4 +1,4 @@
-package com.project.review;
+package com.project.review.product.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,9 +16,9 @@ import java.util.Map;
 
 @Slf4j
 @Controller
-public class shopItem {
+public class productController {
     @RequestMapping("/shop")
-    public String main(Model model, HttpServletRequest request){
+    public String productPage(Model model, HttpServletRequest request){
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         if (authCookie != null) {
             return "after/product-details";
