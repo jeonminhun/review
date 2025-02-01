@@ -1,10 +1,8 @@
 package com.project.review.admin.controller;
 
 import com.project.review.admin.dto.productCreateDto;
-import com.project.review.admin.entity.productDeleteDto;
+import com.project.review.admin.entity.productAdminDto;
 import com.project.review.admin.service.adminService;
-import com.project.review.product.dto.productDto;
-import com.project.review.product.dto.productImgDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +19,8 @@ public class adminController { // 사진 받는것도 추가 해야함
     @PostMapping("/save")
     public String productInsert(
             @RequestPart(name = "productCreateDto") productCreateDto productCreateDto,
-            @RequestPart(required = false, name = "files") MultipartFile files, HttpServletRequest request
+            @RequestPart(required = false, name = "files") MultipartFile files,
+            HttpServletRequest request
     ) {
         log.info("productInsert 호출 : "+ productCreateDto.getProduct_name());
         adminService.productCreate(productCreateDto,files, request);
@@ -29,9 +28,20 @@ public class adminController { // 사진 받는것도 추가 해야함
     }
 
     @PostMapping("/delete")
-    public String productDelete(@RequestBody productDeleteDto productDeleteDto) {
-        log.info("제품 삭제 : " + productDeleteDto.getProductDto().getProduct_name());
-        adminService.productDelete(productDeleteDto);
+    public String productDelete(@RequestBody productAdminDto productAdminDto) {
+        log.info("제품 삭제 : " + productAdminDto.getProductDto().getProduct_name());
+        adminService.productDelete(productAdminDto);
+        return "redirect:/";
+    }
+
+    @PostMapping("/update")
+    public String productUpdate(
+            @RequestPart(name = "productAdminDto") productAdminDto productAdminDto,
+            @RequestPart(required = false, name = "files") MultipartFile files,
+            HttpServletRequest request
+    ) {
+        log.info("제품 수정 : " + productAdminDto.getProductDto().getProduct_name());
+        adminService.productUpdate(productAdminDto,files,request);
         return "redirect:/";
     }
 }
