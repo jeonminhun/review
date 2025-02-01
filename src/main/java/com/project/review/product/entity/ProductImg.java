@@ -17,7 +17,7 @@ public class ProductImg {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private product product;
+    private Product product;
 
     @Column(nullable = false)
     private String product_img_name;

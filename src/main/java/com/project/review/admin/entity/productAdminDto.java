@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Getter @Setter
-public class productDeleteDto {
+public class productAdminDto {
     private productDto productDto;
     private productImgDto productImgDto;
 }
