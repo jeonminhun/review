@@ -3,7 +3,7 @@ package com.project.review.admin.service;
 import com.project.review.admin.dto.productCreateDto;
 import com.project.review.admin.entity.productAdminDto;
 import com.project.review.product.dto.productImgDto;
-import com.project.review.product.entity.product;
+import com.project.review.product.entity.Product;
 import com.project.review.product.entity.ProductImg;
 import com.project.review.product.repository.productImgRepository;
 import com.project.review.product.repository.productRepository;
@@ -27,7 +27,7 @@ public class adminServiceImpl implements adminService {
     @Override
     public boolean productCreate(productCreateDto productCreateDto, MultipartFile files, HttpServletRequest request) {
 
-        product product = com.project.review.product.entity.product.builder()
+        Product product = Product.builder()
                 .product_name(productCreateDto.getProduct_name())
                 .product_manu(productCreateDto.getProduct_manu()).build();
 
@@ -47,7 +47,7 @@ public class adminServiceImpl implements adminService {
 
         log.info("프로덕트 삭제 서비스 시작");
 
-        product product = com.project.review.product.entity.product.builder()
+        Product product = Product.builder()
                 .product_id(productAdminDto.getProductDto().getProduct_id())
                 .product_name(productAdminDto.getProductDto().getProduct_name())
                 .product_manu(productAdminDto.getProductDto().getProduct_manu())
@@ -70,7 +70,7 @@ public class adminServiceImpl implements adminService {
     @Override
     public boolean productUpdate(productAdminDto productAdminDto, MultipartFile files, HttpServletRequest request) {
 
-        product product = com.project.review.product.entity.product.builder()
+        Product product = Product.builder()
                 .product_id(productAdminDto.getProductDto().getProduct_id())
                 .product_name(productAdminDto.getProductDto().getProduct_name())
                 .product_manu(productAdminDto.getProductDto().getProduct_manu())
@@ -106,7 +106,7 @@ public class adminServiceImpl implements adminService {
     }
 
 
-    private ProductImg imgSave(MultipartFile files, HttpServletRequest request, product product, String filename) {
+    private ProductImg imgSave(MultipartFile files, HttpServletRequest request, Product product, String filename) {
         try {
             if (files != null) {
 
