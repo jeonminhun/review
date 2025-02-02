@@ -96,7 +96,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/","/assets/**","/chart-data").permitAll()
                         .requestMatchers("/","/Register","/login","/shop","/search").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMINISTRATOR")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
 
                 //로그아웃 설정

@@ -1,9 +1,12 @@
 package com.project.review.user.entity;
 
+import com.project.review.user.dto.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.ColumnDefault;
 
+@Slf4j
 @Entity
 @Table(name = "user")
 @Builder
@@ -28,4 +31,11 @@ public class User {
     @Column(nullable = false, name = "user_role")
     @ColumnDefault("1")
     private int userRole;
+
+    public String getRoleName() {
+        log.info("엔티티 확인 : "+ this.userRole);
+        return Role.getRoleByCode(this.userRole);
+    }
+
+
 }
