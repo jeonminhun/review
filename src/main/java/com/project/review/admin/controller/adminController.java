@@ -53,7 +53,6 @@ public class adminController { // 사진 받는것도 추가 해야함
             HttpServletRequest request
     ) {
         log.info("유저 설정 : " + userGradeDto.getUser_name());
-        log.info("유저 설정2 : " + userGradeDto.getChange_role());
         adminService.userGradeUpdate(userGradeDto, request);
         return "redirect:/";
     }

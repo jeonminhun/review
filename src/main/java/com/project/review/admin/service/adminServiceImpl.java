@@ -100,7 +100,6 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
 
     @Override
     public boolean userGradeUpdate(UserGradeDto userGradeDto, HttpServletRequest request) {
-        log.info("뭐지 : " + userGradeDto.getChange_role());
         userRepository.updateUserRole(userGradeDto.getUser_id(),userGradeDto.getChange_role());
         return true;
     }
