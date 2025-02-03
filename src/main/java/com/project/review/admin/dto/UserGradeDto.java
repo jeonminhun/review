@@ -1,5 +1,6 @@
 package com.project.review.admin.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,10 +10,8 @@ public class UserGradeDto {
 
     private Long user_id;
     private String user_name;
-    private String user_email;
-    private String user_password;
-    private int user_role;
-    private String Change_role;
+    @JsonProperty("Change_role")
+    private int Change_role;
 
 
 

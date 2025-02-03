@@ -1,5 +1,6 @@
 package com.project.review.admin.service;
 
+import com.project.review.admin.dto.UserGradeDto;
 import com.project.review.admin.dto.productCreateDto;
 import com.project.review.admin.entity.productAdminDto;
 import com.project.review.product.dto.productImgDto;
@@ -7,6 +8,8 @@ import com.project.review.product.entity.Product;
 import com.project.review.product.entity.ProductImg;
 import com.project.review.product.repository.productImgRepository;
 import com.project.review.product.repository.productRepository;
+import com.project.review.user.entity.User;
+import com.project.review.user.repository.userRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +23,10 @@ import java.nio.file.StandardCopyOption;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class adminServiceImpl implements adminService {
+public class adminServiceImpl implements adminService { // adminServiceImpl 트루 폴스 고치기
     private final productRepository productRepository;
     private final productImgRepository productImgRepository;
+    private final userRepository userRepository;
 
     @Override
     public boolean productCreate(productCreateDto productCreateDto, MultipartFile files, HttpServletRequest request) {
@@ -91,6 +95,13 @@ public class adminServiceImpl implements adminService {
 
         productImgRepository.save(productImg);
 
+        return true;
+    }
+
+    @Override
+    public boolean userGradeUpdate(UserGradeDto userGradeDto, HttpServletRequest request) {
+        log.info("뭐지 : " + userGradeDto.getChange_role());
+        userRepository.updateUserRole(userGradeDto.getUser_id(),userGradeDto.getChange_role());
         return true;
     }
 

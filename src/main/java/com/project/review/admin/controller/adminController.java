@@ -47,13 +47,17 @@ public class adminController { // 사진 받는것도 추가 해야함
         return "redirect:/";
     }
 
-//    @PostMapping("/user/grade")
-//    public String userGrade(
-//            @RequestBody UserGradeDto userGradeDto,
-//            HttpServletRequest request
-//    ) {
-//        log.info("유저 설정 : " + productAdminDto.getProductDto().getProduct_name());
-//        adminService.productUpdate(productAdminDto, files, request);
-//        return "redirect:/";
-//    }
+    @PostMapping("/user/grade")
+    public String userGrade( // adminServiceImpl 트루 폴스 고치기
+            @RequestBody UserGradeDto userGradeDto,
+            HttpServletRequest request
+    ) {
+        log.info("유저 설정 : " + userGradeDto.getUser_name());
+        log.info("유저 설정2 : " + userGradeDto.getChange_role());
+        adminService.userGradeUpdate(userGradeDto, request);
+        return "redirect:/";
+    }
+
+
 }
+
