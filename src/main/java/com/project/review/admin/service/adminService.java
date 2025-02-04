@@ -15,4 +15,6 @@ public interface adminService {
 
      boolean userGradeUpdate(UserGradeDto userGradeDto, HttpServletRequest request);
 
+     boolean userDelete(Long user_id, HttpServletRequest request);
+
 }

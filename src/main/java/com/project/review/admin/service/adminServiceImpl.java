@@ -139,6 +139,19 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
 
     }
 
+    @Override
+    public boolean userDelete(Long user_id, HttpServletRequest request) {
+        try {
+            log.info("유저 삭제 서비스 시작");
+            userRepository.deleteById(user_id);
+            return true;
+        } catch (Exception e) {
+            log.info("유저 삭제 실패 : " + user_id);
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private void imgDelete(productImgDto productImgDto) {
         try {
             Path uploadPath = Path.of("imgs", "product");
