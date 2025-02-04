@@ -30,78 +30,113 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
 
     @Override
     public boolean productCreate(productCreateDto productCreateDto, MultipartFile files, HttpServletRequest request) {
+        try {
+            log.info("프로덕트 생성 서비스 시작");
+            Product product = Product.builder()
+                    .product_name(productCreateDto.getProduct_name())
+                    .product_manu(productCreateDto.getProduct_manu()).build();
 
-        Product product = Product.builder()
-                .product_name(productCreateDto.getProduct_name())
-                .product_manu(productCreateDto.getProduct_manu()).build();
+            String filename = System.currentTimeMillis() + "_" + product.getProduct_name() + ".jpg";
 
-        String filename = System.currentTimeMillis() + "_" + product.getProduct_name() + ".jpg";
+            product =  productRepository.save(product);
 
-        product =  productRepository.save(product);
+            ProductImg productImg = imgSave(files, request, product, filename);
 
-        ProductImg productImg = imgSave(files, request, product, filename);
+            productImgRepository.save(productImg);
 
-        productImgRepository.save(productImg);
+            return true;
 
-        return true;
+        } catch (Exception e) {
+            log.info("제품 생성 실패 : " + productCreateDto.getProduct_name());
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override
     public boolean productDelete(productAdminDto productAdminDto) {
 
-        log.info("프로덕트 삭제 서비스 시작");
+        try {
+            log.info("프로덕트 삭제 서비스 시작");
 
-        Product product = Product.builder()
-                .product_id(productAdminDto.getProductDto().getProduct_id())
-                .product_name(productAdminDto.getProductDto().getProduct_name())
-                .product_manu(productAdminDto.getProductDto().getProduct_manu())
-                .product_rating(productAdminDto.getProductDto().getProduct_rating())
-                .build();
+            Product product = Product.builder()
+                    .product_id(productAdminDto.getProductDto().getProduct_id())
+                    .product_name(productAdminDto.getProductDto().getProduct_name())
+                    .product_manu(productAdminDto.getProductDto().getProduct_manu())
+                    .product_rating(productAdminDto.getProductDto().getProduct_rating())
+                    .build();
 
-        ProductImg productImg = ProductImg.builder()
-                .product_img_id(productAdminDto.getProductImgDto().getProduct_img_id())
-                .product(productAdminDto.getProductImgDto().getProduct())
-                .product_img_name(productAdminDto.getProductImgDto().getProduct_img_name()).build();
+            ProductImg productImg = ProductImg.builder()
+                    .product_img_id(productAdminDto.getProductImgDto().getProduct_img_id())
+                    .product(productAdminDto.getProductImgDto().getProduct())
+                    .product_img_name(productAdminDto.getProductImgDto().getProduct_img_name()).build();
 
-        productImgRepository.delete(productImg);
-        productRepository.delete(product);
+            productImgRepository.delete(productImg);
+            productRepository.delete(product);
 
-        imgDelete(productAdminDto.getProductImgDto());
+            imgDelete(productAdminDto.getProductImgDto());
 
-        return true;
+            return true;
+
+
+        } catch (Exception e) {
+            log.info("프로덕트 삭제 실패 : "+productAdminDto.getProductDto().getProduct_name());
+            e.printStackTrace();
+            return false;
+        }
+
+
     }
 
     @Override
     public boolean productUpdate(productAdminDto productAdminDto, MultipartFile files, HttpServletRequest request) {
+        try {
+            log.info("프로덕트 수정 서비스 시작");
+            Product product = Product.builder()
+                    .product_id(productAdminDto.getProductDto().getProduct_id())
+                    .product_name(productAdminDto.getProductDto().getProduct_name())
+                    .product_manu(productAdminDto.getProductDto().getProduct_manu())
+                    .product_rating(productAdminDto.getProductDto().getProduct_rating())
+                    .build();
 
-        Product product = Product.builder()
-                .product_id(productAdminDto.getProductDto().getProduct_id())
-                .product_name(productAdminDto.getProductDto().getProduct_name())
-                .product_manu(productAdminDto.getProductDto().getProduct_manu())
-                .product_rating(productAdminDto.getProductDto().getProduct_rating())
-                .build();
+            ProductImg productImg = ProductImg.builder()
+                    .product_img_id(productAdminDto.getProductImgDto().getProduct_img_id())
+                    .product(productAdminDto.getProductImgDto().getProduct())
+                    .product_img_name(productAdminDto.getProductImgDto().getProduct_img_name())
+                    .build();
 
-        ProductImg productImg = ProductImg.builder()
-                .product_img_id(productAdminDto.getProductImgDto().getProduct_img_id())
-                .product(productAdminDto.getProductImgDto().getProduct())
-                .product_img_name(productAdminDto.getProductImgDto().getProduct_img_name())
-                .build();
+            String filename = productAdminDto.getProductImgDto().getProduct_img_name();
 
-        String filename = productAdminDto.getProductImgDto().getProduct_img_name();
+            product =  productRepository.save(product);
 
-        product =  productRepository.save(product);
+            imgSave(files, request, product, filename);
 
-        imgSave(files, request, product, filename);
+            productImgRepository.save(productImg);
 
-        productImgRepository.save(productImg);
+            return true;
+        } catch (Exception e) {
+            log.info("프로덕트 수정 실패 : "+ productAdminDto.getProductDto().getProduct_name());
+            e.printStackTrace();
+            return false;
+        }
 
-        return true;
+
     }
 
     @Override
     public boolean userGradeUpdate(UserGradeDto userGradeDto, HttpServletRequest request) {
-        userRepository.updateUserRole(userGradeDto.getUser_id(),userGradeDto.getChange_role());
-        return true;
+
+        try {
+            log.info("유저 등급 변경 서비스 시작");
+            userRepository.updateUserRole(userGradeDto.getUser_id(),userGradeDto.getChange_role());
+            return true;
+        } catch (Exception e) {
+            log.info("유저 등급 변경 실패 : " + userGradeDto.getUser_name());
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     private void imgDelete(productImgDto productImgDto) {
