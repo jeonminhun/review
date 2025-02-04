@@ -25,15 +25,26 @@ public class adminController { // 사진 받는것도 추가 해야함
             HttpServletRequest request
     ) {
         log.info("제품 생성 : " + productCreateDto.getProduct_name());
-        adminService.productCreate(productCreateDto, files, request);
-        return "redirect:/";
+        if (adminService.productCreate(productCreateDto, files, request))
+        {
+            return "redirect:/";
+        }
+        else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/product/delete")
     public String productDelete(@RequestBody productAdminDto productAdminDto) {
         log.info("제품 삭제 : " + productAdminDto.getProductDto().getProduct_name());
-        adminService.productDelete(productAdminDto);
-        return "redirect:/";
+        if (adminService.productDelete(productAdminDto)) {
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+
+
+
     }
 
     @PostMapping("/product/update")
@@ -43,8 +54,14 @@ public class adminController { // 사진 받는것도 추가 해야함
             HttpServletRequest request
     ) {
         log.info("제품 수정 : " + productAdminDto.getProductDto().getProduct_name());
-        adminService.productUpdate(productAdminDto, files, request);
-        return "redirect:/";
+        if (adminService.productUpdate(productAdminDto, files, request)) {
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+
+
+
     }
 
     @PostMapping("/user/grade")
@@ -53,8 +70,14 @@ public class adminController { // 사진 받는것도 추가 해야함
             HttpServletRequest request
     ) {
         log.info("유저 설정 : " + userGradeDto.getUser_name());
-        adminService.userGradeUpdate(userGradeDto, request);
-        return "redirect:/";
+        if (adminService.userGradeUpdate(userGradeDto, request)) {
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+
+
+
     }
 
 
