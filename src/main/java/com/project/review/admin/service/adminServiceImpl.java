@@ -64,7 +64,11 @@ public class adminServiceImpl implements adminService { // adminServiceImpl íŠ¸ë
                     .product_id(productAdminDto.getProductDto().getProduct_id())
                     .product_name(productAdminDto.getProductDto().getProduct_name())
                     .product_manu(productAdminDto.getProductDto().getProduct_manu())
-                    .product_rating(productAdminDto.getProductDto().getProduct_rating())
+                    .product_coef_rating(productAdminDto.getProductDto().getProduct_coef_rating())
+                    .product_durability_rating(productAdminDto.getProductDto().getProduct_durability_rating())
+                    .product_quality_rating(productAdminDto.getProductDto().getProduct_quality_rating())
+                    .product_design_rating(productAdminDto.getProductDto().getProduct_design_rating())
+                    .product_total_rating(productAdminDto.getProductDto().getProduct_total_rating())
                     .build();
 
             ProductImg productImg = ProductImg.builder()
@@ -97,7 +101,11 @@ public class adminServiceImpl implements adminService { // adminServiceImpl íŠ¸ë
                     .product_id(productAdminDto.getProductDto().getProduct_id())
                     .product_name(productAdminDto.getProductDto().getProduct_name())
                     .product_manu(productAdminDto.getProductDto().getProduct_manu())
-                    .product_rating(productAdminDto.getProductDto().getProduct_rating())
+                    .product_coef_rating(productAdminDto.getProductDto().getProduct_coef_rating())
+                    .product_durability_rating(productAdminDto.getProductDto().getProduct_durability_rating())
+                    .product_quality_rating(productAdminDto.getProductDto().getProduct_quality_rating())
+                    .product_design_rating(productAdminDto.getProductDto().getProduct_design_rating())
+                    .product_total_rating(productAdminDto.getProductDto().getProduct_total_rating())
                     .build();
 
             ProductImg productImg = ProductImg.builder()

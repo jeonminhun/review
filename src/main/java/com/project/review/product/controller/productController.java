@@ -1,13 +1,15 @@
 package com.project.review.product.controller;
 
+import com.project.review.product.dto.ReviewCreateDto;
+import com.project.review.product.service.productService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import java.util.Arrays;
@@ -16,8 +18,11 @@ import java.util.Map;
 
 @Slf4j
 @Controller
+@AllArgsConstructor
 public class productController {
-    @RequestMapping("/shop")
+    private final productService productService;
+
+    @GetMapping("/shop")
     public String productPage(Model model, HttpServletRequest request){
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         if (authCookie != null) {
@@ -25,6 +30,19 @@ public class productController {
         }
         model.addAttribute("data","hi my name is review!");
         return "default/product-details";
+    }
+
+    @PostMapping("/review")
+    public String reviewCreate(
+            @RequestPart("reviewCreateDto") ReviewCreateDto reviewCreateDto,
+            @RequestPart("files") MultipartFile[] files,
+            HttpServletRequest request)
+    {
+        if (productService.reviewCreate(reviewCreateDto, files, request)) {
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @ResponseBody

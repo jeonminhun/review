@@ -23,5 +23,21 @@ public class Product {
 
     @Column(nullable = false)
     @ColumnDefault("0")
-    private int product_rating;
+    private int product_coef_rating;
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private int product_durability_rating;
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private int product_quality_rating;
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private int product_design_rating;
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private int product_total_rating;
 }
