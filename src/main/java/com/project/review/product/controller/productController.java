@@ -1,6 +1,7 @@
 package com.project.review.product.controller;
 
 import com.project.review.product.dto.ReviewCreateDto;
+import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.service.productService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,6 +45,20 @@ public class productController {
             return "redirect:/";
         }
     }
+
+    @PostMapping("/reviewLike")
+    public String reviewLike(
+            @RequestBody ReviewLikeDto reviewLikeDto,
+            HttpServletRequest request)
+    {
+        if (productService.reviewLike(reviewLikeDto, request)) {
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+
 
     @ResponseBody
     @GetMapping("/chart-data")

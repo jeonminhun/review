@@ -14,7 +14,7 @@ import org.hibernate.annotations.ColumnDefault;
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long review_id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,10 +1,9 @@
 package com.project.review.product.service;
 
 import com.project.review.product.dto.ReviewCreateDto;
-import com.project.review.product.entity.Product;
-import com.project.review.product.entity.ProductImg;
-import com.project.review.product.entity.Review;
-import com.project.review.product.entity.ReviewImg;
+import com.project.review.product.dto.ReviewLikeDto;
+import com.project.review.product.entity.*;
+import com.project.review.product.repository.ReviewLikeRepository;
 import com.project.review.product.repository.productReviewImgRepository;
 import com.project.review.product.repository.productReviewRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,8 +23,8 @@ import static java.lang.String.valueOf;
 @AllArgsConstructor
 public class productServiceImpl implements productService {
     private final productReviewRepository productReviewRepository;
-
     private final productReviewImgRepository productReviewImgRepository;
+    private final ReviewLikeRepository reviewLikeRepository;
 
     @Override
     public boolean reviewCreate(ReviewCreateDto reviewCreateDto, MultipartFile[] files, HttpServletRequest request) {
@@ -59,6 +58,24 @@ public class productServiceImpl implements productService {
             return true;
         } catch (Exception e) {
             log.info("리뷰 생성 실패, 제품 id : " + reviewCreateDto.getProduct().getProduct_id() + " 유저 id : " + reviewCreateDto.getUser().getUser_id());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean reviewLike(ReviewLikeDto reviewLikeDto, HttpServletRequest request) {
+        log.info("좋아요 추가 : ");
+        try {
+            ReviewLike reviewLike = ReviewLike.builder()
+                    .review(reviewLikeDto.getReview())
+                    .user(reviewLikeDto.getUser())
+                    .review_ch(reviewLikeDto.getReview_ch())
+                    .build();
+            reviewLikeRepository.save(reviewLike);
+            return true;
+        } catch (Exception e) {
+            log.info("좋아요 추가 실패 : ");
             e.printStackTrace();
             return false;
         }
