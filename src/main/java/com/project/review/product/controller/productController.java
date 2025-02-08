@@ -2,8 +2,9 @@ package com.project.review.product.controller;
 
 import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
-import com.project.review.product.dto.reviewUpdateDto;
+import com.project.review.product.dto.reviewTotalDto;
 import com.project.review.product.service.productService;
+import com.project.review.user.jwt.TokenProvider;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,8 @@ public class productController {
             @RequestPart("files") MultipartFile[] files,
             HttpServletRequest request)
     {
+
+
         if (productService.reviewCreate(reviewCreateDto, files, request)) {
             return "redirect:/";
         } else {
@@ -48,11 +51,23 @@ public class productController {
     }
     @PostMapping("/reviewUpdate")
     public String reviewUpdate(
-            @RequestPart("reviewUpdateDto") reviewUpdateDto reviewUpdateDto,
+            @RequestPart("reviewUpdateDto") reviewTotalDto reviewTotalDto,
             @RequestPart("files") MultipartFile[] files,
             HttpServletRequest request)
     {
-        if (productService.reviewUpdate(reviewUpdateDto, files, request)) {
+        if (productService.reviewUpdate(reviewTotalDto, files, request)) {
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/reviewDelete")
+    public String reviewDelete(
+            @RequestBody reviewTotalDto reviewTotalDto,
+            HttpServletRequest request)
+    {
+        if (productService.reviewDelete(reviewTotalDto, request)) {
             return "redirect:/";
         } else {
             return "redirect:/";

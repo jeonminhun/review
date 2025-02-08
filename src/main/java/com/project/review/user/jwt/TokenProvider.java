@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.WebUtils;
 
 import java.security.Key;
 import java.util.Arrays;
@@ -113,6 +114,23 @@ public class TokenProvider {
         }
     }
 
+    public boolean AuthenticationCheck(HttpServletRequest request) {
+        // 관리자 확인
+        String token = resolveToken(request);
+        Claims claims = parseClaims(token);
+
+        if (claims.get(AUTHORITIES_KEY).equals("ROLE_ADMIN")) {
+            log.info("관리자 권한입니다.");
+            return true;
+        } else {
+            log.info("관리자가 아닙니다.");
+            return false;
+        }
+    }
+
+
+
+
     // 내정보 수정 토큰 받아오기
     public String getUserIdFromToken(HttpServletRequest request) {
         String token = resolveToken(request);
@@ -125,9 +143,10 @@ public class TokenProvider {
 
     /* 내정보 수정용 리졸브 토큰*/
     private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+        String bearerToken = WebUtils.getCookie(request, "Authorization").getValue();
+        log.info(" 체크 : "+bearerToken);
+        if (bearerToken != null && bearerToken.startsWith("Bearer")) {
+            return bearerToken.substring(6);
         }
         return null;
     }
