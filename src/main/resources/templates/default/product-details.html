@@ -2,6 +2,7 @@
 <html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <base href="/">
     <meta charset="utf-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>Single Product - ShopGrids Bootstrap 5 eCommerce HTML Template.</title>
@@ -14,7 +15,7 @@
     <link rel="stylesheet" href="assets/css/LineIcons.3.0.css"/>
     <link rel="stylesheet" href="assets/css/tiny-slider.css"/>
     <link rel="stylesheet" href="assets/css/glightbox.min.css"/>
-    <link rel="stylesheet" href="assets/css/main.css?after"/>
+    <link rel="stylesheet" href="assets/css/main.css?after1"/>
     <link rel="stylesheet" href="assets/css/style.css"/>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
@@ -259,70 +260,78 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-info">
-                        <h2 class="title">리뷰 할 제품 이름</h2>
+                        <h2 class="title" th:text="${product.product_name}"> 리뷰 할 제품 이름</h2>
                         <p class="category"><i class="lni lni-tag"></i> 카테고리:<a href="javascript:void(0)">Action
                             cameras</a></p>
                         <div class="single-block give-review">
                             <ul class="stars">
+
                                 <li>
                                     <h4>
                                         <span>총 별점 : </span>
                                     </h4>
-                                    <h3>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star"></i>
-                                    </h3>
+
+                                        <!-- 채워진 별점 -->
+                                        <span class="starss" th:each="i : ${#numbers.sequence(1, product.product_total_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss" th:each="i : ${#numbers.sequence(1, 5 - product.product_total_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
+
                                 </li>
 
                                 <li>
                                     <h5>
                                         <span>가성비 별점 : </span>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
                                     </h5>
+
+                                        <!-- 채워진 별점 -->
+                                        <span class="starss" th:each="i : ${#numbers.sequence(1, product.product_coef_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss" th:each="i : ${#numbers.sequence(1, 5 - product.product_coef_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
+
                                 </li>
 
                                 <li>
                                     <h5>
                                         <span>내구성 별점 : </span>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
                                     </h5>
+                                        <span class="starss" th:each="i : ${#numbers.sequence(1, product.product_durability_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss" th:each="i : ${#numbers.sequence(1, 5 - product.product_durability_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
+
                                 </li>
 
                                 <li>
                                     <h5>
                                         <span>품질 별점 : </span>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
                                     </h5>
+                                        <span class="starss" th:each="i : ${#numbers.sequence(1, product.product_quality_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss" th:each="i : ${#numbers.sequence(1, 5 - product.product_quality_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
+
                                 </li>
 
                                 <li>
                                     <h5>
                                         <span>디자인 별점 : </span>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
+                                    </h5>
+                                        <span class="starss" th:each="i : ${#numbers.sequence(1, product.product_design_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss" th:each="i : ${#numbers.sequence(1, 5 - product.product_design_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
                                     </h5>
                                 </li>
                             </ul>
                         </div>
-                        <p class="info-text">제품 정보 설명 하는 구간.</p>
+                        <p class="info-text" th:text="${product.product_manu}">제품 정보 설명 하는 구간.</p>
                         <div class="bottom-content">
                             <div class="row align-items-end">
                                 <div class="col-lg-4 col-md-4 col-12">

@@ -8198,8 +8198,21 @@ blockquote span {
           font-weight: bold;
       }
 
+      /* starss 클래스를 span 안에서 덮어쓰기 */
+      .stars li .starss {
+          display: inline-block;
+          width: 27px; /* 라벨 간격 맞춤 */
+          font-weight: bold;
+      }
+
       /* 아이콘 간 간격 */
       .stars li i {
+          margin-right: 4px; /* 별점 아이콘 간 간격 */
+          font-size: 20px; /* 별 아이콘 크기 */
+          color: #FFD700; /* 별점 색깔 */
+      }
+
+      .starss {
           margin-right: 4px; /* 별점 아이콘 간 간격 */
           font-size: 20px; /* 별 아이콘 크기 */
           color: #FFD700; /* 별점 색깔 */
