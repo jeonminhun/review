@@ -3,6 +3,7 @@ package com.project.review.product.controller;
 import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.dto.reviewTotalDto;
+import com.project.review.product.entity.Product;
 import com.project.review.product.service.productService;
 import com.project.review.user.jwt.TokenProvider;
 import jakarta.servlet.http.Cookie;
@@ -25,13 +26,19 @@ import java.util.Map;
 public class productController {
     private final productService productService;
 
-    @GetMapping("/shop")
-    public String productPage(Model model, HttpServletRequest request){
+    @GetMapping("/product/{product_id}")
+    public String productPage(
+            @PathVariable("product_id") Long product_id,
+            Model model,
+            HttpServletRequest request
+    ){
+        Product product = productService.productInfo(product_id, request);
+        model.addAttribute("product", product);
+
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         if (authCookie != null) {
             return "after/product-details";
         }
-        model.addAttribute("data","hi my name is review!");
         return "default/product-details";
     }
 
@@ -41,8 +48,6 @@ public class productController {
             @RequestPart("files") MultipartFile[] files,
             HttpServletRequest request)
     {
-
-
         if (productService.reviewCreate(reviewCreateDto, files, request)) {
             return "redirect:/";
         } else {

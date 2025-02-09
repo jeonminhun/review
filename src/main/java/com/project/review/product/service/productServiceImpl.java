@@ -3,6 +3,7 @@ package com.project.review.product.service;
 import com.project.review.product.dto.*;
 import com.project.review.product.entity.*;
 import com.project.review.product.repository.ReviewLikeRepository;
+import com.project.review.product.repository.productRepository;
 import com.project.review.product.repository.productReviewImgRepository;
 import com.project.review.product.repository.productReviewRepository;
 import com.project.review.user.entity.User;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 
 import static java.lang.String.valueOf;
@@ -25,11 +27,18 @@ import static java.lang.String.valueOf;
 @Service
 @AllArgsConstructor
 public class productServiceImpl implements productService {
+    private final productRepository productRepository;
     private final productReviewRepository productReviewRepository;
     private final productReviewImgRepository productReviewImgRepository;
     private final userRepository userRepository;
     private final ReviewLikeRepository reviewLikeRepository;
     private final TokenProvider tokenProvider;
+
+
+    @Override
+    public Product productInfo(Long product_id, HttpServletRequest request) {
+        return productRepository.findById(product_id).get();
+    }
 
     @Override
     public boolean reviewCreate(ReviewCreateDto reviewCreateDto, MultipartFile[] files, HttpServletRequest request) {
@@ -50,6 +59,8 @@ public class productServiceImpl implements productService {
 
             review = productReviewRepository.save(review);
 
+            productRatingUpdate(reviewCreateDto, review);
+
             if (files != null) {
                 for (MultipartFile file : files) {
                     String fileName = System.currentTimeMillis() + "_" + valueOf(review.getReview_id()) + "_" + valueOf(review.getUser().getUser_id()) + ".jpg";
@@ -65,6 +76,44 @@ public class productServiceImpl implements productService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private void productRatingUpdate(ReviewCreateDto reviewCreateDto, Review review) {
+        // 제품 별점 업데이트 시작
+
+        List<Review> reviewList = productReviewRepository.findAllProduct(review.getProduct().getProduct_id());
+        Product product = productRepository.findById(reviewCreateDto.getProduct().getProduct_id()).get();
+
+        int totalSum = 0;
+        int coefSum = 0;
+        int durabilitySum= 0;
+        int qualitySum= 0;
+        int designSum= 0;
+
+        for (Review review1 : reviewList) {
+            totalSum += review1.getTotal_rating();
+            coefSum += review1.getCoef_rating();
+            durabilitySum += review1.getDurability_rating();
+            qualitySum += review1.getQuality_rating();
+            designSum += review1.getDesign_rating();
+        }
+
+        int size = reviewList.size();
+
+        Product productSave = Product.builder()
+                .product_id(reviewCreateDto.getProduct().getProduct_id())
+                .product_name(product.getProduct_name())
+                .product_manu(product.getProduct_manu())
+                .product_coef_rating(coefSum/size)
+                .product_durability_rating(durabilitySum/size)
+                .product_quality_rating(qualitySum/size)
+                .product_design_rating(designSum/size)
+                .product_total_rating(totalSum/size)
+                .build();
+
+        productRepository.save(productSave);
+
+        // 끝
     }
 
     @Override
