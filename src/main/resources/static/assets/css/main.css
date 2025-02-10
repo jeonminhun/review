@@ -8227,26 +8227,35 @@ blockquote span {
           list-style: none;
           padding: 0;
           margin: 0;
+          font-size: 0;
       }
 
       /* li 항목 간격 조정 */
       .stars2 li {
           display: flex;
           align-items: center;
-          margin-bottom: 10px; /* 항목 간 간격 */
+          margin-bottom: 0px; /* 항목 간 간격 */
       }
 
       /* span의 간격 및 정렬 */
-            .stars2 li span {
-                display: inline-block;
-                width: 100px; /* 라벨 간격 맞춤 */
-                font-weight: bold;
-            }
+      .stars2 li span {
+          display: inline-block;
+          width: 85px; /* 라벨 간격 맞춤 */
+          font-weight: bold;
+          font-size: 13px
+      }
+
+      /* starss 클래스를 span 안에서 덮어쓰기 */
+      .stars2 li .starss {
+          display: inline-block;
+          width: 20px; /* 라벨 간격 맞춤 */
+          font-weight: bold;
+      }
 
       /* 아이콘 간 간격 */
       .stars2 li i {
           margin-right: 4px; /* 별점 아이콘 간 간격 */
-          font-size: 20px; /* 별 아이콘 크기 */
+          font-size: 15px; /* 별 아이콘 크기 */
           color: #FFD700; /* 별점 색깔 */
       }
 
