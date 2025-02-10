@@ -4,8 +4,8 @@ import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.dto.reviewTotalDto;
 import com.project.review.product.entity.Product;
+import com.project.review.product.entity.Review;
 import com.project.review.product.service.productService;
-import com.project.review.user.jwt.TokenProvider;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -18,6 +18,7 @@ import org.springframework.web.util.WebUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -34,6 +35,12 @@ public class productController {
     ){
         Product product = productService.productInfo(product_id, request);
         model.addAttribute("product", product);
+
+        List<Review> reviews = productService.ReviewInfo(product_id, request);
+        model.addAttribute("reviews", reviews);
+
+        Map<Integer, Long> ratingCount = productService.RatingCount(product_id);
+        model.addAttribute("ratingCount", ratingCount);
 
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         if (authCookie != null) {

@@ -18,8 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import static java.lang.String.valueOf;
 
@@ -41,6 +42,28 @@ public class productServiceImpl implements productService {
     }
 
     @Override
+    public List<Review> ReviewInfo(Long product_id, HttpServletRequest request) {
+        return productReviewRepository.findAllProduct(product_id);
+    }
+
+    @Override
+    public Map<Integer, Long> RatingCount(Long product_id) {
+        List<ReviewRatingCountDto> ratingCount = productReviewRepository.ratingCount(product_id);
+
+        Map<Integer, Long> ratingMap = new HashMap<>();
+        for (ReviewRatingCountDto dto : ratingCount) {
+            ratingMap.put(dto.getTotal_rating(), dto.getCount());
+        }
+
+        // 별점이 없는 경우 0으로 채우기
+        for (int i = 1; i <= 5; i++) {
+            ratingMap.putIfAbsent(i, 0L);
+        }
+
+        return ratingMap;
+    }
+
+    @Override
     public boolean reviewCreate(ReviewCreateDto reviewCreateDto, MultipartFile[] files, HttpServletRequest request) {
         log.info("리뷰 생성 서비스 시작, 제품 id : " + reviewCreateDto.getProduct().getProduct_id() + " 유저 id : " + reviewCreateDto.getUser().getUser_id());
         try {
@@ -59,7 +82,7 @@ public class productServiceImpl implements productService {
 
             review = productReviewRepository.save(review);
 
-            productRatingUpdate(reviewCreateDto, review);
+            productRatingUpdate(reviewCreateDto.getProduct().getProduct_id());
 
             if (files != null) {
                 for (MultipartFile file : files) {
@@ -69,51 +92,12 @@ public class productServiceImpl implements productService {
                 }
             }
 
-
             return true;
         } catch (Exception e) {
             log.info("리뷰 생성 실패, 제품 id : " + reviewCreateDto.getProduct().getProduct_id() + " 유저 id : " + reviewCreateDto.getUser().getUser_id());
             e.printStackTrace();
             return false;
         }
-    }
-
-    private void productRatingUpdate(ReviewCreateDto reviewCreateDto, Review review) {
-        // 제품 별점 업데이트 시작
-
-        List<Review> reviewList = productReviewRepository.findAllProduct(review.getProduct().getProduct_id());
-        Product product = productRepository.findById(reviewCreateDto.getProduct().getProduct_id()).get();
-
-        int totalSum = 0;
-        int coefSum = 0;
-        int durabilitySum= 0;
-        int qualitySum= 0;
-        int designSum= 0;
-
-        for (Review review1 : reviewList) {
-            totalSum += review1.getTotal_rating();
-            coefSum += review1.getCoef_rating();
-            durabilitySum += review1.getDurability_rating();
-            qualitySum += review1.getQuality_rating();
-            designSum += review1.getDesign_rating();
-        }
-
-        int size = reviewList.size();
-
-        Product productSave = Product.builder()
-                .product_id(reviewCreateDto.getProduct().getProduct_id())
-                .product_name(product.getProduct_name())
-                .product_manu(product.getProduct_manu())
-                .product_coef_rating(coefSum/size)
-                .product_durability_rating(durabilitySum/size)
-                .product_quality_rating(qualitySum/size)
-                .product_design_rating(designSum/size)
-                .product_total_rating(totalSum/size)
-                .build();
-
-        productRepository.save(productSave);
-
-        // 끝
     }
 
     @Override
@@ -220,6 +204,10 @@ public class productServiceImpl implements productService {
             return false;
         }
     }
+    // 제품 별점 업데이트
+    private void productRatingUpdate(Long product_id) {
+        productRepository.productRatingUpdate(product_id);
+    }
 
     private boolean Self_identification(HttpServletRequest request, ReviewCreateDto reviewCreateDto) {
         User user = userRepository.findById(reviewCreateDto.getUser().getUser_id()).get();
@@ -227,7 +215,7 @@ public class productServiceImpl implements productService {
 
         if (tokenProvider.AuthenticationCheck(request)) {
             return true;
-        } else if(user.getUserEmail().equals(tokenProvider.getUserIdFromToken(request))) {
+        } else if (user.getUserEmail().equals(tokenProvider.getUserIdFromToken(request))) {
             return true;
         } else {
             return false;
