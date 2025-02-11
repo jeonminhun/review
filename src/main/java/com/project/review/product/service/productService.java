@@ -19,6 +19,8 @@ public interface productService {
 
     Map<Integer, Long> RatingCount(Long product_id);
 
+    Map<String, Object> chartData(Long product_id);
+
     boolean reviewCreate(ReviewCreateDto reviewCreateDto, MultipartFile[] files, HttpServletRequest request);
 
     boolean reviewUpdate(reviewTotalDto reviewTotalDto, MultipartFile[] files, HttpServletRequest request);

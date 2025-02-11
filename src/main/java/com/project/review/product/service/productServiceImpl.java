@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,18 @@ public class productServiceImpl implements productService {
         }
 
         return ratingMap;
+    }
+
+    @Override
+    public Map<String, Object> chartData(Long product_id) {
+
+        Map<String, Object> chartData = new HashMap<>();
+        Product product = productRepository.findById(product_id).get();
+        Map<Integer, Long> ratingCount = RatingCount(product_id);
+        chartData.put("data", Arrays.asList(product.getProduct_total_rating(), product.getProduct_coef_rating(), product.getProduct_durability_rating(), product.getProduct_quality_rating(), product.getProduct_design_rating())); // 차트에 들어갈 데이터
+        chartData.put("labels", Arrays.asList("총 별점", "가성비 별점", "내구성 별점", "품질 별점", "디자인 별점")); // X축 레이블
+        chartData.put("total", Arrays.asList(ratingCount.get(5), ratingCount.get(4), ratingCount.get(3), ratingCount.get(2), ratingCount.get(1))); // 차트에 들어갈 데이터
+        return chartData;
     }
 
     @Override

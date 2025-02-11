@@ -41,6 +41,7 @@ public class productController {
 
         Map<Integer, Long> ratingCount = productService.RatingCount(product_id);
         model.addAttribute("ratingCount", ratingCount);
+        model.addAttribute("product_id",product_id);
 
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         if (authCookie != null) {
@@ -103,16 +104,11 @@ public class productController {
 
 
     @ResponseBody
-    @GetMapping("/chart-data")
-    public Map<String, Object> getChartData() {
-        log.info("차트 데이터 호출");
+    @GetMapping("/chart-data/{product_id}")
+    public Map<String, Object> getChartData(@PathVariable("product_id") Long product_id) {
+        log.info("차트 데이터 호출 : " + product_id);
 
-        Map<String, Object> chartData = new HashMap<>();
-
-        // 데이터와 레이블을 준비
-        chartData.put("data", Arrays.asList(12, 19, 30, 40, 60)); // 차트에 들어갈 데이터
-        chartData.put("labels", Arrays.asList("총 별점", "가성비 별점", "품질 별점", "내구성 별점", "디자인 별점")); // X축 레이블
-        chartData.put("total", Arrays.asList(5, 10, 10, 20, 25, 30)); // 차트에 들어갈 데이터
+        Map<String, Object> chartData = productService.chartData(product_id);
 
         return chartData; // JSON 형식으로 반환
     }

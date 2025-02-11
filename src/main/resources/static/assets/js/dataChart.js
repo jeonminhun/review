@@ -6,7 +6,7 @@ let chartTwo, chartThree;
         chart03(); // 두 번째 차트 초기화
     });
 
-    fetch('/chart-data')
+    fetch('/chart-data/'+ product_id)
     .then(response => response.json())
     .then(data => {
         // 차트 업데이트 함수 호출
@@ -38,7 +38,7 @@ let chartTwo, chartThree;
                 bar: { horizontal: false, borderRadius: 0, columnWidth: "25%" },
             },
             dataLabels: { enabled: false },
-            xaxis: { categories: ["총 별점", "가성비 별점", "품질 별점", "내구성 별점", "디자인 별점"] },
+            xaxis: { categories: ["총 별점", "가성비 별점", "내구성 별점", "품질 별점", "디자인 별점"] },
             legend: {
                 position: "top",
                 horizontalAlign: "left",
@@ -75,13 +75,13 @@ let chartTwo, chartThree;
     // 차트 03 초기화 함수
     function chart03() {
         const chartThreeOptions = {
-            series: [95, 1, 1, 1, 1, 1], // 초기 데이터
+            series: [95, 1, 1, 1, 1], // 초기 데이터
             chart: {
                 type: "donut",
                 width: 380
             },
-            colors: ["#3C50E0", "#6577F3", "#8FD0EF", "#0FADCF", "#FF6F61", "#FFB400"],
-            labels: ["5점", "4점", "3점", "2점", "1점", "0점"],
+            colors: ["#3C50E0", "#6577F3", "#8FD0EF", "#0FADCF", "#FF6F61"],
+            labels: ["5점", "4점", "3점", "2점", "1점"],
             legend: {
                 show: false,
                 position: "bottom"
