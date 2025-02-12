@@ -4,7 +4,9 @@ import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.dto.reviewTotalDto;
 import com.project.review.product.entity.Product;
+import com.project.review.product.entity.ProductImg;
 import com.project.review.product.entity.Review;
+import com.project.review.product.entity.ReviewImg;
 import com.project.review.product.service.productService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,8 +38,14 @@ public class productController {
         Product product = productService.productInfo(product_id, request);
         model.addAttribute("product", product);
 
+        ProductImg productImg = productService.productImgInfo(product_id);
+        model.addAttribute("productImg", productImg);
+
         List<Review> reviews = productService.ReviewInfo(product_id, request);
         model.addAttribute("reviews", reviews);
+
+        List<ReviewImg> reviewImgs = productService.ReviewImgInfo(product_id);
+        model.addAttribute("reviewImgs", reviewImgs);
 
         Map<Integer, Long> ratingCount = productService.RatingCount(product_id);
         model.addAttribute("ratingCount", ratingCount);
@@ -87,8 +95,6 @@ public class productController {
         }
     }
 
-
-
     @PostMapping("/reviewLike")
     public String reviewLike(
             @RequestBody ReviewLikeDto reviewLikeDto,
@@ -101,8 +107,6 @@ public class productController {
         }
     }
 
-
-
     @ResponseBody
     @GetMapping("/chart-data/{product_id}")
     public Map<String, Object> getChartData(@PathVariable("product_id") Long product_id) {
@@ -112,5 +116,6 @@ public class productController {
 
         return chartData; // JSON 형식으로 반환
     }
+
 
 }

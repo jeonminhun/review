@@ -5,7 +5,9 @@ import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.dto.ReviewRatingCountDto;
 import com.project.review.product.dto.reviewTotalDto;
 import com.project.review.product.entity.Product;
+import com.project.review.product.entity.ProductImg;
 import com.project.review.product.entity.Review;
+import com.project.review.product.entity.ReviewImg;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +17,11 @@ import java.util.Map;
 public interface productService {
     Product productInfo(Long product_id, HttpServletRequest request);
 
+    ProductImg productImgInfo(Long product_id);
+
     List<Review> ReviewInfo(Long product_id, HttpServletRequest request);
+
+    List<ReviewImg> ReviewImgInfo(Long product_id);
 
     Map<Integer, Long> RatingCount(Long product_id);
 

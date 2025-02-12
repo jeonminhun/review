@@ -2,10 +2,7 @@ package com.project.review.product.service;
 
 import com.project.review.product.dto.*;
 import com.project.review.product.entity.*;
-import com.project.review.product.repository.ReviewLikeRepository;
-import com.project.review.product.repository.productRepository;
-import com.project.review.product.repository.productReviewImgRepository;
-import com.project.review.product.repository.productReviewRepository;
+import com.project.review.product.repository.*;
 import com.project.review.user.entity.User;
 import com.project.review.user.jwt.TokenProvider;
 import com.project.review.user.repository.userRepository;
@@ -30,6 +27,7 @@ import static java.lang.String.valueOf;
 @AllArgsConstructor
 public class productServiceImpl implements productService {
     private final productRepository productRepository;
+    private final productImgRepository productImgRepository;
     private final productReviewRepository productReviewRepository;
     private final productReviewImgRepository productReviewImgRepository;
     private final userRepository userRepository;
@@ -43,8 +41,18 @@ public class productServiceImpl implements productService {
     }
 
     @Override
+    public ProductImg productImgInfo(Long product_id) {
+        return productImgRepository.findByProduct_id(product_id);
+    }
+
+    @Override
     public List<Review> ReviewInfo(Long product_id, HttpServletRequest request) {
         return productReviewRepository.findAllProduct(product_id);
+    }
+
+    @Override
+    public List<ReviewImg> ReviewImgInfo(Long product_id) {
+        return productReviewImgRepository.findByProduct_id(product_id);
     }
 
     @Override
@@ -244,7 +252,7 @@ public class productServiceImpl implements productService {
 
     private void imgDelete(ReviewImgDto reviewImgDto) {
         try {
-            Path uploadPath = Path.of("imgs", "review");
+            Path uploadPath = Path.of("src","main","resources","static","imgs", "review");
             Path filepath = uploadPath.resolve(reviewImgDto.getReview_img_name());
             Files.delete(filepath);
         } catch (Exception e) {
@@ -256,7 +264,7 @@ public class productServiceImpl implements productService {
     private ReviewImg imgSave(MultipartFile files, HttpServletRequest request, Review review, String filename) {
         try {
             if (files != null) {
-                Path uploadPath = Path.of("imgs", "review");
+                Path uploadPath = Path.of("src","main","resources","static","imgs", "review");
 
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);

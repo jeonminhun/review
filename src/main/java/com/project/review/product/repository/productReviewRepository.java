@@ -18,8 +18,6 @@ public interface productReviewRepository extends JpaRepository<Review, Long> {
     @Transactional
     @Query("SELECT u FROM Review u WHERE u.product.id = :product_id")
     List<Review> findAllProduct(@Param("product_id") Long product_id);
-
-    @Modifying
     @Transactional
     @Query("SELECT new com.project.review.product.dto.ReviewRatingCountDto(r.total_rating, COUNT(r)) " +
             "FROM Review r " +
