@@ -8263,3 +8263,19 @@ blockquote span {
       .stars2 li:last-child {
           margin-bottom: 0;
       }
+
+      .product-details-info .reviews .single-review .review_img {
+        height: auto;
+        width: auto;
+        border-radius: 0%;
+        position: static;
+        left: auto;
+        top: auto;
+      }
+
+      @media (max-width: 767px) {
+        .product-details-info .reviews .single-review .review_img {
+          height: auto;
+          width: auto;
+        }
+      }

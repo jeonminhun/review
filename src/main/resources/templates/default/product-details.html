@@ -246,7 +246,7 @@
                     <div class="product-images">
                         <main id="gallery">
                             <div class="main-img">
-                                <img src="assets/images/product-details/01.jpg" id="current" alt="#">
+                                <img th:src="'imgs/product/'+ ${productImg.product_img_name}"  id="current" alt="#">
                             </div>
                             <div class="images">
                                 <img src="assets/images/product-details/01.jpg" class="img" alt="#">
@@ -634,6 +634,12 @@
                                                 </span>
                                             </li>
                                         </ul>
+
+                                        <div th:if="${review.review_id} == ${reviewImg.review.review_id}"
+                                              th:each="reviewImg:${reviewImgs}">
+                                            <img class="review_img" th:src="'imgs/review/'+ ${reviewImg.review_img_name}">
+                                        </div>
+
                                         <p th:text="${product.product_name}">Lorem ipsum dolor sit amet, consectetur
                                             adipiscing elit, sed do eiusmod
                                             tempor...</p>
