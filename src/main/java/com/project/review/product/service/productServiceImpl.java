@@ -108,7 +108,7 @@ public class productServiceImpl implements productService {
             if (files != null) {
                 for (MultipartFile file : files) {
                     String fileName = System.currentTimeMillis() + "_" + valueOf(review.getReview_id()) + "_" + valueOf(review.getUser().getUser_id()) + ".jpg";
-                    ReviewImg reviewImg = imgSave(file, request, review, fileName);
+                    ReviewImg reviewImg = imgSave(file, review, fileName);
                     productReviewImgRepository.save(reviewImg);
                 }
             }
@@ -156,7 +156,7 @@ public class productServiceImpl implements productService {
                 if (files != null) {
                     for (MultipartFile file : files) {
                         String fileName = System.currentTimeMillis() + "_" + valueOf(review.getReview_id()) + "_" + valueOf(review.getUser().getUser_id()) + ".jpg";
-                        ReviewImg reviewImg = imgSave(file, request, review, fileName);
+                        ReviewImg reviewImg = imgSave(file, review, fileName);
                         productReviewImgRepository.save(reviewImg);
                     }
                 }
@@ -261,7 +261,7 @@ public class productServiceImpl implements productService {
         }
     }
 
-    private ReviewImg imgSave(MultipartFile files, HttpServletRequest request, Review review, String filename) {
+    private ReviewImg imgSave(MultipartFile files, Review review, String filename) {
         try {
             if (files != null) {
                 Path uploadPath = Path.of("src","main","resources","static","imgs", "review");

@@ -1,14 +1,17 @@
 package com.project.review.user.service;
 
+import com.project.review.product.dto.ReviewCreateDto;
+import com.project.review.product.dto.ReviewImgDto;
+import com.project.review.product.entity.Review;
+import com.project.review.product.entity.ReviewImg;
+import com.project.review.user.dto.*;
+import com.project.review.user.entity.UserImg;
 import com.project.review.user.jwt.TokenProvider;
 import com.project.review.user.Helper;
-import com.project.review.user.dto.MemberRequestDto;
-import com.project.review.user.dto.TokenDto;
-import com.project.review.user.dto.TokenRequestDto;
-import com.project.review.user.dto.userCreateDto;
 import com.project.review.user.entity.RefreshToken;
 import com.project.review.user.entity.User;
 import com.project.review.user.repository.RefreshTokenRepository;
+import com.project.review.user.repository.userImgRepository;
 import com.project.review.user.repository.userRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +22,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 @Service
@@ -30,11 +37,11 @@ public class userServiceImpl implements userService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
-
     private final userRepository userRepository;
+    private final userImgRepository userImgRepository;
     private final PasswordEncoder encoder;
 
-    @Override
+
     public boolean test(MemberRequestDto memberRequestDto) {
         userRepository.findByuserEmail(memberRequestDto.getUser_email());
         return true;
@@ -57,6 +64,29 @@ public class userServiceImpl implements userService {
         userRepository.save(user);
         return true;
     }
+
+    // 유저 이미지 업데이트 하기 플러스 유저 업데이트
+    @Override
+    public boolean userUpdate(MultipartFile multipartFile,UserUpdateDto userUpdateDto,HttpServletRequest request) {
+        log.info("유저 업데이트 시작 : " + userUpdateDto.getUser_id());
+        User user = User.builder()
+                .user_id(userUpdateDto.getUser_id())
+                .user_name(userUpdateDto.getUser_name())
+                .build();
+
+        if (Self_identification(request, user.getUser_id())) {
+            userRepository.UserUpdate(user.getUser_id(),user.getUser_name());
+
+            UserImg userImg = imgSave(multipartFile, user);
+            userImgRepository.save(userImg);
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
+
     @Override
     @Transactional
     public TokenDto login(HttpServletRequest request, MemberRequestDto memberRequestDto) {
@@ -125,6 +155,61 @@ public class userServiceImpl implements userService {
             return tokenDto;
         } else {
             throw new RuntimeException("ip가 일치하지 않습니다.");
+        }
+    }
+
+    private boolean Self_identification(HttpServletRequest request, Long user_id) {
+        User user = userRepository.findById(user_id).get();
+        // 권한 체크 해서 관리자 일경우 그냥 허용하기
+
+        if (tokenProvider.AuthenticationCheck(request)) {
+            return true;
+        } else if (user.getUserEmail().equals(tokenProvider.getUserIdFromToken(request))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void imgDelete(ReviewImgDto reviewImgDto) {
+        try {
+            Path uploadPath = Path.of("src","main","resources","static","imgs", "user");
+            Path filepath = uploadPath.resolve(reviewImgDto.getReview_img_name());
+            Files.delete(filepath);
+        } catch (Exception e) {
+            log.info("이미지 삭제 오류");
+            e.printStackTrace();
+        }
+    }
+
+    private UserImg imgSave(MultipartFile files, User user) {
+        try {
+            if (files != null) {
+                Path uploadPath = Path.of("src","main","resources","static","imgs", "user");
+
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                String filename = user.getUser_name()+"_userImg";
+                log.info(filename);
+
+                Path filepath = uploadPath.resolve(filename);
+                Files.copy(files.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING /*같은 파일이름 있으면 덮어쓰기*/);
+
+                UserImg userImg = UserImg.builder()
+                        .user(user)
+                        .user_img_name(filename)
+                        .build();
+
+                return userImg;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            log.info("이미지 저장 오류");
+            e.printStackTrace();
+            return null;
         }
     }
 

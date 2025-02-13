@@ -35,6 +35,7 @@ public class productController {
             Model model,
             HttpServletRequest request
     ){
+        long startTime = System.currentTimeMillis();
         Product product = productService.productInfo(product_id, request);
         model.addAttribute("product", product);
 
@@ -53,8 +54,12 @@ public class productController {
 
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         if (authCookie != null) {
+            long endTime = System.currentTimeMillis();
+            log.info("productPage 실행 시간: {} ms", (endTime - startTime));
             return "after/product-details";
         }
+        long endTime = System.currentTimeMillis();
+        log.info("productPage 실행 시간: {} ms", (endTime - startTime));
         return "default/product-details";
     }
 

@@ -1,9 +1,6 @@
 package com.project.review.user.controller;
 
-import com.project.review.user.dto.MemberRequestDto;
-import com.project.review.user.dto.TokenDto;
-import com.project.review.user.dto.TokenRequestDto;
-import com.project.review.user.dto.userCreateDto;
+import com.project.review.user.dto.*;
 import com.project.review.user.service.userService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 @Controller
@@ -73,6 +68,27 @@ public class userController {
         setCookie(response, accessToken);
 
         return "redirect:/";
+
+    }
+
+    @PostMapping("/userSet")
+    public String user_update(
+            @RequestPart("file") MultipartFile multipartFile,
+            @RequestPart("userUpdateDto") UserUpdateDto userUpdateDto,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Model model) {
+
+        log.info("유저 업데이트 전 로그" + userUpdateDto.getUser_name());
+
+        if (userService.userUpdate(multipartFile, userUpdateDto, request)) {
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+
+
+
 
     }
 

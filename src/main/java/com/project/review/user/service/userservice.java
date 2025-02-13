@@ -1,18 +1,16 @@
 package com.project.review.user.service;
 
-import com.project.review.user.dto.MemberRequestDto;
-import com.project.review.user.dto.TokenDto;
-import com.project.review.user.dto.TokenRequestDto;
-import com.project.review.user.dto.userCreateDto;
+import com.project.review.user.dto.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface userService {
-
-    boolean test(MemberRequestDto memberRequestDto);
 
     boolean checkPassWord(userCreateDto userCreateDto);
 
     boolean createUser(userCreateDto userCreateDto);
+
+    boolean userUpdate(MultipartFile multipartFile, UserUpdateDto userUpdateDto, HttpServletRequest request);
 
     TokenDto login(HttpServletRequest request, MemberRequestDto memberRequestDto);
 
