@@ -1,5 +1,6 @@
 package com.project.review.user.dto;
 
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,4 +8,7 @@ import lombok.Setter;
 public class UserUpdateDto {
     private Long user_id;
     private String user_name;
+    private String user_info;
+    private String user_phoneNumber;
+    private String user_nickName;
 }

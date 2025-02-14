@@ -22,7 +22,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,6 +50,27 @@ public class userServiceImpl implements userService {
     }
 
     @Override
+    public User userInfo(Long user_id, HttpServletRequest request) {
+        log.info("유저 정보 제공 서비스");
+        if (Self_identification(request, user_id)) {
+            User user = userRepository.findById(user_id).get();
+            return user;
+        } else {
+            log.info("유저 본인인증 실패");
+            return null;
+        }
+
+
+    }
+
+    @Override
+    public Long getUserId(HttpServletRequest request) {
+        String user_email = tokenProvider.getUserIdFromToken(request);
+        User user = userRepository.findByuserEmail(user_email).get();
+        return user.getUser_id();
+    }
+
+    @Override
     public boolean checkPassWord(userCreateDto userCreateDto) {
         return userCreateDto.getUser_password().equals(userCreateDto.getUser_password_check());
     }
@@ -58,6 +81,8 @@ public class userServiceImpl implements userService {
         User user = User.builder()
                 .userEmail(userCreateDto.getUser_email())
                 .user_name(userCreateDto.getUser_name())
+                .user_phoneNumber(userCreateDto.getUser_phoneNumber())
+                .user_nickName(userCreateDto.getUser_name())
                 .user_password(password)
                 .userRole(1)
                 .build();
@@ -67,24 +92,41 @@ public class userServiceImpl implements userService {
 
     // 유저 이미지 업데이트 하기 플러스 유저 업데이트
     @Override
-    public boolean userUpdate(MultipartFile multipartFile,UserUpdateDto userUpdateDto,HttpServletRequest request) {
+    public boolean userUpdate(UserUpdateDto userUpdateDto,HttpServletRequest request) {
         log.info("유저 업데이트 시작 : " + userUpdateDto.getUser_id());
         User user = User.builder()
                 .user_id(userUpdateDto.getUser_id())
+                .user_info(userUpdateDto.getUser_info())
+                .user_nickName(userUpdateDto.getUser_nickName())
+                .user_phoneNumber(userUpdateDto.getUser_phoneNumber())
                 .user_name(userUpdateDto.getUser_name())
                 .build();
 
         if (Self_identification(request, user.getUser_id())) {
-            userRepository.UserUpdate(user.getUser_id(),user.getUser_name());
-
-            UserImg userImg = imgSave(multipartFile, user);
-            userImgRepository.save(userImg);
+            userRepository.UserUpdate(user.getUser_id(),user.getUser_name(),user.getUser_info(),user.getUser_phoneNumber(),user.getUser_nickName());
             return true;
         } else {
             return false;
         }
 
 
+    }
+
+    @Override
+    public boolean imgUpdate(MultipartFile multipartFile, Long user_id, HttpServletRequest request) {
+
+        log.info("유저 이미지 업데이트 시작 : " + user_id);
+        User user = User.builder()
+                .user_id(user_id)
+                .build();
+
+        if (Self_identification(request, user.getUser_id())) {
+            UserImg userImg = imgSave(multipartFile, user);
+            userImgRepository.save(userImg);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -187,11 +229,15 @@ public class userServiceImpl implements userService {
             if (files != null) {
                 Path uploadPath = Path.of("src","main","resources","static","imgs", "user");
 
+
+
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);
                 }
 
-                String filename = user.getUser_name()+"_userImg";
+//                String fileExtension = files.getOriginalFilename().substring(files.getOriginalFilename().lastIndexOf("."));
+
+                String filename = user.getUser_name()+"_userImg"+".jpg";
                 log.info(filename);
 
                 Path filepath = uploadPath.resolve(filename);

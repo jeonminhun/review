@@ -23,8 +23,17 @@ public interface userRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE User u SET u.user_name = :user_name WHERE u.user_id = :user_id")
-    int UserUpdate(@Param("user_id") Long user_id,@Param("user_name")  String user_name);
+    @Query("UPDATE User u SET " +
+            "u.user_name = :user_name, " +
+            "u.user_info = :user_info, " +
+            "u.user_phoneNumber = :user_phoneNumber, " +
+            "u.user_nickName = :user_nickName " +
+            "WHERE u.user_id = :user_id")
+    int UserUpdate(@Param("user_id") Long user_id,
+                   @Param("user_name")  String user_name,
+                   @Param("user_info")  String user_info,
+                   @Param("user_phoneNumber")  String user_phoneNumber,
+                   @Param("user_nickName")  String user_nickName );
 
 
 }

@@ -32,6 +32,15 @@ public class User {
     @ColumnDefault("1")
     private int userRole;
 
+    @Column
+    private String user_info;
+
+    @Column(nullable = false, name = "user_phone number")
+    private String user_phoneNumber;
+
+    @Column(nullable = false, name = "user_nick name")
+    private String user_nickName;
+
     public String getRoleName() {
         log.info("엔티티 확인 : "+ this.userRole);
         return Role.getRoleByCode(this.userRole);
