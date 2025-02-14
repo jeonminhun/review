@@ -244,7 +244,7 @@
                     <form class="row" th:action="@{/Register}" method="post" th:object="${userCreateDto}">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="user_name">닉네임</label>
+                                <label for="user_name">이름</label>
                                 <input class="form-control" type="text" id="user_name" name="user_name" required>
                             </div>
                         </div>
@@ -270,6 +270,12 @@
                                 <label for="user_password_check">비밀번호 확인</label>
                                 <input class="form-control" type="password" id="user_password_check"
                                        name="user_password_check" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="user_phoneNumber">전화번호</label>
+                                <input class="form-control" type="tel" id="user_phoneNumber" name="user_phoneNumber" required>
                             </div>
                         </div>
                         <div class="button">
