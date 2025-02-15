@@ -92,7 +92,7 @@ public class userServiceImpl implements userService {
 
     // 유저 이미지 업데이트 하기 플러스 유저 업데이트
     @Override
-    public boolean userUpdate(UserUpdateDto userUpdateDto,HttpServletRequest request) {
+    public boolean userUpdate(UserUpdateDto userUpdateDto, HttpServletRequest request) {
         log.info("유저 업데이트 시작 : " + userUpdateDto.getUser_id());
         User user = User.builder()
                 .user_id(userUpdateDto.getUser_id())
@@ -103,7 +103,7 @@ public class userServiceImpl implements userService {
                 .build();
 
         if (Self_identification(request, user.getUser_id())) {
-            userRepository.UserUpdate(user.getUser_id(),user.getUser_name(),user.getUser_info(),user.getUser_phoneNumber(),user.getUser_nickName());
+            userRepository.UserUpdate(user.getUser_id(), user.getUser_name(), user.getUser_info(), user.getUser_phoneNumber(), user.getUser_nickName());
             return true;
         } else {
             return false;
@@ -115,14 +115,40 @@ public class userServiceImpl implements userService {
     @Override
     public boolean imgUpdate(MultipartFile multipartFile, Long user_id, HttpServletRequest request) {
 
+        User user = userRepository.findById(user_id).get();
+
         log.info("유저 이미지 업데이트 시작 : " + user_id);
-        User user = User.builder()
-                .user_id(user_id)
-                .build();
 
         if (Self_identification(request, user.getUser_id())) {
             UserImg userImg = imgSave(multipartFile, user);
-            userImgRepository.save(userImg);
+            try {
+                UserImg userImg_check = userImgRepository.findByUser_id(user_id);
+                userImg = UserImg
+                        .builder()
+                        .user_img_id(userImg_check.getUser_img_id())
+                        .user(userImg.getUser())
+                        .user_img_name(userImg.getUser_img_name())
+                        .build();
+            } catch (NullPointerException e) {
+            }finally {
+                userImgRepository.save(userImg);
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean imgDelete(Long user_id, HttpServletRequest request) {
+
+        log.info("유저 이미지 삭제 시작 : " + user_id);
+
+        if (Self_identification(request, user_id)) {
+            UserImg userImg = userImgRepository.findByUser_id(user_id);
+            imgDelete(userImg);
+            userImgRepository.delete(userImg);
+            log.info("유저 이미지 삭제 성공");
             return true;
         } else {
             return false;
@@ -133,7 +159,7 @@ public class userServiceImpl implements userService {
     @Transactional
     public TokenDto login(HttpServletRequest request, MemberRequestDto memberRequestDto) {
         log.info("로그인 시작");
-        memberRequestDto.setUser_password(memberRequestDto.getUser_email()+memberRequestDto.getUser_password());
+        memberRequestDto.setUser_password(memberRequestDto.getUser_email() + memberRequestDto.getUser_password());
 //        memberRequestDto.setPassword(memberRequestDto.getPassword());
         log.info("로그인 setPassword 성공");
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
@@ -213,10 +239,10 @@ public class userServiceImpl implements userService {
         }
     }
 
-    private void imgDelete(ReviewImgDto reviewImgDto) {
+    private void imgDelete(UserImg userImg) {
         try {
-            Path uploadPath = Path.of("src","main","resources","static","imgs", "user");
-            Path filepath = uploadPath.resolve(reviewImgDto.getReview_img_name());
+            Path uploadPath = Path.of("src", "main", "resources", "static", "imgs", "user");
+            Path filepath = uploadPath.resolve(userImg.getUser_img_name());
             Files.delete(filepath);
         } catch (Exception e) {
             log.info("이미지 삭제 오류");
@@ -227,8 +253,7 @@ public class userServiceImpl implements userService {
     private UserImg imgSave(MultipartFile files, User user) {
         try {
             if (files != null) {
-                Path uploadPath = Path.of("src","main","resources","static","imgs", "user");
-
+                Path uploadPath = Path.of("src", "main", "resources", "static", "imgs", "user");
 
 
                 if (!Files.exists(uploadPath)) {
@@ -237,8 +262,8 @@ public class userServiceImpl implements userService {
 
 //                String fileExtension = files.getOriginalFilename().substring(files.getOriginalFilename().lastIndexOf("."));
 
-                String filename = user.getUser_name()+"_userImg"+".jpg";
-                log.info(filename);
+                String filename = user.getUser_name() + "_userImg" + ".jpg";
+                log.info("유저 이미지 파일 네임 메소드 : " + filename);
 
                 Path filepath = uploadPath.resolve(filename);
                 Files.copy(files.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING /*같은 파일이름 있으면 덮어쓰기*/);

@@ -100,12 +100,26 @@ public class userController {
         log.info("유저 이미지 업데이트 로그");
 
         if (userService.imgUpdate(multipartFile, user_id, request)) {
-            return "redirect:/";
+            return "redirect:/myData/"+user_id;
         } else {
             return "redirect:/";
         }
+    }
 
+    @ResponseBody
+    @DeleteMapping("/user/{user_id}")
+    public ResponseEntity<String> user_Delete(
+            @PathVariable("user_id") Long user_id,
+            HttpServletRequest request) {
 
+        log.info("유저 이미지 업데이트 로그");
+
+        if (userService.imgDelete(user_id, request)) {
+            return ResponseEntity.ok("이미지 삭제 성공");
+        } else {
+            log.error("유저 이미지 삭제 실패, userId: {}", user_id);
+            return ResponseEntity.internalServerError().body("이미지 삭제 실패");
+        }
     }
 
     public void reissue(TokenRequestDto tokenRequestDto, HttpServletRequest request, HttpServletResponse response) {

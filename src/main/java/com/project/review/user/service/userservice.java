@@ -21,6 +21,8 @@ public interface userService {
 
     boolean imgUpdate(MultipartFile multipartFile, Long user_id, HttpServletRequest request);
 
+    boolean imgDelete(Long user_id, HttpServletRequest request);
+
     TokenDto login(HttpServletRequest request, MemberRequestDto memberRequestDto);
 
     TokenDto reissue(TokenRequestDto tokenRequestDto, HttpServletRequest request);
