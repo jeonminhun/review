@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @RequiredArgsConstructor
@@ -20,5 +21,12 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new jwtInterceptor(userController))
                 .addPathPatterns("/**") // 모든 요청에 대해 인터셉터를 적용
                 .excludePathPatterns("/login", "/Register"); // 예외 적용
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/imgs/user/**")
+                .addResourceLocations("file:///F:/project/review/src/main/resources/static/imgs/user/") // 실제 경로
+                .setCachePeriod(0); // 캐시 무효화
     }
 }
