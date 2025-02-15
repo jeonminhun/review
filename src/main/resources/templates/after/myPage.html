@@ -482,10 +482,13 @@
                                     </h3>
                                 </div>
                                 <div class="p-7">
-                                    <form action="#">
+                                    <form th:action="@{/imgSet/{user_id}(user_id=${user.user_id})}" method="post"
+                                          enctype="multipart/form-data">
                                         <div class="mb-4 flex items-center gap-3">
                                             <div class="h-14 w-14 rounded-full">
-                                                <img th:src="'imgs/user/'+ ${user.user_nickName}+'_userImg.jpg'"
+                                                <img id="profile"
+                                                     th:src="'imgs/user/'+ ${user.user_name}+'_userImg.jpg'"
+                                                     class="h-14 w-14 rounded-full"
                                                      alt="User"/>
                                             </div>
                                             <div>
@@ -493,11 +496,9 @@
                                                     프로필 사진 수정
                                                 </span>
                                                 <span class="flex gap-2.5">
-                                                    <button class="text-sm font-medium hover:text-primary">
+                                                    <button type="button" id="deleteBtn"
+                                                            class="text-sm font-medium hover:text-primary">
                                                         삭제
-                                                    </button>
-                                                    <button class="text-sm font-medium hover:text-primary">
-                                                        수정
                                                     </button>
                                                 </span>
                                             </div>
@@ -506,12 +507,14 @@
                                              class="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray px-4 py-4 dark:bg-meta-4 sm:py-7.5">
                                             <input
                                                     type="file"
+                                                    name="file"
+                                                    id="fileInput"
                                                     accept="image/*"
                                                     class="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
                                             />
                                             <div class="flex flex-col items-center justify-center space-y-3">
-                                                <span
-                                                        class="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark"
+                                                <span id="uploadIcon"
+                                                      class="flex h-10 w-10 items-center justify-center rounded-full border border-stroke bg-white dark:border-strokedark dark:bg-boxdark"
                                                 ><svg
                                                         width="16"
                                                         height="16"
@@ -539,6 +542,11 @@
                                                     />
                                                 </svg>
                                                 </span>
+
+                                                <!-- 이미지 미리보기 -->
+                                                <img id="previewImg" src="/imgs/default.jpg" alt="미리보기"
+                                                     class="h-14 w-14 rounded-full object-cover hidden"/>
+
                                                 <p class="text-sm font-medium">
                                                     <span class="text-primary">클릭해서 업로드</span>
                                                     혹은 드래그 앤 드랍
@@ -702,6 +710,45 @@
 <script src="assets/js/tiny-slider.js"></script>
 <script src="assets/js/glightbox.min.js"></script>
 <script src="assets/js/main.js"></script>
+<!-- JavaScript 코드 -->
+<script>
+    document.getElementById("fileInput").addEventListener("change", function(event) {
+        let file = event.target.files[0]; // 선택한 파일 가져오기
+        if (file) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("previewImg").src = e.target.result; // 이미지 미리보기 업데이트
+                document.getElementById("uploadIcon").classList.add("hidden"); // 아이콘 숨기기
+                document.getElementById("previewImg").classList.remove("hidden"); // 이미지 보이기
+
+            };
+            reader.readAsDataURL(file); // 파일을 Data URL로 변환
+        }
+    });
+</script>
+<script>
+    document.getElementById("deleteBtn").addEventListener("click", function () {
+        const userId = [[${user.user_id}]];
+
+        if (confirm("정말 삭제하시겠습니까?")) {
+            fetch(`/user/${userId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("이미지가 삭제되었습니다.");
+                    document.getElementById("profile").src = "/imgs/default.jpg"; // 기본 이미지로 변경 - 그냥 없는 이미지로 일단 둠
+                } else {
+                    alert("삭제 실패!");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    });
+</script>
 </body>
 
 </html>
