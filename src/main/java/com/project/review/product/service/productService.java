@@ -2,7 +2,6 @@ package com.project.review.product.service;
 
 import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
-import com.project.review.product.dto.ReviewRatingCountDto;
 import com.project.review.product.dto.reviewTotalDto;
 import com.project.review.product.entity.Product;
 import com.project.review.product.entity.ProductImg;
