@@ -25,8 +25,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/imgs/user/**")
-                .addResourceLocations("file:///F:/project/review/src/main/resources/static/imgs/user/") // 실제 경로
+        registry.addResourceHandler("/imgs/**")
+                .addResourceLocations("file:///F:/project/review/src/main/resources/static/imgs/") // 실제 경로
                 .setCachePeriod(0); // 캐시 무효화
     }
 }
