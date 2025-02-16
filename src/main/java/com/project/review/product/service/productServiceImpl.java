@@ -86,13 +86,16 @@ public class productServiceImpl implements productService {
 
     @Override
     public boolean reviewCreate(ReviewCreateDto reviewCreateDto, MultipartFile[] files, HttpServletRequest request) {
-        log.info("리뷰 생성 서비스 시작, 제품 id : " + reviewCreateDto.getProduct().getProduct_id() + " 유저 id : " + reviewCreateDto.getUser().getUser_id());
+        log.info("리뷰 생성 서비스 시작, 제품 id : " + reviewCreateDto.getProduct_id() + " 유저 id : " + reviewCreateDto.getUser_id());
         try {
             int total = getTotal(reviewCreateDto);
 
+            User user = userRepository.findById(reviewCreateDto.getUser_id()).get();
+            Product product = productRepository.findById(reviewCreateDto.getProduct_id()).get();
+
             Review review = Review.builder()
-                    .user(reviewCreateDto.getUser())
-                    .product(reviewCreateDto.getProduct())
+                    .user(user)
+                    .product(product)
                     .coef_rating(reviewCreateDto.getCoef_rating())
                     .durability_rating(reviewCreateDto.getDurability_rating())
                     .quality_rating(reviewCreateDto.getQuality_rating())
@@ -103,7 +106,7 @@ public class productServiceImpl implements productService {
 
             review = productReviewRepository.save(review);
 
-            productRatingUpdate(reviewCreateDto.getProduct().getProduct_id());
+            productRatingUpdate(reviewCreateDto.getProduct_id());
 
             if (files != null) {
                 for (MultipartFile file : files) {
@@ -115,7 +118,7 @@ public class productServiceImpl implements productService {
 
             return true;
         } catch (Exception e) {
-            log.info("리뷰 생성 실패, 제품 id : " + reviewCreateDto.getProduct().getProduct_id() + " 유저 id : " + reviewCreateDto.getUser().getUser_id());
+            log.info("리뷰 생성 실패, 제품 id : " + reviewCreateDto.getProduct_id() + " 유저 id : " + reviewCreateDto.getUser_id());
             e.printStackTrace();
             return false;
         }
@@ -125,14 +128,18 @@ public class productServiceImpl implements productService {
     public boolean reviewUpdate(reviewTotalDto reviewTotalDto, MultipartFile[] files, HttpServletRequest request) {
         ReviewCreateDto reviewCreateDto = reviewTotalDto.getReviewCreateDto();
         ReviewImgDto[] deleteImgDto = reviewTotalDto.getDeleteImgDto();
+
+        User user = userRepository.findById(reviewCreateDto.getUser_id()).get();
+        Product product = productRepository.findById(reviewCreateDto.getProduct_id()).get();
+
         log.info("리뷰 수정 서비스 : " + reviewCreateDto.getReview_id());
         try {
             if (Self_identification(request, reviewCreateDto)) {
                 int total = getTotal(reviewCreateDto);
                 Review review = Review.builder()
                         .review_id(reviewCreateDto.getReview_id())
-                        .user(reviewCreateDto.getUser())
-                        .product(reviewCreateDto.getProduct())
+                        .user(user)
+                        .product(product)
                         .coef_rating(reviewCreateDto.getCoef_rating())
                         .durability_rating(reviewCreateDto.getDurability_rating())
                         .quality_rating(reviewCreateDto.getQuality_rating())
@@ -231,7 +238,7 @@ public class productServiceImpl implements productService {
     }
 
     private boolean Self_identification(HttpServletRequest request, ReviewCreateDto reviewCreateDto) {
-        User user = userRepository.findById(reviewCreateDto.getUser().getUser_id()).get();
+        User user = userRepository.findById(reviewCreateDto.getUser_id()).get();
         // 권한 체크 해서 관리자 일경우 그냥 허용하기
 
         if (tokenProvider.AuthenticationCheck(request)) {
