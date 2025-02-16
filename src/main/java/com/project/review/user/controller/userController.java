@@ -75,14 +75,14 @@ public class userController {
     // 프로필 사진 기능 업데이트 : 프로필삭제, 프로필 수정, 프로필 추가()
     @PostMapping("/userSet")
     public String user_update(
-            @RequestBody UserUpdateDto userUpdateDto,
+            @ModelAttribute UserUpdateDto userUpdateDto,
             HttpServletRequest request,
             Model model) {
 
         log.info("유저 업데이트 전 로그" + userUpdateDto.getUser_name());
 
         if (userService.userUpdate(userUpdateDto, request)) {
-            return "redirect:/";
+            return "redirect:/myData/"+userUpdateDto.getUser_id();
         } else {
             return "redirect:/";
         }
