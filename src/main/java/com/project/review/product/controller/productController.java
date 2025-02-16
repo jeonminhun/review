@@ -8,6 +8,8 @@ import com.project.review.product.entity.ProductImg;
 import com.project.review.product.entity.Review;
 import com.project.review.product.entity.ReviewImg;
 import com.project.review.product.service.productService;
+import com.project.review.user.entity.User;
+import com.project.review.user.service.userService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -28,6 +30,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class productController {
     private final productService productService;
+    private final userService userService;
 
     @GetMapping("/product/{product_id}")
     public String productPage(
@@ -54,6 +57,10 @@ public class productController {
 
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         if (authCookie != null) {
+
+            Long user_id = userService.getUserId(request);
+            model.addAttribute("user_id", user_id);
+
             long endTime = System.currentTimeMillis();
             log.info("productPage 실행 시간: {} ms", (endTime - startTime));
             return "after/product-details";
@@ -65,7 +72,7 @@ public class productController {
 
     @PostMapping("/review")
     public String reviewCreate(
-            @RequestPart("reviewCreateDto") ReviewCreateDto reviewCreateDto,
+            @ModelAttribute ReviewCreateDto reviewCreateDto,
             @RequestPart("files") MultipartFile[] files,
             HttpServletRequest request)
     {
