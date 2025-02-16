@@ -2,6 +2,7 @@
 <html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <base href="/">
     <meta charset="utf-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>Single Product - ShopGrids Bootstrap 5 eCommerce HTML Template.</title>
@@ -239,6 +240,27 @@
 </div>
 <!-- End Breadcrumbs -->
 
+<!-- Start Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">제품 페이지</h1>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-nav">
+                    <li><a href="index.html"><i class="lni lni-home"></i> 홈</a></li>
+                    <li><a href="index.html">샵</a></li>
+                    <li>제품 페이지</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+
 <!-- Start Item Details -->
 <section class="item-details section">
     <div class="container">
@@ -248,10 +270,10 @@
                     <div class="product-images">
                         <main id="gallery">
                             <div class="main-img">
-                                <img src="assets/images/product-details/01.jpg" id="current" alt="#">
+                                <img th:src="'imgs/product/'+ ${productImg.product_img_name}"  id="current" alt="#">
                             </div>
                             <div class="images">
-                                <img src="assets/images/product-details/01.jpg" class="img" alt="#">
+                                <img th:src="'imgs/product/'+ ${productImg.product_img_name}" class="img" alt="#">
                                 <img src="assets/images/product-details/02.jpg" class="img" alt="#">
                                 <img src="assets/images/product-details/03.jpg" class="img" alt="#">
                                 <img src="assets/images/product-details/04.jpg" class="img" alt="#">
@@ -262,70 +284,88 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-info">
-                        <h2 class="title">리뷰 할 제품 이름</h2>
+                        <h2 class="title" th:text="${product.product_name}"> 리뷰 할 제품 이름</h2>
                         <p class="category"><i class="lni lni-tag"></i> 카테고리:<a href="javascript:void(0)">Action
                             cameras</a></p>
                         <div class="single-block give-review">
                             <ul class="stars">
+
                                 <li>
                                     <h4>
                                         <span>총 별점 : </span>
                                     </h4>
-                                    <h3>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star"></i>
-                                    </h3>
+
+                                    <!-- 채워진 별점 -->
+                                    <span class="starss"
+                                          th:each="i : ${#numbers.sequence(1, product.product_total_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss"
+                                                     th:each="i : ${#numbers.sequence(1, 5 - product.product_total_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
+
                                 </li>
 
                                 <li>
                                     <h5>
                                         <span>가성비 별점 : </span>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
                                     </h5>
+
+                                    <!-- 채워진 별점 -->
+                                    <span class="starss"
+                                          th:each="i : ${#numbers.sequence(1, product.product_coef_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss"
+                                                     th:each="i : ${#numbers.sequence(1, 5 - product.product_coef_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
+
                                 </li>
 
                                 <li>
                                     <h5>
                                         <span>내구성 별점 : </span>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
                                     </h5>
+                                    <span class="starss"
+                                          th:each="i : ${#numbers.sequence(1, product.product_durability_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss"
+                                                     th:each="i : ${#numbers.sequence(1, 5 - product.product_durability_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
+
                                 </li>
 
                                 <li>
                                     <h5>
                                         <span>품질 별점 : </span>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
                                     </h5>
+                                    <span class="starss"
+                                          th:each="i : ${#numbers.sequence(1, product.product_quality_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss"
+                                                     th:each="i : ${#numbers.sequence(1, 5 - product.product_quality_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
+
                                 </li>
 
                                 <li>
                                     <h5>
                                         <span>디자인 별점 : </span>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
-                                        <i class="lni lni-star-filled"></i>
+                                    </h5>
+                                    <span class="starss"
+                                          th:each="i : ${#numbers.sequence(1, product.product_design_rating)}">
+                                            <i class="lni lni-star-filled"></i>
+                                        </span><span class="starss"
+                                                     th:each="i : ${#numbers.sequence(1, 5 - product.product_design_rating)}"><!-- 비어있는 별점 -->
+                                            <i class="lni lni-star"></i>
+                                        </span>
                                     </h5>
                                 </li>
                             </ul>
                         </div>
-                        <p class="info-text">제품 정보 설명 하는 구간.</p>
+                        <p class="info-text" th:text="${product.product_manu}">제품 정보 설명 하는 구간.</p>
                         <div class="bottom-content">
                             <div class="row align-items-end">
                                 <div class="col-lg-4 col-md-4 col-12">
@@ -355,14 +395,6 @@
                                 </div>
                                 <div>
                                     <div class="relative z-20 inline-block">
-                                        <select
-                                                name=""
-                                                id=""
-                                                class="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
-                                        >
-                                            <option value="">Monthly</option>
-                                            <option value="">Yearly</option>
-                                        </select>
                                         <span class="absolute right-3 top-1/2 z-10 -translate-y-1/2">
                                                   <svg
                                                           width="10"
@@ -455,19 +487,6 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="w-full px-8 sm:w-1/2">
-                                    <div class="flex w-full items-center">
-                                            <span
-                                                    class="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#FFB400]"
-                                            ></span>
-                                        <p
-                                                class="flex w-full justify-between text-sm font-medium text-black dark:text-white"
-                                        >
-                                            <span> 0점 </span>
-                                            <span> 12% </span>
-                                        </p>
-                                    </div>
-                                </div>
                             </div>
                             <!-- ====== Chart Three End -->
                             <!-- 끝 -->
@@ -485,14 +504,6 @@
                                 </div>
                                 <div>
                                     <div class="relative z-20 inline-block">
-                                        <select
-                                                name="#"
-                                                id="#"
-                                                class="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
-                                        >
-                                            <option value="">This Week</option>
-                                            <option value="">Last Week</option>
-                                        </select>
                                         <span class="absolute right-3 top-1/2 z-10 -translate-y-1/2">
                                                 <svg
                                                         width="10"
@@ -531,10 +542,10 @@
             <div class="row">
                 <div class="col-lg-4 col-12">
                     <div class="single-block give-review">
-                        <h4>4.5 (Overall)</h4>
+                        <h4 th:text="${product.product_total_rating}+' (총 별점)'" >4.5 (총 별점)</h4>
                         <ul>
                             <li>
-                                <span>5 stars - 38</span>
+                                <span th:text="'5 stars - ' +${ratingCount[5]}" >5 stars - 38</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
@@ -542,7 +553,7 @@
                                 <i class="lni lni-star-filled"></i>
                             </li>
                             <li>
-                                <span>4 stars - 10</span>
+                                <span th:text="'4 stars - ' +${ratingCount[4]}" >4 stars - 10</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
@@ -550,7 +561,7 @@
                                 <i class="lni lni-star"></i>
                             </li>
                             <li>
-                                <span>3 stars - 3</span>
+                                <span th:text="'3 stars - ' +${ratingCount[3]}" >3 stars - 3</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
@@ -558,7 +569,7 @@
                                 <i class="lni lni-star"></i>
                             </li>
                             <li>
-                                <span>2 stars - 1</span>
+                                <span th:text="'2 stars - ' +${ratingCount[2]}" >2 stars - 1</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star"></i>
@@ -566,7 +577,7 @@
                                 <i class="lni lni-star"></i>
                             </li>
                             <li>
-                                <span>1 star - 0</span>
+                                <span th:text="'1 stars - ' +${ratingCount[1]}" >1 star - 0</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star"></i>
                                 <i class="lni lni-star"></i>
@@ -586,109 +597,77 @@
                         <div class="reviews">
                             <h4 class="title">리뷰 리스트</h4>
                             <!-- Start Single Review -->
-                            <div class="single-review">
-                                <img src="assets/images/blog/comment1.jpg" alt="#">
-                                <div class="review-info">
-                                    <h4>Awesome quality for the price
-                                        <span>Jacob Hammond
-                                            </span>
-                                    </h4>
-                                    <ul class="stars2">
-                                        <li>
-                                            <span>총 별점 : </span>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                        </li>
+                            <div th:each="review:${reviews}">
+                                <div class="single-review">
+                                    <img th:src="'imgs/user/'+ ${review.user.user_name}+'_userImg.jpg'" alt="#">
+                                    <div class="review-info">
+                                        <h4 th:text="${review.content}">Awesome quality for the price
+                                        </h4>
+                                        <h4>
+                                            <span th:text="${review.user.user_name}">Jacob Hammond</span>
+                                        </h4>
+                                        <ul class="stars2">
+                                            <li> <!--class="starss"-->
+                                                <span>총 별점 : </span>
+                                                <span class="starss"
+                                                      th:each="i : ${#numbers.sequence(1, review.total_rating)}">
+                                                    <i class="lni lni-star-filled"></i>
+                                                </span><span class="starss" th:if="${review.total_rating} != 5"
+                                                             th:each="i : ${#numbers.sequence(1, 5 - review.total_rating)}"><!-- 비어있는 별점 -->
+                                                    <i class="lni lni-star"></i>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>가성비 별점 : </span>
+                                                <span class="starss"
+                                                      th:each="i : ${#numbers.sequence(1, review.coef_rating)}">
+                                                    <i class="lni lni-star-filled"></i>
+                                                </span><span class="starss" th:if="${review.coef_rating} != 5"
+                                                             th:each="i : ${#numbers.sequence(1, 5 - review.coef_rating)}"><!-- 비어있는 별점 -->
+                                                    <i class="lni lni-star"></i>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>내구성 별점 : </span>
+                                                <span class="starss"
+                                                      th:each="i : ${#numbers.sequence(1, review.durability_rating)}">
+                                                    <i class="lni lni-star-filled"></i>
+                                                </span><span class="starss" th:if="${review.durability_rating} != 5"
+                                                             th:each="i : ${#numbers.sequence(1, 5 - review.durability_rating)}"><!-- 비어있는 별점 -->
+                                                    <i class="lni lni-star"></i>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>품질 별점 : </span>
+                                                <span class="starss"
+                                                      th:each="i : ${#numbers.sequence(1, review.quality_rating)}">
+                                                    <i class="lni lni-star-filled"></i>
+                                                </span><span class="starss" th:if="${review.quality_rating} != 5"
+                                                             th:each="i : ${#numbers.sequence(1, 5 - review.quality_rating)}"><!-- 비어있는 별점 -->
+                                                    <i class="lni lni-star"></i>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span>디자인 별점 : </span>
+                                                <span class="starss"
+                                                      th:each="i : ${#numbers.sequence(1, review.design_rating)}">
+                                                    <i class="lni lni-star-filled"></i>
+                                                </span><span class="starss" th:if="${review.design_rating} != 5"
+                                                             th:each="i : ${#numbers.sequence(1, 5 - review.design_rating)}"><!-- 비어있는 별점 -->
+                                                    <i class="lni lni-star"></i>
+                                                </span>
+                                            </li>
+                                        </ul>
 
-                                        <br>
+                                        <div th:if="${review.review_id} == ${reviewImg.review.review_id}"
+                                             th:each="reviewImg:${reviewImgs}">
+                                            <img class="h-50 w-50 review_img" th:src="'imgs/review/'+ ${reviewImg.review_img_name}">
+                                        </div>
 
-                                        <li>
-                                            <span>가성비 별점 : </span>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                        </li>
-
-                                        <br>
-
-                                        <li>
-                                            <span>내구성 별점 : </span>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                        </li>
-
-                                        <br>
-
-                                        <li>
-                                            <span>품질 별점 : </span>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                        </li>
-
-                                        <br>
-
-                                        <li>
-                                            <span>디자인 별점 : </span>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                            <i class="lni lni-star-filled"></i>
-                                        </li>
-                                    </ul>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                        tempor...</p>
-                                </div>
-                            </div>
-                            <!-- End Single Review -->
-                            <!-- Start Single Review -->
-                            <div class="single-review">
-                                <img src="assets/images/blog/comment2.jpg" alt="#">
-                                <div class="review-info">
-                                    <h4>My husband love his new...
-                                        <span>Alex Jaza
-                                            </span>
-                                    </h4>
-                                    <ul class="stars">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star"></i></li>
-                                    </ul>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                        tempor...</p>
-                                </div>
-                            </div>
-                            <!-- End Single Review -->
-                            <!-- Start Single Review -->
-                            <div class="single-review">
-                                <img src="assets/images/blog/comment3.jpg" alt="#">
-                                <div class="review-info">
-                                    <h4>I love the built quality...
-                                        <span>Jacob Hammond
-                                            </span>
-                                    </h4>
-                                    <ul class="stars">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                    </ul>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                        tempor...</p>
+                                        <p th:text="${product.product_name}">Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit, sed do eiusmod
+                                            tempor...</p>
+                                    </div>
                                 </div>
                             </div>
                             <!-- End Single Review -->
@@ -706,53 +685,67 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="review-name">Your Name</label>
-                            <input class="form-control" type="text" id="review-name" required>
+            <form th:action="@{/review}" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- 사용자 ID와 제품 ID를 숨은 필드로 전송 -->
+                    <input type="hidden" id="user_id" name="user_id" th:value="${user_id}"/>
+                    <input type="hidden" id="product_id" name="product_id" th:value="${product.product_id}"/>
+
+                    <div class="row">
+                        <!-- 개별 평점 입력 -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="coef-rating">Coefficient Rating</label>
+                                <input class="form-control" type="number" id="coef-rating" name="coef_rating" min="1" max="5" required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="durability-rating">Durability Rating</label>
+                                <input class="form-control" type="number" id="durability-rating" name="durability_rating" min="1" max="5" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="review-email">Your Email</label>
-                            <input class="form-control" type="email" id="review-email" required>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="quality-rating">Quality Rating</label>
+                                <input class="form-control" type="number" id="quality-rating" name="quality_rating" min="1" max="5" required>
+                            </div>
                         </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="design-rating">Design Rating</label>
+                                <input class="form-control" type="number" id="design-rating" name="design_rating" min="1" max="5" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 리뷰 내용 -->
+                    <div class="form-group">
+                        <label for="review-message">Review</label>
+                        <textarea class="form-control" id="content" name="content" rows="8" required></textarea>
+                    </div>
+
+                    <!-- 파일 업로드 -->
+                    <div class="form-group">
+                        <label for="files">Upload Images</label>
+                        <input class="form-control" type="file" name="files" id="files" accept="image/*" multiple>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="review-subject">Subject</label>
-                            <input class="form-control" type="text" id="review-subject" required>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="review-rating">Rating</label>
-                            <select class="form-control" id="review-rating">
-                                <option>5 Stars</option>
-                                <option>4 Stars</option>
-                                <option>3 Stars</option>
-                                <option>2 Stars</option>
-                                <option>1 Star</option>
-                            </select>
-                        </div>
-                    </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
                 </div>
-                <div class="form-group">
-                    <label for="review-message">Review</label>
-                    <textarea class="form-control" id="review-message" rows="8" required></textarea>
-                </div>
-            </div>
-            <div class="modal-footer button">
-                <button type="button" class="btn">Submit Review</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -908,6 +901,9 @@
 
 </script>
 
+<script>
+    const product_id = [[${product_id}]];
+</script>
 <!-- JavaScript 코드 -->
 <script src="assets/js/dataChart.js"></script>
 
