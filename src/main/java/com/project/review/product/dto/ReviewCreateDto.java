@@ -16,8 +16,8 @@ import org.hibernate.annotations.ColumnDefault;
 @Setter
 public class ReviewCreateDto {
     private Long review_id;
-    private User user;
-    private Product product;
+    private Long user_id;
+    private Long product_id;
     private int coef_rating;
     private int durability_rating;
     private int quality_rating;
