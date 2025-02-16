@@ -1,9 +1,5 @@
 package com.project.review.user.service;
 
-import com.project.review.product.dto.ReviewCreateDto;
-import com.project.review.product.dto.ReviewImgDto;
-import com.project.review.product.entity.Review;
-import com.project.review.product.entity.ReviewImg;
 import com.project.review.user.dto.*;
 import com.project.review.user.entity.UserImg;
 import com.project.review.user.jwt.TokenProvider;
@@ -22,9 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
