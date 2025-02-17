@@ -240,27 +240,6 @@
 </div>
 <!-- End Breadcrumbs -->
 
-<!-- Start Breadcrumbs -->
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 col-md-6 col-12">
-                <div class="breadcrumbs-content">
-                    <h1 class="page-title">제품 페이지</h1>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12">
-                <ul class="breadcrumb-nav">
-                    <li><a href="index.html"><i class="lni lni-home"></i> 홈</a></li>
-                    <li><a href="index.html">샵</a></li>
-                    <li>제품 페이지</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Breadcrumbs -->
-
 <!-- Start Item Details -->
 <section class="item-details section">
     <div class="container">
@@ -603,6 +582,11 @@
                                     <div class="review-info">
                                         <h4 th:text="${review.content}">Awesome quality for the price
                                         </h4>
+                                        <!--히든 버튼 th:if추가 조건 만족시 해제하게-->
+                                        <form th:action="@{/reviewDelete/{review_id}(review_id=${review.review_id})}" method="Post">
+                                            <button th:if="${review.user.user_id == user_id}" type="submit" >삭제버튼</button>
+                                        </form>
+
                                         <h4>
                                             <span th:text="${review.user.user_name}">Jacob Hammond</span>
                                         </h4>
