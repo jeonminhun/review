@@ -134,7 +134,7 @@ public class productServiceImpl implements productService {
 
         log.info("리뷰 수정 서비스 : " + reviewCreateDto.getReview_id());
         try {
-            if (Self_identification(request, reviewCreateDto)) {
+            if (Self_identification(request, reviewCreateDto.getUser_id())) {
                 int total = getTotal(reviewCreateDto);
                 Review review = Review.builder()
                         .review_id(reviewCreateDto.getReview_id())
@@ -152,10 +152,12 @@ public class productServiceImpl implements productService {
 
                 if (deleteImgDto != null) {
                     for (ReviewImgDto reviewImgDto : deleteImgDto) {
-                        imgDelete(reviewImgDto);
                         ReviewImg reviewImg = ReviewImg.builder()
                                 .review_img_id(reviewImgDto.getReview_img_id())
+                                .review(review)
+                                .review_img_name(reviewImgDto.getReview_img_name())
                                 .build();
+                        imgDelete(reviewImg);
                         productReviewImgRepository.delete(reviewImg);
                     }
                 }
@@ -180,37 +182,30 @@ public class productServiceImpl implements productService {
     }
 
     @Override
-    public boolean reviewDelete(reviewTotalDto reviewTotalDto, HttpServletRequest request) {
-        ReviewCreateDto reviewCreateDto = reviewTotalDto.getReviewCreateDto();
-        ReviewImgDto[] deleteImgDto = reviewTotalDto.getDeleteImgDto();
-        log.info("리뷰 삭제 서비스 : " + reviewCreateDto.getReview_id());
+    public Long reviewDelete(Long review_id, HttpServletRequest request) {
+        Review review = productReviewRepository.findById(review_id).get();
         try {
-            if (Self_identification(request, reviewCreateDto)) {
-                if (deleteImgDto != null) {
-                    for (ReviewImgDto reviewImgDto : deleteImgDto) {
-                        imgDelete(reviewImgDto);
-                        ReviewImg reviewImg = ReviewImg.builder()
-                                .review_img_id(reviewImgDto.getReview_img_id())
-                                .build();
+            List<ReviewImg> reviewImgs = productReviewImgRepository.findByReview_id(review_id);
+            log.info("리뷰 삭제 서비스 : " + review.getReview_id());
+
+            if (Self_identification(request, review.getUser().getUser_id())) {
+                if (reviewImgs != null) {
+                    for (ReviewImg reviewImg : reviewImgs) {
+                        imgDelete(reviewImg);
                         productReviewImgRepository.delete(reviewImg);
                     }
                 }
-
-                Review review = Review.builder()
-                        .review_id(reviewCreateDto.getReview_id())
-                        .build();
-
                 productReviewRepository.delete(review);
-                return true;
+                return review.getProduct().getProduct_id();
             } else {
                 log.info("본인 인증 실패");
-                return false;
+                return null;
             }
 
         } catch (Exception e) {
-            log.info("리뷰 삭제 실패 : " + reviewCreateDto.getReview_id());
+            log.info("리뷰 삭제 실패 : " + review.getReview_id());
             e.printStackTrace();
-            return false;
+            return null;
         }
 
     }
@@ -237,8 +232,8 @@ public class productServiceImpl implements productService {
         productRepository.productRatingUpdate(product_id);
     }
 
-    private boolean Self_identification(HttpServletRequest request, ReviewCreateDto reviewCreateDto) {
-        User user = userRepository.findById(reviewCreateDto.getUser_id()).get();
+    private boolean Self_identification(HttpServletRequest request, Long user_id) {
+        User user = userRepository.findById(user_id).get();
         // 권한 체크 해서 관리자 일경우 그냥 허용하기
 
         if (tokenProvider.AuthenticationCheck(request)) {
@@ -257,10 +252,10 @@ public class productServiceImpl implements productService {
         return total;
     }
 
-    private void imgDelete(ReviewImgDto reviewImgDto) {
+    private void imgDelete(ReviewImg reviewImg) {
         try {
             Path uploadPath = Path.of("src","main","resources","static","imgs", "review");
-            Path filepath = uploadPath.resolve(reviewImgDto.getReview_img_name());
+            Path filepath = uploadPath.resolve(reviewImg.getReview_img_name());
             Files.delete(filepath);
         } catch (Exception e) {
             log.info("이미지 삭제 오류");

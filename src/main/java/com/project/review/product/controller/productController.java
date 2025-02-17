@@ -77,7 +77,7 @@ public class productController {
             HttpServletRequest request)
     {
         if (productService.reviewCreate(reviewCreateDto, files, request)) {
-            return "redirect:/";
+            return "redirect:/product/"+reviewCreateDto.getProduct_id();
         } else {
             return "redirect:/";
         }
@@ -95,14 +95,18 @@ public class productController {
         }
     }
 
-    @PostMapping("/reviewDelete")
+    @PostMapping("/reviewDelete/{review_id}")
     public String reviewDelete(
-            @RequestBody reviewTotalDto reviewTotalDto,
+            @PathVariable("review_id") Long review_id,
             HttpServletRequest request)
     {
-        if (productService.reviewDelete(reviewTotalDto, request)) {
-            return "redirect:/";
+
+        Long product_id = productService.reviewDelete(review_id, request);
+        if (product_id != null) {
+            log.info("리뷰 삭제성공 : " + product_id);
+            return "redirect:/product/"+product_id;
         } else {
+            log.info("리뷰 삭제 실패");
             return "redirect:/";
         }
     }

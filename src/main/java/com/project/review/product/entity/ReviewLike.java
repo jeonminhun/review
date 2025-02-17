@@ -18,11 +18,11 @@ public class ReviewLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long review_like_id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "review_id")
     private Review review;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

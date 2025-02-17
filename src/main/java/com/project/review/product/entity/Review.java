@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "review")
 @Builder
@@ -48,6 +51,8 @@ public class Review {
     @Column(nullable = false)
     private String content;
 
-
+    // 🔥 ReviewLike 삭제 설정 추가
+    @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<ReviewLike> reviewLikes = new ArrayList<>();
 
 }

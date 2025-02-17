@@ -30,7 +30,7 @@ public interface productService {
 
     boolean reviewUpdate(reviewTotalDto reviewTotalDto, MultipartFile[] files, HttpServletRequest request);
 
-    boolean reviewDelete(reviewTotalDto reviewTotalDto, HttpServletRequest request);
+    Long reviewDelete(Long review_id, HttpServletRequest request);
 
     boolean reviewLike(ReviewLikeDto reviewLikeDto, HttpServletRequest request);
 

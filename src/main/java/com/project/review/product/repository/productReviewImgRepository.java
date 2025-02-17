@@ -13,7 +13,12 @@ import java.util.Optional;
 
 @Repository
 public interface productReviewImgRepository extends JpaRepository<ReviewImg, Long> {
+
     @Transactional
     @Query("SELECT u FROM ReviewImg u Left join review r ON u.review.review_id = r.review_id where r.product.product_id = :product_id")
     List<ReviewImg> findByProduct_id(@Param("product_id") Long product_id);
+
+    @Transactional
+    @Query("SELECT u FROM ReviewImg u where u.review.review_id = :review_id")
+    List<ReviewImg> findByReview_id(@Param("review_id") Long review_id);
 }
