@@ -59,7 +59,8 @@ public class productController {
         if (authCookie != null) {
 
             Long user_id = userService.getUserId(request);
-            model.addAttribute("user_id", user_id);
+            User user = userService.userInfo(user_id, request);
+            model.addAttribute("user", user);
 
             long endTime = System.currentTimeMillis();
             log.info("productPage 실행 시간: {} ms", (endTime - startTime));

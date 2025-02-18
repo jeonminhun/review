@@ -249,7 +249,7 @@
                     <div class="product-images">
                         <main id="gallery">
                             <div class="main-img">
-                                <img th:src="'imgs/product/'+ ${productImg.product_img_name}"  id="current" alt="#">
+                                <img th:src="'imgs/product/'+ ${productImg.product_img_name}" id="current" alt="#">
                             </div>
                             <div class="images">
                                 <img th:src="'imgs/product/'+ ${productImg.product_img_name}" class="img" alt="#">
@@ -521,10 +521,10 @@
             <div class="row">
                 <div class="col-lg-4 col-12">
                     <div class="single-block give-review">
-                        <h4 th:text="${product.product_total_rating}+' (총 별점)'" >4.5 (총 별점)</h4>
+                        <h4 th:text="${product.product_total_rating}+' (총 별점)'">4.5 (총 별점)</h4>
                         <ul>
                             <li>
-                                <span th:text="'5 stars - ' +${ratingCount[5]}" >5 stars - 38</span>
+                                <span th:text="'5 stars - ' +${ratingCount[5]}">5 stars - 38</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
@@ -532,7 +532,7 @@
                                 <i class="lni lni-star-filled"></i>
                             </li>
                             <li>
-                                <span th:text="'4 stars - ' +${ratingCount[4]}" >4 stars - 10</span>
+                                <span th:text="'4 stars - ' +${ratingCount[4]}">4 stars - 10</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
@@ -540,7 +540,7 @@
                                 <i class="lni lni-star"></i>
                             </li>
                             <li>
-                                <span th:text="'3 stars - ' +${ratingCount[3]}" >3 stars - 3</span>
+                                <span th:text="'3 stars - ' +${ratingCount[3]}">3 stars - 3</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
@@ -548,7 +548,7 @@
                                 <i class="lni lni-star"></i>
                             </li>
                             <li>
-                                <span th:text="'2 stars - ' +${ratingCount[2]}" >2 stars - 1</span>
+                                <span th:text="'2 stars - ' +${ratingCount[2]}">2 stars - 1</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star"></i>
@@ -556,7 +556,7 @@
                                 <i class="lni lni-star"></i>
                             </li>
                             <li>
-                                <span th:text="'1 stars - ' +${ratingCount[1]}" >1 star - 0</span>
+                                <span th:text="'1 stars - ' +${ratingCount[1]}">1 star - 0</span>
                                 <i class="lni lni-star-filled"></i>
                                 <i class="lni lni-star"></i>
                                 <i class="lni lni-star"></i>
@@ -580,12 +580,18 @@
                                 <div class="single-review">
                                     <img th:src="'imgs/user/'+ ${review.user.user_name}+'_userImg.jpg'" alt="#">
                                     <div class="review-info">
-                                        <h4 th:text="${review.content}">Awesome quality for the price
-                                        </h4>
-                                        <!--히든 버튼 th:if추가 조건 만족시 해제하게-->
-                                        <form th:action="@{/reviewDelete/{review_id}(review_id=${review.review_id})}" method="Post">
-                                            <button th:if="${review.user.user_id == user_id}" type="submit" >삭제버튼</button>
-                                        </form>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <h4 th:text="${review.content}">Awesome quality for the price
+                                            </h4>
+                                            <!--히든 버튼 th:if추가 조건 만족시 해제하게-->
+                                            <div style="text-align: right;">
+                                                <form th:action="@{/reviewDelete/{review_id}(review_id=${review.review_id})}"
+                                                      method="Post">
+                                                    <button th:if="${review.user.user_id == user.user_id || user.userRole == 9}" type="submit">삭제버튼
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
 
                                         <h4>
                                             <span th:text="${review.user.user_name}">Jacob Hammond</span>
@@ -645,7 +651,8 @@
 
                                         <div th:if="${review.review_id} == ${reviewImg.review.review_id}"
                                              th:each="reviewImg:${reviewImgs}">
-                                            <img class="h-50 w-50 review_img" th:src="'imgs/review/'+ ${reviewImg.review_img_name}">
+                                            <img class="h-50 w-50 review_img"
+                                                 th:src="'imgs/review/'+ ${reviewImg.review_img_name}">
                                         </div>
 
                                         <p th:text="${product.product_name}">Lorem ipsum dolor sit amet, consectetur
@@ -660,6 +667,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 <!-- End Item Details -->
@@ -685,14 +693,16 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="coef-rating">Coefficient Rating</label>
-                                <input class="form-control" type="number" id="coef-rating" name="coef_rating" min="1" max="5" required>
+                                <input class="form-control" type="number" id="coef-rating" name="coef_rating" min="1"
+                                       max="5" required>
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="durability-rating">Durability Rating</label>
-                                <input class="form-control" type="number" id="durability-rating" name="durability_rating" min="1" max="5" required>
+                                <input class="form-control" type="number" id="durability-rating"
+                                       name="durability_rating" min="1" max="5" required>
                             </div>
                         </div>
                     </div>
@@ -701,14 +711,16 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="quality-rating">Quality Rating</label>
-                                <input class="form-control" type="number" id="quality-rating" name="quality_rating" min="1" max="5" required>
+                                <input class="form-control" type="number" id="quality-rating" name="quality_rating"
+                                       min="1" max="5" required>
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="design-rating">Design Rating</label>
-                                <input class="form-control" type="number" id="design-rating" name="design_rating" min="1" max="5" required>
+                                <input class="form-control" type="number" id="design-rating" name="design_rating"
+                                       min="1" max="5" required>
                             </div>
                         </div>
                     </div>
