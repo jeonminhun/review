@@ -596,6 +596,16 @@
                                         <h4>
                                             <span th:text="${review.user.user_name}">Jacob Hammond</span>
                                         </h4>
+                                        <!-- 👍 좋아요 & 👎 싫어요 버튼 -->
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                                            <button class="like-btn" th:data-review-id="${review.review_id}" onclick="likeReview(this)">
+                                                👍 <span text="${review.likeCount}">0</span>
+                                            </button>
+                                            <button class="dislike-btn" th:data-review-id="${review.review_id}" onclick="dislikeReview(this)">
+                                                👎 <span text="${review.dislikeCount}">0</span>
+                                            </button>
+                                        </div>
+
                                         <ul class="stars2">
                                             <li> <!--class="starss"-->
                                                 <span>총 별점 : </span>
@@ -889,6 +899,7 @@
         });
     });
 </script>
+
 <script
         defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
         integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
@@ -902,6 +913,8 @@
 </script>
 <!-- JavaScript 코드 -->
 <script src="assets/js/dataChart.js"></script>
+
+<script src="assets/js/ReviewLike.js"></script>
 
 </body>
 
