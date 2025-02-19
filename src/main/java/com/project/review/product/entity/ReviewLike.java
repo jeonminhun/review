@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "review_like")
+@Table(name = "review_like", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "user_id", "review_id" }) // 같은 유저가 같은 리뷰에 중복 좋아요 못 누르게
+})
 @Builder
 @Getter
 @AllArgsConstructor

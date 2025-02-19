@@ -8279,3 +8279,19 @@ blockquote span {
           width: auto;
         }
       }
+
+      .like-btn {
+          background-color: white;
+          border: 1px solid #ccc;
+          cursor: pointer;
+          font-size: 16px;
+          padding: 5px 10px;
+          border-radius: 5px;
+          transition: all 0.2s ease;
+      }
+
+      .like-btn.liked {
+          background-color: #007bff;
+          color: white;
+          border-color: #007bff;
+      }

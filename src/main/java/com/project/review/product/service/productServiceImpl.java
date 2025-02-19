@@ -47,7 +47,21 @@ public class productServiceImpl implements productService {
 
     @Override
     public List<Review> ReviewInfo(Long product_id, HttpServletRequest request) {
-        return productReviewRepository.findAllProduct(product_id);
+
+        String userIdFromToken = tokenProvider.getUserIdFromToken(request);
+        User user = userRepository.findByuserEmail(userIdFromToken).get();
+
+        List<Review> reviews = productReviewRepository.findProduct_id(product_id);
+
+        for (Review review : reviews) {
+            long likeCount = reviewLikeRepository.countByReview(review.getReview_id());
+            review.setLikeCount(likeCount);
+
+            // 현재 로그인한 사용자가 이 리뷰에 좋아요를 눌렀는지 확인
+            boolean isLiked = reviewLikeRepository.existsByReviewAndUser(review, user);
+            review.setLiked(isLiked);
+        }
+        return reviews;
     }
 
     @Override
@@ -211,7 +225,7 @@ public class productServiceImpl implements productService {
     }
 
     @Override
-    public boolean reviewLike(ReviewLikeDto reviewLikeDto, HttpServletRequest request) {
+    public Review reviewLike(ReviewLikeDto reviewLikeDto, HttpServletRequest request) {
         log.info("좋아요 추가 : ");
         try {
             ReviewLike reviewLike = ReviewLike.builder()
@@ -219,12 +233,31 @@ public class productServiceImpl implements productService {
                     .user(reviewLikeDto.getUser())
                     .review_ch(reviewLikeDto.getReview_ch())
                     .build();
-            reviewLikeRepository.save(reviewLike);
-            return true;
+
+            boolean chUser = reviewLikeRepository.existsByReviewAndUser(reviewLike.getReview(), reviewLike.getUser());
+            if (chUser) {
+                log.info("리뷰 좋아요 삭제 : ");
+                ReviewLike like = reviewLikeRepository.findByUserIdAndReviewId(reviewLike.getUser().getUser_id(), reviewLike.getReview().getReview_id());
+                reviewLikeRepository.delete(like);
+            } else {
+
+                ReviewLike save = reviewLikeRepository.save(reviewLike);
+            }
+
+
+            boolean chUser2 = reviewLikeRepository.existsByReviewAndUser(reviewLike.getReview(), reviewLike.getUser());
+            log.info("T/F : "+chUser2);
+            long likeCount = reviewLikeRepository.countByReview(reviewLike.getReview().getReview_id());
+
+            reviewLike.getReview().setLikeCount(likeCount);
+            reviewLike.getReview().setLiked(chUser2);
+
+
+            return reviewLike.getReview();
         } catch (Exception e) {
             log.info("좋아요 추가 실패 : ");
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
     // 제품 별점 업데이트

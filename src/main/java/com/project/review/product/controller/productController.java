@@ -3,10 +3,7 @@ package com.project.review.product.controller;
 import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.dto.reviewTotalDto;
-import com.project.review.product.entity.Product;
-import com.project.review.product.entity.ProductImg;
-import com.project.review.product.entity.Review;
-import com.project.review.product.entity.ReviewImg;
+import com.project.review.product.entity.*;
 import com.project.review.product.service.productService;
 import com.project.review.user.entity.User;
 import com.project.review.user.service.userService;
@@ -14,6 +11,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +57,8 @@ public class productController {
         if (authCookie != null) {
 
             Long user_id = userService.getUserId(request);
+
+            
             User user = userService.userInfo(user_id, request);
             model.addAttribute("user", user);
 
@@ -111,16 +111,17 @@ public class productController {
             return "redirect:/";
         }
     }
-
+    @ResponseBody
     @PostMapping("/reviewLike")
-    public String reviewLike(
+    public ResponseEntity<Object> reviewLike(
             @RequestBody ReviewLikeDto reviewLikeDto,
             HttpServletRequest request)
     {
-        if (productService.reviewLike(reviewLikeDto, request)) {
-            return "redirect:/";
+        Review review = productService.reviewLike(reviewLikeDto, request);
+        if (review != null) {
+            return ResponseEntity.ok(review);
         } else {
-            return "redirect:/";
+            return ResponseEntity.badRequest().body("실패");
         }
     }
 

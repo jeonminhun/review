@@ -598,12 +598,16 @@
                                         </h4>
                                         <!-- 👍 좋아요 & 👎 싫어요 버튼 -->
                                         <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                                            <button class="like-btn" th:data-review-id="${review.review_id}" onclick="likeReview(this)">
-                                                👍 <span text="${review.likeCount}">0</span>
+                                            <button class="like-btn"
+                                                    th:data-review-id="${review.review_id}"
+                                                    th:data-user-id="${user.user_id}"
+                                                    onclick="likeReview(this)"
+                                                    th:classappend="${review.isLiked} ? 'liked' : ''">
+                                                👍 <span th:text="${review.likeCount}">0</span>
                                             </button>
-                                            <button class="dislike-btn" th:data-review-id="${review.review_id}" onclick="dislikeReview(this)">
+                                           <!-- <button class="dislike-btn" th:data-review-id="${review.review_id}" onclick="dislikeReview(this)">
                                                 👎 <span text="${review.dislikeCount}">0</span>
-                                            </button>
+                                            </button>-->
                                         </div>
 
                                         <ul class="stars2">
@@ -913,6 +917,8 @@
 </script>
 <!-- JavaScript 코드 -->
 <script src="assets/js/dataChart.js"></script>
+
+
 
 <script src="assets/js/ReviewLike.js"></script>
 

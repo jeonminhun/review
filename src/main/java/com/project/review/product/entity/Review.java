@@ -55,4 +55,12 @@ public class Review {
     @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ReviewLike> reviewLikes = new ArrayList<>();
 
+    // 좋아요 개수를 설정하는 메서드 추가
+    @Setter
+    @Transient // DB 컬럼에는 없지만, 조회용 필드로 사용
+    private long likeCount;
+
+    @Setter
+    @Transient // DB 에는 없지만 조회용 필드로 활용
+    private boolean isLiked;
 }

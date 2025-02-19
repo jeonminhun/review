@@ -3,10 +3,7 @@ package com.project.review.product.service;
 import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.dto.reviewTotalDto;
-import com.project.review.product.entity.Product;
-import com.project.review.product.entity.ProductImg;
-import com.project.review.product.entity.Review;
-import com.project.review.product.entity.ReviewImg;
+import com.project.review.product.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,7 +29,7 @@ public interface productService {
 
     Long reviewDelete(Long review_id, HttpServletRequest request);
 
-    boolean reviewLike(ReviewLikeDto reviewLikeDto, HttpServletRequest request);
+    Review reviewLike(ReviewLikeDto reviewLikeDto, HttpServletRequest request);
 
 
 }
