@@ -88,12 +88,12 @@ public class productController {
     }
     @PostMapping("/reviewUpdate")
     public String reviewUpdate(
-            @RequestPart("reviewUpdateDto") reviewTotalDto reviewTotalDto,
+            @ModelAttribute reviewTotalDto reviewTotalDto,
             @RequestPart("files") MultipartFile[] files,
             HttpServletRequest request)
     {
         if (productService.reviewUpdate(reviewTotalDto, files, request)) {
-            return "redirect:/";
+            return "redirect:/product/"+reviewTotalDto.getProductId();
         } else {
             return "redirect:/";
         }

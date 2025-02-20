@@ -584,12 +584,27 @@
                                             <h4 th:text="${review.content}">Awesome quality for the price
                                             </h4>
                                             <!--히든 버튼 th:if추가 조건 만족시 해제하게-->
-                                            <div style="text-align: right;">
+                                            <div style="display: flex; justify-content: flex-end; gap: 10px; align-items: center; margin-top: 10px;">
                                                 <form th:action="@{/reviewDelete/{review_id}(review_id=${review.review_id})}"
                                                       method="Post">
-                                                    <button th:if="${review.user.user_id == user.user_id || user.userRole == 9}" type="submit">삭제버튼
+                                                    <button th:if="${review.user.user_id == user.user_id || user.userRole == 9}"
+                                                            type="submit">리뷰삭제
                                                     </button>
                                                 </form>
+                                                <!-- 검색용 -->
+                                                <button th:if="${review.user.user_id == user.user_id || user.userRole == 9}" type="button" class="btn review-btn"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#updateReviewModal"
+                                                        th:data-review-id="${review.review_id}"
+                                                        th:data-review-user-user-id="${review.user.user_id}"
+                                                        th:data-review-coef-rating="${review.coef_rating}"
+                                                        th:data-review-durability-rating="${review.durability_rating}"
+                                                        th:data-review-quality-rating="${review.quality_rating}"
+                                                        th:data-review-design-rating="${review.design_rating}"
+                                                        th:data-review-content="${review.content}"
+                                                        onclick="openReviewModal(this)">
+                                                    리뷰 수정
+                                                </button>
                                             </div>
                                         </div>
 
@@ -604,10 +619,15 @@
                                                     onclick="likeReview(this)"
                                                     th:classappend="${review.isLiked} ? 'liked' : ''">
                                                 👍 <span th:text="${review.likeCount}">0</span>
+                                                <div th:if="${review.review_id} == ${reviewImg.review.review_id}"
+                                                     th:each="reviewImg:${reviewImgs}">
+
+                                                </div>
+
                                             </button>
-                                           <!-- <button class="dislike-btn" th:data-review-id="${review.review_id}" onclick="dislikeReview(this)">
-                                                👎 <span text="${review.dislikeCount}">0</span>
-                                            </button>-->
+                                            <!-- <button class="dislike-btn" th:data-review-id="${review.review_id}" onclick="dislikeReview(this)">
+                                                 👎 <span text="${review.dislikeCount}">0</span>
+                                             </button>-->
                                         </div>
 
                                         <ul class="stars2">
@@ -694,7 +714,7 @@
             <form th:action="@{/review}" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">❌</button>
                 </div>
 
                 <div class="modal-body">
@@ -760,6 +780,90 @@
     </div>
 </div>
 <!-- End Review Modal -->
+
+<!-- Review Update Modal -->
+<div class="modal fade review-modal" id="updateReviewModal" tabindex="-1" aria-labelledby="updateReviewModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/reviewUpdate}" method="post" enctype="multipart/form-data" id="reviewUpdateForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateReviewModalLabel">리뷰 수정</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">❌</button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- 숨은 필드 -->
+                    <input type="hidden" id="reviewId" name="reviewId">
+                    <input type="hidden" id="userId" name="userId" th:value="${user.user_id}"/>
+                    <input type="hidden" id="productId" name="productId" th:value="${product.product_id}"/>
+
+                    <!-- 기존 이미지 및 삭제 체크박스 -->
+                    <div class="form-group">
+                        <label>기존 이미지</label>
+                        <div id="existingImages">
+                            <div th:each="img : ${reviewImgs}" th:data-review-id="${img.review.review_id}"
+                                 class="review-image" style="display: none;">
+                                <img th:src="@{'/imgs/review/' + ${img.review_img_name}}" alt="Review Image"
+                                     width="100">
+                                <label>
+                                    <input type="checkbox" name="deleteImgIds" th:value="${img.review_img_id}"> 삭제
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 평점 입력 -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="coefRating">가성비 별점</label>
+                            <input class="form-control" type="number" id="coefRating" name="coefRating" min="1"
+                                   max="5" required>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="durabilityRating">내구성 별점</label>
+                            <input class="form-control" type="number" id="durabilityRating"
+                                   name="durabilityRating" min="1" max="5" required>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <label for="qualityRating">품질 별점</label>
+                            <input class="form-control" type="number" id="qualityRating" name="qualityRating"
+                                   min="1" max="5" required>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="designRating">디자인 별점</label>
+                            <input class="form-control" type="number" id="designRating" name="designRating"
+                                   min="1" max="5" required>
+                        </div>
+                    </div>
+
+                    <!-- 리뷰 내용 -->
+                    <div class="mt-3">
+                        <label for="updateContent">리뷰 내용</label>
+                        <textarea class="form-control" id="updateContent" name="updateContent" rows="5"
+                                  required></textarea>
+                    </div>
+
+                    <!-- 이미지 추가 업로드 -->
+                    <div class="mt-3">
+                        <label for="updateFiles">이미지 추가</label>
+                        <input class="form-control" type="file" name="files" id="updateFiles" accept="image/*" multiple>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">수정 완료</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <!--푸터 시작-->
 <!-- Start Footer Area -->
@@ -919,8 +1023,36 @@
 <script src="assets/js/dataChart.js"></script>
 
 
-
 <script src="assets/js/ReviewLike.js"></script>
+
+<script>
+    function openReviewModal(button) {
+    const reviewId = button.getAttribute("data-review-id");
+        const coefRating = button.getAttribute("data-review-coef-rating");
+        const durabilityRating = button.getAttribute("data-review-durability-rating");
+        const qualityRating = button.getAttribute("data-review-quality-rating");
+        const designRating = button.getAttribute("data-review-design-rating");
+        const content = button.getAttribute("data-review-content");
+
+        // 필드에 값 세팅
+        document.getElementById("reviewId").value = reviewId;
+        document.getElementById("coefRating").value = coefRating;
+        document.getElementById("durabilityRating").value = durabilityRating;
+        document.getElementById("qualityRating").value = qualityRating;
+        document.getElementById("designRating").value = designRating;
+        document.getElementById("updateContent").value = content;
+
+
+
+
+       // 모든 리뷰 이미지를 숨기고, 해당 reviewId에 맞는 이미지만 표시
+       document.querySelectorAll(".review-image").forEach(imgDiv => {
+           const imgReviewId = imgDiv.getAttribute("data-review-id");
+           imgDiv.style.display = (imgReviewId === reviewId) ? "block" : "none";
+       });
+   }
+
+</script>
 
 </body>
 

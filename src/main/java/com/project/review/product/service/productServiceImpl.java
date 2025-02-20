@@ -148,18 +148,23 @@ public class productServiceImpl implements productService {
 
     @Override
     public boolean reviewUpdate(reviewTotalDto reviewTotalDto, MultipartFile[] files, HttpServletRequest request) {
-        ReviewCreateDto reviewCreateDto = reviewTotalDto.getReviewCreateDto();
-        ReviewImgDto[] deleteImgDto = reviewTotalDto.getDeleteImgDto();
 
-        User user = userRepository.findById(reviewCreateDto.getUser_id()).get();
-        Product product = productRepository.findById(reviewCreateDto.getProduct_id()).get();
+        ReviewCreateDto reviewCreateDto = new ReviewCreateDto();
+        reviewCreateDto.setCoef_rating(reviewTotalDto.getCoefRating());
+        reviewCreateDto.setDurability_rating(reviewTotalDto.getDurabilityRating());
+        reviewCreateDto.setQuality_rating(reviewTotalDto.getQualityRating());
+        reviewCreateDto.setDesign_rating(reviewTotalDto.getDesignRating());
 
-        log.info("리뷰 수정 서비스 : " + reviewCreateDto.getReview_id());
+
+        User user = userRepository.findById(reviewTotalDto.getUserId()).get();
+        Product product = productRepository.findById(reviewTotalDto.getProductId()).get();
+
+        log.info("리뷰 수정 서비스 : " + reviewTotalDto.getReviewId());
         try {
-            if (Self_identification(request, reviewCreateDto.getUser_id())) {
+            if (Self_identification(request, reviewTotalDto.getUserId())) {
                 int total = getTotal(reviewCreateDto);
                 Review review = Review.builder()
-                        .review_id(reviewCreateDto.getReview_id())
+                        .review_id(reviewTotalDto.getReviewId())
                         .user(user)
                         .product(product)
                         .coef_rating(reviewCreateDto.getCoef_rating())
@@ -167,30 +172,34 @@ public class productServiceImpl implements productService {
                         .quality_rating(reviewCreateDto.getQuality_rating())
                         .design_rating(reviewCreateDto.getDesign_rating())
                         .total_rating(total)
-                        .content(reviewCreateDto.getContent())
+                        .content(reviewTotalDto.getUpdateContent())
                         .build();
 
                 productReviewRepository.save(review);
 
-                if (deleteImgDto != null) {
-                    for (ReviewImgDto reviewImgDto : deleteImgDto) {
-                        ReviewImg reviewImg = ReviewImg.builder()
-                                .review_img_id(reviewImgDto.getReview_img_id())
-                                .review(review)
-                                .review_img_name(reviewImgDto.getReview_img_name())
-                                .build();
+
+
+                if (reviewTotalDto.getDeleteImgIds() != null) {
+                    for (Long deleteImgId : reviewTotalDto.getDeleteImgIds()) {
+                        ReviewImg reviewImg = productReviewImgRepository.findById(deleteImgId).get();
                         imgDelete(reviewImg);
                         productReviewImgRepository.delete(reviewImg);
                     }
                 }
 
-                if (files != null) {
+                if (files[0] != null) {
+                    log.info("파일 저장 시작 로그");
                     for (MultipartFile file : files) {
-                        String fileName = System.currentTimeMillis() + "_" + valueOf(review.getReview_id()) + "_" + valueOf(review.getUser().getUser_id()) + ".jpg";
-                        ReviewImg reviewImg = imgSave(file, review, fileName);
-                        productReviewImgRepository.save(reviewImg);
+                        if (!file.isEmpty()) {
+                            String fileName = System.currentTimeMillis() + "_" + valueOf(review.getReview_id()) + "_" + valueOf(review.getUser().getUser_id()) + ".jpg";
+                            ReviewImg reviewImg = imgSave(file, review, fileName);
+                            productReviewImgRepository.save(reviewImg);
+                        }else {
+                            log.info("빈 파일 발견: 처리하지 않음");
+                        }
                     }
                 }
+                log.info("리뷰 수정 성공 로그");
                 return true;
             } else {
                 log.info("본인 인증 실패");
