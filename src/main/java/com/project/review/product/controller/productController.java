@@ -43,9 +43,6 @@ public class productController {
         ProductImg productImg = productService.productImgInfo(product_id);
         model.addAttribute("productImg", productImg);
 
-        List<Review> reviews = productService.ReviewInfo(product_id, request);
-        model.addAttribute("reviews", reviews);
-
         List<ReviewImg> reviewImgs = productService.ReviewImgInfo(product_id);
         model.addAttribute("reviewImgs", reviewImgs);
 
@@ -58,14 +55,20 @@ public class productController {
 
             Long user_id = userService.getUserId(request);
 
-            
             User user = userService.userInfo(user_id, request);
             model.addAttribute("user", user);
+
+            List<Review> reviews = productService.ReviewInfo_Login(product_id, user);
+            model.addAttribute("reviews", reviews);
 
             long endTime = System.currentTimeMillis();
             log.info("productPage 실행 시간: {} ms", (endTime - startTime));
             return "after/product-details";
         }
+
+        List<Review> reviews = productService.ReviewInfo(product_id, request);
+        model.addAttribute("reviews", reviews);
+
         long endTime = System.currentTimeMillis();
         log.info("productPage 실행 시간: {} ms", (endTime - startTime));
         return "default/product-details";

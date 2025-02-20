@@ -48,8 +48,16 @@ public class productServiceImpl implements productService {
     @Override
     public List<Review> ReviewInfo(Long product_id, HttpServletRequest request) {
 
-        String userIdFromToken = tokenProvider.getUserIdFromToken(request);
-        User user = userRepository.findByuserEmail(userIdFromToken).get();
+        List<Review> reviews = productReviewRepository.findProduct_id(product_id);
+
+        for (Review review : reviews) {
+            long likeCount = reviewLikeRepository.countByReview(review.getReview_id());
+            review.setLikeCount(likeCount);
+        }
+        return reviews;
+    }
+    @Override
+    public List<Review> ReviewInfo_Login(Long product_id, User user) {
 
         List<Review> reviews = productReviewRepository.findProduct_id(product_id);
 

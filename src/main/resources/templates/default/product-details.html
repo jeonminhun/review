@@ -581,6 +581,13 @@
                                         <h4>
                                             <span th:text="${review.user.user_name}">Jacob Hammond</span>
                                         </h4>
+
+                                        <!-- 👍 좋아요 & 👎 싫어요 버튼 -->
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                                            <button class="like-btn">
+                                                👍 <span th:text="${review.likeCount}">0</span>
+                                            </button>
+                                        </div>
                                         <ul class="stars2">
                                             <li> <!--class="starss"-->
                                                 <span>총 별점 : </span>

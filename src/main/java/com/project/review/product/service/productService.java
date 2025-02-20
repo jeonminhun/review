@@ -4,6 +4,7 @@ import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.dto.reviewTotalDto;
 import com.project.review.product.entity.*;
+import com.project.review.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +17,8 @@ public interface productService {
     ProductImg productImgInfo(Long product_id);
 
     List<Review> ReviewInfo(Long product_id, HttpServletRequest request);
+
+    List<Review> ReviewInfo_Login(Long product_id, User user);
 
     List<ReviewImg> ReviewImgInfo(Long product_id);
 
