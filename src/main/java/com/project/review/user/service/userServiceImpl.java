@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,6 +63,11 @@ public class userServiceImpl implements userService {
         String user_email = tokenProvider.getUserIdFromToken(request);
         User user = userRepository.findByuserEmail(user_email).get();
         return user.getUser_id();
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        return userRepository.findAll();
     }
 
     @Override

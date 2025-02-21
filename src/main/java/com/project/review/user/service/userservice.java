@@ -7,11 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 public interface userService {
 
     User userInfo(Long user_id, HttpServletRequest request);
 
     Long getUserId(HttpServletRequest request);
+
+    List<User> findAllUser();
 
     boolean checkPassWord(userCreateDto userCreateDto);
 

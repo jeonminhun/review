@@ -4,12 +4,19 @@ import com.project.review.admin.dto.UserGradeDto;
 import com.project.review.admin.dto.productCreateDto;
 import com.project.review.admin.entity.productAdminDto;
 import com.project.review.admin.service.adminService;
+import com.project.review.user.entity.User;
+import com.project.review.user.service.userService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.WebUtils;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -17,6 +24,22 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/admin")
 public class adminController { // 사진 받는것도 추가 해야함
     private final adminService adminService;
+    private final userService userService;
+
+    @GetMapping("/adminUser")
+    public String adminUser(Model model, HttpServletRequest request) {
+        log.info("관리자 페이지 접근 입니다.");
+        if (adminService.checkAdmin(request)) {
+            log.info("관리자 확인했습니다.");
+            List<User> Users = userService.findAllUser();
+            log.info("로그 확인용 입니다. : "+Users.get(0).getUser_name());
+            model.addAttribute("Users", Users);
+            return "after/adminPage";
+        }
+        return "default/index";
+
+
+    }
 
     @PostMapping("/product/save")
     public String productInsert(

@@ -9,6 +9,7 @@ import com.project.review.product.entity.ProductImg;
 import com.project.review.product.repository.productImgRepository;
 import com.project.review.product.repository.productRepository;
 import com.project.review.user.entity.User;
+import com.project.review.user.jwt.TokenProvider;
 import com.project.review.user.repository.userRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,14 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
     private final productRepository productRepository;
     private final productImgRepository productImgRepository;
     private final userRepository userRepository;
+    private final TokenProvider tokenProvider;
+
+    @Override
+    public boolean checkAdmin(HttpServletRequest request) {
+        log.info("관리자 확인 요청입니다.");
+        boolean result = tokenProvider.AuthenticationCheck(request);
+        return result;
+    }
 
     @Override
     public boolean productCreate(productCreateDto productCreateDto, MultipartFile files, HttpServletRequest request) {

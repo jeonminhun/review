@@ -2,6 +2,7 @@
 <html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <base href="/">
     <meta charset="utf-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>리뷰사이트 프로젝트</title>
@@ -77,6 +78,9 @@
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="top-end">
                         <ul class="user-login">
+                            <li>
+                                <a th:href="@{/admin/adminUser}">관리자 페이지</a>
+                            </li>
                             <li>
                                 <div class="user">
                                     <i class="lni lni-user"></i>
