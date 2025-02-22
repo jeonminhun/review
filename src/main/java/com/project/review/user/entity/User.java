@@ -1,10 +1,15 @@
 package com.project.review.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.review.product.entity.Review;
 import com.project.review.user.dto.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.ColumnDefault;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Entity
@@ -41,10 +46,16 @@ public class User {
     @Column(nullable = false, name = "user_nick name")
     private String user_nickName;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
+    private List<Review> review = new ArrayList<>();
+
     public String getRoleName() {
         log.info("엔티티 확인 : "+ this.userRole);
         return Role.getRoleByCode(this.userRole);
     }
+
+
 
 
 }

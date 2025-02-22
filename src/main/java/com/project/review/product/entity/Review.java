@@ -1,5 +1,7 @@
 package com.project.review.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.review.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,7 +22,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long review_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -50,6 +52,10 @@ public class Review {
 
     @Column(nullable = false)
     private String content;
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
+    private List<ReviewImg> reviewImgs = new ArrayList<>();
 
     // 🔥 ReviewLike 삭제 설정 추가
     @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE, orphanRemoval = true)

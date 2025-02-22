@@ -88,19 +88,19 @@ public class adminController { // 사진 받는것도 추가 해야함
     ) {
         log.info("유저 설정 : " + userGradeDto.getUser_name());
         if (adminService.userGradeUpdate(userGradeDto, request)) {
-            return "redirect:/";
+            return "redirect:/admin/adminUser";
         } else {
             return "redirect:/";
         }
     }
-    @DeleteMapping("/user/delete/{user_id}")
+    @PostMapping("/user/delete/{user_id}")
     public String userDelete( // adminServiceImpl 트루 폴스 고치기
             @PathVariable("user_id") Long user_id,
             HttpServletRequest request
     ) {
         log.info("유저 삭제 : " + user_id);
         if (adminService.userDelete(user_id, request)) {
-            return "redirect:/";
+            return "redirect:/admin/adminUser";
         } else {
             return "redirect:/";
         }
