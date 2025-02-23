@@ -56,6 +56,18 @@ public class productServiceImpl implements productService {
         }
         return reviews;
     }
+
+    @Override
+    public List<Review> ReviewAll() {
+        List<Review> reviews = productReviewRepository.findAll();
+
+        for (Review review : reviews) {
+            long likeCount = reviewLikeRepository.countByReview(review.getReview_id());
+            review.setLikeCount(likeCount);
+        }
+        return reviews;
+    }
+
     @Override
     public List<Review> ReviewInfo_Login(Long product_id, User user) {
 

@@ -4,6 +4,8 @@ import com.project.review.admin.dto.UserGradeDto;
 import com.project.review.admin.dto.productCreateDto;
 import com.project.review.admin.entity.productAdminDto;
 import com.project.review.admin.service.adminService;
+import com.project.review.product.entity.Review;
+import com.project.review.product.service.productService;
 import com.project.review.user.entity.User;
 import com.project.review.user.service.userService;
 import jakarta.servlet.http.Cookie;
@@ -24,6 +26,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class adminController { // 사진 받는것도 추가 해야함
     private final adminService adminService;
+    private final productService productService;
     private final userService userService;
 
     @GetMapping("/adminUser")
@@ -32,8 +35,10 @@ public class adminController { // 사진 받는것도 추가 해야함
         if (adminService.checkAdmin(request)) {
             log.info("관리자 확인했습니다.");
             List<User> Users = userService.findAllUser();
+            List<Review> reviews = productService.ReviewAll();
             log.info("로그 확인용 입니다. : "+Users.get(0).getUser_name());
             model.addAttribute("Users", Users);
+            model.addAttribute("reviews", reviews);
             return "after/adminPage";
         }
         return "default/index";

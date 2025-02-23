@@ -26,7 +26,7 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -59,6 +59,7 @@ public class Review {
 
     // 🔥 ReviewLike 삭제 설정 추가
     @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JsonIgnore
     private List<ReviewLike> reviewLikes = new ArrayList<>();
 
     // 좋아요 개수를 설정하는 메서드 추가

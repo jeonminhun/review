@@ -80,6 +80,7 @@ public class productController {
             @RequestPart("files") MultipartFile[] files,
             HttpServletRequest request)
     {
+        log.info("리뷰 생성 시작 : "+reviewCreateDto.getUser_id());
         if (productService.reviewCreate(reviewCreateDto, files, request)) {
             return "redirect:/product/"+reviewCreateDto.getProduct_id();
         } else {
@@ -108,7 +109,9 @@ public class productController {
         Long product_id = productService.reviewDelete(review_id, request);
         if (product_id != null) {
             log.info("리뷰 삭제성공 : " + product_id);
-            return "redirect:/product/"+product_id;
+            String referer = request.getHeader("Referer");
+
+            return "redirect:" + referer;
         } else {
             log.info("리뷰 삭제 실패");
             return "redirect:/";
