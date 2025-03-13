@@ -69,6 +69,16 @@ public class productServiceImpl implements productService {
     }
 
     @Override
+    public List<Product> ProductAll() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public List<ProductImg> ProductImgAll() {
+        return productImgRepository.findAll();
+    }
+
+    @Override
     public List<Review> ReviewInfo_Login(Long product_id, User user) {
 
         List<Review> reviews = productReviewRepository.findProduct_id(product_id);

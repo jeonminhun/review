@@ -20,6 +20,10 @@ public interface productService {
 
     List<Review> ReviewAll();
 
+    List<Product> ProductAll();
+
+    List<ProductImg> ProductImgAll();
+
     List<Review> ReviewInfo_Login(Long product_id, User user);
 
     List<ReviewImg> ReviewImgInfo(Long product_id);

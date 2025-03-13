@@ -2,8 +2,11 @@ package com.project.review.admin.controller;
 
 import com.project.review.admin.dto.UserGradeDto;
 import com.project.review.admin.dto.productCreateDto;
+import com.project.review.admin.entity.adminProductUpdateDto;
 import com.project.review.admin.entity.productAdminDto;
 import com.project.review.admin.service.adminService;
+import com.project.review.product.entity.Product;
+import com.project.review.product.entity.ProductImg;
 import com.project.review.product.entity.Review;
 import com.project.review.product.service.productService;
 import com.project.review.user.entity.User;
@@ -36,9 +39,13 @@ public class adminController { // 사진 받는것도 추가 해야함
             log.info("관리자 확인했습니다.");
             List<User> Users = userService.findAllUser();
             List<Review> reviews = productService.ReviewAll();
+            List<Product> Product = productService.ProductAll();
+            List<ProductImg> productImgs = productService.ProductImgAll();
             log.info("로그 확인용 입니다. : "+Users.get(0).getUser_name());
             model.addAttribute("Users", Users);
             model.addAttribute("reviews", reviews);
+            model.addAttribute("Product", Product);
+            model.addAttribute("productImgs", productImgs);
             return "after/adminPage";
         }
         return "default/index";
@@ -48,14 +55,16 @@ public class adminController { // 사진 받는것도 추가 해야함
 
     @PostMapping("/product/save")
     public String productInsert(
-            @RequestPart(name = "productCreateDto") productCreateDto productCreateDto,
+            @ModelAttribute(name = "productCreateDto") productCreateDto productCreateDto,
             @RequestPart(required = false, name = "files") MultipartFile files,
             HttpServletRequest request
     ) {
         log.info("제품 생성 : " + productCreateDto.getProduct_name());
         if (adminService.productCreate(productCreateDto, files, request))
         {
-            return "redirect:/";
+            String referer = request.getHeader("Referer");
+
+            return "redirect:" + referer;
         }
         else {
             return "redirect:/";
@@ -74,13 +83,15 @@ public class adminController { // 사진 받는것도 추가 해야함
 
     @PostMapping("/product/update")
     public String productUpdate(
-            @RequestPart(name = "productAdminDto") productAdminDto productAdminDto,
+            @ModelAttribute adminProductUpdateDto adminProductUpdateDto,
             @RequestPart(required = false, name = "files") MultipartFile files,
             HttpServletRequest request
     ) {
-        log.info("제품 수정 : " + productAdminDto.getProductDto().getProduct_name());
-        if (adminService.productUpdate(productAdminDto, files, request)) {
-            return "redirect:/";
+        log.info("제품 수정 : " + adminProductUpdateDto.getProduct_name());
+        if (adminService.productUpdate(adminProductUpdateDto, files, request)) {
+            String referer = request.getHeader("Referer");
+
+            return "redirect:" + referer;
         } else {
             return "redirect:/";
         }

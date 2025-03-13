@@ -2,6 +2,7 @@ package com.project.review.admin.service;
 
 import com.project.review.admin.dto.UserGradeDto;
 import com.project.review.admin.dto.productCreateDto;
+import com.project.review.admin.entity.adminProductUpdateDto;
 import com.project.review.admin.entity.productAdminDto;
 import com.project.review.product.dto.productImgDto;
 import com.project.review.product.entity.Product;
@@ -45,7 +46,7 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
                     .product_name(productCreateDto.getProduct_name())
                     .product_manu(productCreateDto.getProduct_manu()).build();
 
-            String filename = System.currentTimeMillis() + "_" + product.getProduct_name() + ".jpg";
+            String filename = "product_" + product.getProduct_id() + ".jpg";
 
             product =  productRepository.save(product);
 
@@ -103,37 +104,34 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
     }
 
     @Override
-    public boolean productUpdate(productAdminDto productAdminDto, MultipartFile files, HttpServletRequest request) {
+    public boolean productUpdate(adminProductUpdateDto adminProductUpdateDto, MultipartFile files, HttpServletRequest request) {
         try {
             log.info("프로덕트 수정 서비스 시작");
             Product product = Product.builder()
-                    .product_id(productAdminDto.getProductDto().getProduct_id())
-                    .product_name(productAdminDto.getProductDto().getProduct_name())
-                    .product_manu(productAdminDto.getProductDto().getProduct_manu())
-                    .product_coef_rating(productAdminDto.getProductDto().getProduct_coef_rating())
-                    .product_durability_rating(productAdminDto.getProductDto().getProduct_durability_rating())
-                    .product_quality_rating(productAdminDto.getProductDto().getProduct_quality_rating())
-                    .product_design_rating(productAdminDto.getProductDto().getProduct_design_rating())
-                    .product_total_rating(productAdminDto.getProductDto().getProduct_total_rating())
+                    .product_id(adminProductUpdateDto.getProduct_id())
+                    .product_name(adminProductUpdateDto.getProduct_name())
+                    .product_manu(adminProductUpdateDto.getProduct_manu())
+                    .product_coef_rating(adminProductUpdateDto.getProduct_coef_rating())
+                    .product_durability_rating(adminProductUpdateDto.getProduct_durability_rating())
+                    .product_quality_rating(adminProductUpdateDto.getProduct_quality_rating())
+                    .product_design_rating(adminProductUpdateDto.getProduct_design_rating())
+                    .product_total_rating(adminProductUpdateDto.getProduct_total_rating())
                     .build();
-
-            ProductImg productImg = ProductImg.builder()
-                    .product_img_id(productAdminDto.getProductImgDto().getProduct_img_id())
-                    .product(productAdminDto.getProductImgDto().getProduct())
-                    .product_img_name(productAdminDto.getProductImgDto().getProduct_img_name())
-                    .build();
-
-            String filename = productAdminDto.getProductImgDto().getProduct_img_name();
 
             product =  productRepository.save(product);
 
-            imgSave(files, request, product, filename);
+            String filename = "product_" + product.getProduct_id() + ".jpg";
+
+            ProductImg productImg = imgSave(files, request, product, filename);
 
             productImgRepository.save(productImg);
 
+
+
+
             return true;
         } catch (Exception e) {
-            log.info("프로덕트 수정 실패 : "+ productAdminDto.getProductDto().getProduct_name());
+            log.info("프로덕트 수정 실패 : "+ adminProductUpdateDto.getProduct_name());
             e.printStackTrace();
             return false;
         }
@@ -185,7 +183,7 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
         try {
             if (files != null) {
 
-                Path uploadPath = Path.of("imgs", "product");
+                Path uploadPath = Path.of("src","main","resources","static","imgs", "product");
 
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);

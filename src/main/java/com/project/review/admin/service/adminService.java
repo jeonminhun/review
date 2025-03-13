@@ -2,6 +2,7 @@ package com.project.review.admin.service;
 
 import com.project.review.admin.dto.UserGradeDto;
 import com.project.review.admin.dto.productCreateDto;
+import com.project.review.admin.entity.adminProductUpdateDto;
 import com.project.review.admin.entity.productAdminDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +14,7 @@ public interface adminService {
 
      boolean productDelete(productAdminDto productAdminDto);
 
-     boolean productUpdate(productAdminDto productAdminDto, MultipartFile files, HttpServletRequest request);
+     boolean productUpdate(adminProductUpdateDto adminProductUpdateDto, MultipartFile files, HttpServletRequest request);
 
      boolean userGradeUpdate(UserGradeDto userGradeDto, HttpServletRequest request);
 
