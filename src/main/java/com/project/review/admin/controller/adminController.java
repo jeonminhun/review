@@ -71,11 +71,14 @@ public class adminController { // 사진 받는것도 추가 해야함
         }
     }
 
-    @PostMapping("/product/delete")
-    public String productDelete(@RequestBody productAdminDto productAdminDto) {
-        log.info("제품 삭제 : " + productAdminDto.getProductDto().getProduct_name());
-        if (adminService.productDelete(productAdminDto)) {
-            return "redirect:/";
+    @PostMapping("/product/delete/{product_id}")
+    public String productDelete(@PathVariable("product_id") Long product_id,
+                                HttpServletRequest request) {
+        log.info("제품 삭제 : " + product_id);
+        if (adminService.productDelete(product_id)) {
+            String referer = request.getHeader("Referer");
+
+            return "redirect:" + referer;
         } else {
             return "redirect:/";
         }

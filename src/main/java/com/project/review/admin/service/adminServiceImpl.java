@@ -46,9 +46,9 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
                     .product_name(productCreateDto.getProduct_name())
                     .product_manu(productCreateDto.getProduct_manu()).build();
 
-            String filename = "product_" + product.getProduct_id() + ".jpg";
-
             product =  productRepository.save(product);
+
+            String filename = "product_" + product.getProduct_id() + ".jpg";
 
             ProductImg productImg = imgSave(files, request, product, filename);
 
@@ -65,37 +65,25 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
     }
 
     @Override
-    public boolean productDelete(productAdminDto productAdminDto) {
+    public boolean productDelete(Long product_id) {
 
         try {
             log.info("프로덕트 삭제 서비스 시작");
 
-            Product product = Product.builder()
-                    .product_id(productAdminDto.getProductDto().getProduct_id())
-                    .product_name(productAdminDto.getProductDto().getProduct_name())
-                    .product_manu(productAdminDto.getProductDto().getProduct_manu())
-                    .product_coef_rating(productAdminDto.getProductDto().getProduct_coef_rating())
-                    .product_durability_rating(productAdminDto.getProductDto().getProduct_durability_rating())
-                    .product_quality_rating(productAdminDto.getProductDto().getProduct_quality_rating())
-                    .product_design_rating(productAdminDto.getProductDto().getProduct_design_rating())
-                    .product_total_rating(productAdminDto.getProductDto().getProduct_total_rating())
-                    .build();
+            Product product = productRepository.findById(product_id).get();
+            ProductImg productImg = productImgRepository.findByProduct_id(product_id);
 
-            ProductImg productImg = ProductImg.builder()
-                    .product_img_id(productAdminDto.getProductImgDto().getProduct_img_id())
-                    .product(productAdminDto.getProductImgDto().getProduct())
-                    .product_img_name(productAdminDto.getProductImgDto().getProduct_img_name()).build();
 
             productImgRepository.delete(productImg);
             productRepository.delete(product);
 
-            imgDelete(productAdminDto.getProductImgDto());
+            imgDelete(productImg);
 
             return true;
 
 
         } catch (Exception e) {
-            log.info("프로덕트 삭제 실패 : "+productAdminDto.getProductDto().getProduct_name());
+            log.info("프로덕트 삭제 실패 : "+ product_id);
             e.printStackTrace();
             return false;
         }
@@ -167,10 +155,10 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
         }
     }
 
-    private void imgDelete(productImgDto productImgDto) {
+    private void imgDelete(ProductImg productImg) {
         try {
-            Path uploadPath = Path.of("imgs", "product");
-            Path filepath = uploadPath.resolve(productImgDto.getProduct_img_name());
+            Path uploadPath = Path.of("src","main","resources","static","imgs", "product");
+            Path filepath = uploadPath.resolve(productImg.getProduct_img_name());
             Files.delete(filepath);
         } catch (Exception e) {
             log.info("이미지 삭제 오류");

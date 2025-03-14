@@ -12,7 +12,7 @@ public interface adminService {
 
      boolean productCreate(productCreateDto productCreateDto, MultipartFile files, HttpServletRequest request);
 
-     boolean productDelete(productAdminDto productAdminDto);
+     boolean productDelete(Long product_id);
 
      boolean productUpdate(adminProductUpdateDto adminProductUpdateDto, MultipartFile files, HttpServletRequest request);
 
