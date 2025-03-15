@@ -80,9 +80,12 @@
                     <div class="top-end">
                         <ul class="user-login">
                             <li>
+                                <a th:href="@{/admin/adminUser}">관리자 페이지</a>
+                            </li>
+                            <li>
                                 <div class="user">
                                     <i class="lni lni-user"></i>
-                                    <a th:href="@{/myPage}"> Hello </a>
+                                    <a th:href="@{/myPage/{user_id}(user_id=${user_id})}"> Hello </a>
                                 </div>
                             </li>
                             <li>
