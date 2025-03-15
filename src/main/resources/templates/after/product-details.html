@@ -795,7 +795,7 @@
                 <div class="modal-body">
                     <!-- 숨은 필드 -->
                     <input type="hidden" id="reviewId" name="reviewId">
-                    <input type="hidden" id="userId" name="userId" th:value="${user.user_id}"/>
+                    <input type="hidden" id="userId" name="userId"/>
                     <input type="hidden" id="productId" name="productId" th:value="${product.product_id}"/>
 
                     <!-- 기존 이미지 및 삭제 체크박스 -->
@@ -1027,7 +1027,8 @@
 
 <script>
     function openReviewModal(button) {
-    const reviewId = button.getAttribute("data-review-id");
+        const reviewId = button.getAttribute("data-review-id");
+        const reviewUserId = button.getAttribute("data-review-user-user-id");
         const coefRating = button.getAttribute("data-review-coef-rating");
         const durabilityRating = button.getAttribute("data-review-durability-rating");
         const qualityRating = button.getAttribute("data-review-quality-rating");
@@ -1036,6 +1037,7 @@
 
         // 필드에 값 세팅
         document.getElementById("reviewId").value = reviewId;
+        document.getElementById("userId").value = reviewUserId;
         document.getElementById("coefRating").value = coefRating;
         document.getElementById("durabilityRating").value = durabilityRating;
         document.getElementById("qualityRating").value = qualityRating;

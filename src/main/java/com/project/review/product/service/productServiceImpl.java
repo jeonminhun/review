@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
@@ -169,6 +170,7 @@ public class productServiceImpl implements productService {
     }
 
     @Override
+    @Transactional
     public boolean reviewUpdate(reviewTotalDto reviewTotalDto, MultipartFile[] files, HttpServletRequest request) {
 
         ReviewCreateDto reviewCreateDto = new ReviewCreateDto();
@@ -177,29 +179,25 @@ public class productServiceImpl implements productService {
         reviewCreateDto.setQuality_rating(reviewTotalDto.getQualityRating());
         reviewCreateDto.setDesign_rating(reviewTotalDto.getDesignRating());
 
-
-        User user = userRepository.findById(reviewTotalDto.getUserId()).get();
-        Product product = productRepository.findById(reviewTotalDto.getProductId()).get();
-
         log.info("리뷰 수정 서비스 : " + reviewTotalDto.getReviewId());
         try {
             if (Self_identification(request, reviewTotalDto.getUserId())) {
                 int total = getTotal(reviewCreateDto);
-                Review review = Review.builder()
-                        .review_id(reviewTotalDto.getReviewId())
-                        .user(user)
-                        .product(product)
-                        .coef_rating(reviewCreateDto.getCoef_rating())
-                        .durability_rating(reviewCreateDto.getDurability_rating())
-                        .quality_rating(reviewCreateDto.getQuality_rating())
-                        .design_rating(reviewCreateDto.getDesign_rating())
-                        .total_rating(total)
-                        .content(reviewTotalDto.getUpdateContent())
-                        .build();
 
-                productReviewRepository.save(review);
+                Review review = productReviewRepository.findById(reviewTotalDto.getReviewId())
+                        .orElseThrow(() -> new IllegalArgumentException("해당 리뷰가 존재하지 않습니다: " + reviewTotalDto.getReviewId()));
 
+                // ✅ updateReview() 메서드 호출 (Dirty Checking 유도)
+                review.updateReview(
+                        reviewTotalDto.getCoefRating(),
+                        reviewTotalDto.getDurabilityRating(),
+                        reviewTotalDto.getQualityRating(),
+                        reviewTotalDto.getDesignRating(),
+                        total,
+                        reviewTotalDto.getUpdateContent()
+                );
 
+                log.info("이미지 삭제 체크 ");
 
                 if (reviewTotalDto.getDeleteImgIds() != null) {
                     for (Long deleteImgId : reviewTotalDto.getDeleteImgIds()) {

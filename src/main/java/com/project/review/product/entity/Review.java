@@ -70,4 +70,15 @@ public class Review {
     @Setter
     @Transient // DB 에는 없지만 조회용 필드로 활용
     private boolean isLiked;
+
+
+    // ✅ setter 대신 업데이트 메서드 추가 (변경 감지를 유도)
+    public void updateReview(int coef_rating, int durability_rating, int quality_rating, int design_rating, int total_rating, String content) {
+        this.coef_rating = coef_rating;
+        this.durability_rating = durability_rating;
+        this.quality_rating = quality_rating;
+        this.design_rating = design_rating;
+        this.total_rating = total_rating;
+        this.content = content;
+    }
 }
