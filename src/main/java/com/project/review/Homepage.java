@@ -1,5 +1,6 @@
 package com.project.review;
 
+import com.project.review.product.service.productService;
 import com.project.review.user.service.userService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.util.WebUtils;
 @Slf4j
 public class Homepage {
     private final userService userService;
+    private final productService productService;
     @RequestMapping("/")
     public String main(Model model, HttpServletRequest request){
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
