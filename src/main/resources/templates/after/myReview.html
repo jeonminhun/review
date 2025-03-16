@@ -262,7 +262,7 @@
                                 <a th:href="@{/myData/{user_id}(user_id=${user_id})}">내정보</a>
                             </li>
                             <li>
-                                <a th:href="@{/myPage}">리뷰 목록</a>
+                                <a th:href="@{/myPage/{user_id}(user_id=${user_id})}">리뷰 목록</a>
                             </li>
                             <li>
                                 <a th:href="@{/myWish}">찜 목록</a>
@@ -312,26 +312,21 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 col-12">
+                                <div class="col-lg-12 col-12" th:each="review:${reviews}">
                                     <div class="single-product">
                                         <div class="cart-single-list">
-                                            <div class="row align-items-center">
+                                            <div class="row align-items-center" >
                                                 <div class="col-lg-1 col-md-1 col-12">
-                                                    <a href="../default/product-details.html"><img
-                                                            src="assets/images/cart/01.jpg" alt="#"></a>
+                                                    <a th:href="@{/product/}+${review.product.product_id}"><img
+                                                            th:src="'imgs/product/product_' + ${review.product.product_id} + '.jpg'" alt="#"></a>
                                                 </div>
                                                 <div class="col-lg-4 col-md-3 col-12">
-                                                    <h5 class="product-name"><a href="../default/product-details.html">
-                                                        Canon EOS M50 Mirrorless Camera</a></h5>
-                                                    <p class="product-des">
-                                                        <span><em>Type:</em> Mirrorless</span>
-                                                        <span><em>Color:</em> Black</span>
-                                                    </p>
+                                                    <h5 class="product-name">
+                                                        <a th:href="@{/product/}+${review.product.product_id}" th:text="${review.product.product_name}">제품 이름을 불러오지 못했습니다.</a>
+                                                    </h5>
                                                 </div>
                                                 <div class="col-lg-4 col-md-2 col-12">
-                                                    <a href="javascript:void(0)">
-                                                        th:text 뭐시기 리뷰내용입니다
-                                                    </a>
+                                                    <a th:href="@{/product/}+${review.product.product_id}" th:text="${review.content}">리뷰 내용을 불러오지 못했습니다.</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -14,10 +14,14 @@ import java.util.List;
 @Repository
 public interface productReviewRepository extends JpaRepository<Review, Long> {
 
-    @Modifying
     @Transactional
     @Query("SELECT u FROM Review u WHERE u.product.id = :product_id")
     List<Review> findProduct_id(@Param("product_id") Long product_id);
+
+    @Transactional
+    @Query("SELECT u FROM Review u WHERE u.user.id = :user_id")
+    List<Review> findByUser_id(@Param("user_id") Long user_id);
+
     @Transactional
     @Query("SELECT new com.project.review.product.dto.ReviewRatingCountDto(r.total_rating, COUNT(r)) " +
             "FROM Review r " +

@@ -1,5 +1,7 @@
 package com.project.review.mypage.controller;
 
+import com.project.review.product.entity.Review;
+import com.project.review.product.service.productService;
 import com.project.review.user.entity.User;
 import com.project.review.user.service.userService;
 import jakarta.servlet.http.Cookie;
@@ -14,17 +16,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class myPageController {
     private final userService userService;
+    private final productService productService;
 
     @GetMapping("/myPage/{user_id}")
     public String myReview(@PathVariable("user_id")Long user_id, Model model, HttpServletRequest request) {
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         if (authCookie != null) {
+            List<Review> reviews = productService.myReview(user_id, request);
             model.addAttribute("user_id",user_id);
+            model.addAttribute("reviews",reviews);
             return "after/myReview";
         }
         return "default/index";

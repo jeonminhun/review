@@ -59,6 +59,11 @@ public class productServiceImpl implements productService {
     }
 
     @Override
+    public List<Review> myReview(Long user_id, HttpServletRequest request) {
+        return productReviewRepository.findByUser_id(user_id);
+    }
+
+    @Override
     public List<Review> ReviewAll() {
         List<Review> reviews = productReviewRepository.findAll();
 

@@ -18,6 +18,8 @@ public interface productService {
 
     List<Review> ReviewInfo(Long product_id, HttpServletRequest request);
 
+    List<Review> myReview(Long user_id, HttpServletRequest request);
+
     List<Review> ReviewAll();
 
     List<Product> ProductAll();
