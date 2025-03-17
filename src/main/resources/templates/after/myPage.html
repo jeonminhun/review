@@ -260,10 +260,10 @@
                         <h3>카테고리</h3>
                         <ul class="list">
                             <li>
-                                <a th:href="@{/myData}">내 정보</a>
+                                <a th:href="@{/myData/}+${user.user_id}">내 정보</a>
                             </li>
                             <li>
-                                <a th:href="@{/myPage}">리뷰 목록</a>
+                                <a th:href="@{/myPage/}+${user.user_id}">리뷰 목록</a>
                             </li>
                             <li>
                                 <a th:href="@{/myWish}">찜 목록</a>

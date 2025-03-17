@@ -610,28 +610,8 @@
                                                 </button>
                                             </div>
                                         </div>
-
-                                        <h4>
-                                            <span th:text="${review.user.user_name}">Jacob Hammond</span>
-                                        </h4>
-                                        <!-- 👍 좋아요 & 👎 싫어요 버튼 -->
-                                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                                            <button class="like-btn"
-                                                    th:data-review-id="${review.review_id}"
-                                                    th:data-user-id="${user.user_id}"
-                                                    onclick="likeReview(this)"
-                                                    th:classappend="${review.isLiked} ? 'liked' : ''">
-                                                👍 <span th:text="${review.likeCount}">0</span>
-                                                <div th:if="${review.review_id} == ${reviewImg.review.review_id}"
-                                                     th:each="reviewImg:${reviewImgs}">
-
-                                                </div>
-
-                                            </button>
-                                            <!-- <button class="dislike-btn" th:data-review-id="${review.review_id}" onclick="dislikeReview(this)">
-                                                 👎 <span text="${review.dislikeCount}">0</span>
-                                             </button>-->
-                                        </div>
+                                        <span th:text="${#dates.format(review.created_date, 'yyyy-MM-dd')}"></span>
+                                        <h4><span th:text="${review.user.user_name}">유저 닉네임</span></h4>
 
                                         <ul class="stars2">
                                             <li> <!--class="starss"-->
@@ -685,6 +665,22 @@
                                                 </span>
                                             </li>
                                         </ul>
+
+                                        <!-- 👍 좋아요 버튼 -->
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                                            <button class="like-btn"
+                                                    th:data-review-id="${review.review_id}"
+                                                    th:data-user-id="${user.user_id}"
+                                                    onclick="likeReview(this)"
+                                                    th:classappend="${review.isLiked} ? 'liked' : ''">
+                                                👍 <span th:text="${review.likeCount}">0</span>
+                                                <div th:if="${review.review_id} == ${reviewImg.review.review_id}"
+                                                     th:each="reviewImg:${reviewImgs}">
+
+                                                </div>
+
+                                            </button>
+                                        </div>
 
                                         <div th:if="${review.review_id} == ${reviewImg.review.review_id}"
                                              th:each="reviewImg:${reviewImgs}">

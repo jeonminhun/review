@@ -16,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.String.valueOf;
 
@@ -152,6 +149,7 @@ public class productServiceImpl implements productService {
                     .design_rating(reviewCreateDto.getDesign_rating())
                     .total_rating(total)
                     .content(reviewCreateDto.getContent())
+                    .created_date(new Date())
                     .build();
 
             review = productReviewRepository.save(review);

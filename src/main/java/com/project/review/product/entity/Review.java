@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -52,6 +53,9 @@ public class Review {
 
     @Column(nullable = false)
     private String content;
+
+    @Column(nullable = false)
+    private Date created_date;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnore

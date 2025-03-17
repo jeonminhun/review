@@ -306,6 +306,9 @@
                                                     <div class="col-lg-4 col-md-2 col-12">
                                                         <p>리뷰 내용</p>
                                                     </div>
+                                                    <div class="col-lg-2 col-md-2 col-12">
+                                                        <p>리뷰 날짜</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -327,6 +330,9 @@
                                                 </div>
                                                 <div class="col-lg-4 col-md-2 col-12">
                                                     <a th:href="@{/product/}+${review.product.product_id}" th:text="${review.content}">리뷰 내용을 불러오지 못했습니다.</a>
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-12">
+                                                    <a th:text="${#dates.format(review.created_date, 'yyyy-MM-dd')}">리뷰 내용을 불러오지 못했습니다.</a>
                                                 </div>
                                             </div>
                                         </div>
