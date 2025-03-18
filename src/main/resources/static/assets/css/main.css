@@ -8295,3 +8295,9 @@ blockquote span {
           color: white;
           border-color: #007bff;
       }
+
+      .btn.saved {
+                background-color: #007bff;
+                color: white;
+                border-color: #007bff;
+            }

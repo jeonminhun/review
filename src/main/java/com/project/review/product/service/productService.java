@@ -3,6 +3,7 @@ package com.project.review.product.service;
 import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.dto.reviewTotalDto;
+import com.project.review.product.dto.saveDto;
 import com.project.review.product.entity.*;
 import com.project.review.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import java.util.Map;
 
 public interface productService {
     Product productInfo(Long product_id, HttpServletRequest request);
+
+    Product productInfoLogin(Long product_id, Long user_id);
 
     ProductImg productImgInfo(Long product_id);
 
@@ -33,6 +36,8 @@ public interface productService {
     Map<Integer, Long> RatingCount(Long product_id);
 
     Map<String, Object> chartData(Long product_id);
+
+    boolean productSave(saveDto saveDto, HttpServletRequest request);
 
     boolean reviewCreate(ReviewCreateDto reviewCreateDto, MultipartFile[] files, HttpServletRequest request);
 

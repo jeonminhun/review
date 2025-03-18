@@ -352,7 +352,15 @@
                             <div class="row align-items-end">
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="wish-button">
-                                        <button class="btn"><i class="lni lni-heart"></i> 찜하기</button>
+                                        <button class="btn"
+                                                th:data-user-id="${user.user_id}"
+                                                th:data-product-id="${product.product_id}"
+                                                th:data-isSaved="${product.isSaved}"
+                                                onclick="productSave(this)"
+                                                th:classappend="${product.isSaved} ? 'saved' : ''">
+                                        <i th:if="${product.isSaved}" class="lni lni-heart-filled"></i><i th:if="${!product.isSaved}" class="lni lni-heart"></i>
+                                            찜하기</button>
+
                                     </div>
                                 </div>
                             </div>
@@ -674,10 +682,7 @@
                                                     onclick="likeReview(this)"
                                                     th:classappend="${review.isLiked} ? 'liked' : ''">
                                                 👍 <span th:text="${review.likeCount}">0</span>
-                                                <div th:if="${review.review_id} == ${reviewImg.review.review_id}"
-                                                     th:each="reviewImg:${reviewImgs}">
 
-                                                </div>
 
                                             </button>
                                         </div>
@@ -1020,9 +1025,8 @@
 </script>
 <!-- JavaScript 코드 -->
 <script src="assets/js/dataChart.js"></script>
-
-
 <script src="assets/js/ReviewLike.js"></script>
+<script src="assets/js/productSave.js"></script>
 
 <script>
     function openReviewModal(button) {

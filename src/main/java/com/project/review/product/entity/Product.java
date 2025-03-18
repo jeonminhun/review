@@ -40,4 +40,8 @@ public class Product {
     @Column(nullable = false)
     @ColumnDefault("0")
     private int product_total_rating;
+
+    @Setter
+    @Transient // DB 에는 없지만 조회용 필드로 활용
+    private boolean isSaved;
 }

@@ -30,19 +30,33 @@ public class productServiceImpl implements productService {
     private final productReviewImgRepository productReviewImgRepository;
     private final userRepository userRepository;
     private final ReviewLikeRepository reviewLikeRepository;
+    private final saveRepository saveRepository;
     private final TokenProvider tokenProvider;
 
 
     @Override
     public Product productInfo(Long product_id, HttpServletRequest request) {
-        return productRepository.findById(product_id).get();
+        Product product = productRepository.findById(product_id).get();
+        return product;
+    }
+
+    @Override
+    public Product productInfoLogin(Long product_id, Long user_id) {
+
+        Product product = productRepository.findById(product_id).get();
+
+        Save save = saveRepository.findByUser_id(user_id, product_id);
+        product.setSaved(false);
+        if (save != null) {
+            product.setSaved(true);
+        }
+        return product;
     }
 
     @Override
     public ProductImg productImgInfo(Long product_id) {
         return productImgRepository.findByProduct_id(product_id);
     }
-
     @Override
     public List<Review> ReviewInfo(Long product_id, HttpServletRequest request) {
 
@@ -129,6 +143,25 @@ public class productServiceImpl implements productService {
         chartData.put("labels", Arrays.asList("총 별점", "가성비 별점", "내구성 별점", "품질 별점", "디자인 별점")); // X축 레이블
         chartData.put("total", Arrays.asList(ratingCount.get(5), ratingCount.get(4), ratingCount.get(3), ratingCount.get(2), ratingCount.get(1))); // 차트에 들어갈 데이터
         return chartData;
+    }
+
+    @Override
+    public boolean productSave(saveDto saveDto, HttpServletRequest request) {
+        User user = User.builder().user_id(saveDto.getUser_id()).build();
+        Product product = Product.builder().product_id(saveDto.getProduct_id()).build();
+        Save save = Save.builder().user(user).product(product).build();
+
+        Save save1 = saveRepository.findByUser_id(saveDto.getUser_id(), saveDto.getProduct_id());
+
+        if (save1 == null) {
+            saveRepository.save(save);
+        } else {
+            saveRepository.delete(save1);
+        }
+
+
+
+        return true;
     }
 
     @Override

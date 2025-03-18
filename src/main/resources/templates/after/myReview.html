@@ -280,8 +280,8 @@
                                 <div class="product-sorting">
                                     <label for="sorting">정렬:</label>
                                     <select class="form-control" id="sorting">
-                                        <option>날짜 내림차순</option>
-                                        <option>날짜 오름차순</option>
+                                        <option value="desc">날짜 내림차순</option>
+                                        <option value="asc">날짜 오름차순</option>
                                     </select>
                                 </div>
                             </div>
@@ -315,24 +315,32 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 col-12" th:each="review:${reviews}">
-                                    <div class="single-product">
-                                        <div class="cart-single-list">
-                                            <div class="row align-items-center" >
-                                                <div class="col-lg-1 col-md-1 col-12">
-                                                    <a th:href="@{/product/}+${review.product.product_id}"><img
-                                                            th:src="'imgs/product/product_' + ${review.product.product_id} + '.jpg'" alt="#"></a>
-                                                </div>
-                                                <div class="col-lg-4 col-md-3 col-12">
-                                                    <h5 class="product-name">
-                                                        <a th:href="@{/product/}+${review.product.product_id}" th:text="${review.product.product_name}">제품 이름을 불러오지 못했습니다.</a>
-                                                    </h5>
-                                                </div>
-                                                <div class="col-lg-4 col-md-2 col-12">
-                                                    <a th:href="@{/product/}+${review.product.product_id}" th:text="${review.content}">리뷰 내용을 불러오지 못했습니다.</a>
-                                                </div>
-                                                <div class="col-lg-2 col-md-2 col-12">
-                                                    <a th:text="${#dates.format(review.created_date, 'yyyy-MM-dd')}">리뷰 내용을 불러오지 못했습니다.</a>
+                                <div id="review-list">
+                                    <div class="col-lg-12 col-12" th:each="review:${reviews}" th:data-date="${review.created_date}">
+                                        <div class="single-product">
+                                            <div class="cart-single-list">
+                                                <div class="row align-items-center">
+                                                    <div class="col-lg-1 col-md-1 col-12">
+                                                        <a th:href="@{/product/}+${review.product.product_id}"><img
+                                                                th:src="'imgs/product/product_' + ${review.product.product_id} + '.jpg'"
+                                                                alt="#"></a>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-3 col-12">
+                                                        <h5 class="product-name">
+                                                            <a th:href="@{/product/}+${review.product.product_id}"
+                                                               th:text="${review.product.product_name}">제품 이름을 불러오지
+                                                                못했습니다.</a>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-2 col-12">
+                                                        <a th:href="@{/product/}+${review.product.product_id}"
+                                                           th:text="${review.content}">리뷰 내용을 불러오지 못했습니다.</a>
+                                                    </div>
+                                                    <div class="col-lg-2 col-md-2 col-12">
+                                                        <a class="review-date"
+                                                           th:text="${#dates.format(review.created_date, 'yyyy-MM-dd')}">리뷰
+                                                            내용을 불러오지 못했습니다.</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -461,6 +469,28 @@
 </footer>
 <!--/ End Footer Area -->
 <!--/ 푸터 끝 -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sortingSelect = document.getElementById("sorting");
+        const reviewList = document.getElementById("review-list");
+
+        sortingSelect.addEventListener("change", function () {
+            let reviews = Array.from(reviewList.children);
+            let sortOrder = this.value;
+
+            reviews.sort((a, b) => {
+                let dateA = new Date(a.getAttribute("data-date"));
+                let dateB = new Date(b.getAttribute("data-date"));
+
+                return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
+            });
+
+            reviews.forEach(review => reviewList.appendChild(review));
+        });
+    });
+</script>
+
 
 <!-- ========================= scroll-top ========================= -->
 <a href="#" class="scroll-top">

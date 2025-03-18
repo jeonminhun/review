@@ -3,6 +3,7 @@ package com.project.review.product.controller;
 import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
 import com.project.review.product.dto.reviewTotalDto;
+import com.project.review.product.dto.saveDto;
 import com.project.review.product.entity.*;
 import com.project.review.product.service.productService;
 import com.project.review.user.entity.User;
@@ -54,6 +55,9 @@ public class productController {
         if (authCookie != null) {
 
             Long user_id = userService.getUserId(request);
+
+            Product product_login = productService.productInfoLogin(product_id, user_id);
+            model.addAttribute("product", product_login);
 
             User user = userService.userInfo(user_id, request);
             model.addAttribute("user", user);
@@ -130,6 +134,21 @@ public class productController {
             return ResponseEntity.badRequest().body("실패");
         }
     }
+
+    @ResponseBody
+    @PostMapping("/productSave")
+    public ResponseEntity<Object> productSave(
+            @RequestBody saveDto saveDto,
+            HttpServletRequest request)
+    {
+        boolean save = productService.productSave(saveDto, request);
+        if (save) {
+            return ResponseEntity.ok("성공");
+        } else {
+            return ResponseEntity.badRequest().body("실패");
+        }
+    }
+
 
     @ResponseBody
     @GetMapping("/chart-data/{product_id}")
