@@ -1,6 +1,7 @@
 package com.project.review.mypage.controller;
 
 import com.project.review.product.entity.Review;
+import com.project.review.product.entity.Save;
 import com.project.review.product.service.productService;
 import com.project.review.user.entity.User;
 import com.project.review.user.service.userService;
@@ -50,10 +51,13 @@ public class myPageController {
 
 
     }
-    @GetMapping("/myWish")
-    public String myWish(Model model, HttpServletRequest request) {
+    @GetMapping("/myWish/{user_id}")
+    public String myWish(@PathVariable("user_id")Long user_id, Model model, HttpServletRequest request) {
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         if (authCookie != null) {
+            List<Save> saves = productService.saveInfo(user_id, request);
+            model.addAttribute("saves",saves);
+            model.addAttribute("user_id",user_id);
             return "after/myWishProduct";
         }
         return "default/index";

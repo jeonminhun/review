@@ -2,6 +2,7 @@
 <html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <base href="/">
     <meta charset="utf-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <title>Cart - ShopGrids Bootstrap 5 eCommerce HTML Template.</title>
@@ -232,8 +233,8 @@
             <div class="col-lg-6 col-md-6 col-12">
                 <ul class="breadcrumb-nav">
                     <li><a href="../default/index.html"><i class="lni lni-home"></i> 홈</a></li>
-                    <li><a th:href="@{/myPage}">마이페이지</a></li>
-                    <li><a th:href="@{/myWish}">찜 목록</a></li>
+                    <li><a th:href="@{/myPage/{user_id}(user_id=${user_id})}">마이페이지</a></li>
+                    <li><a th:href="@{/myWish/{user_id}(user_id=${user_id})}">찜 목록</a></li>
                 </ul>
             </div>
         </div>
@@ -257,13 +258,13 @@
                         <h3>카테고리</h3>
                         <ul class="list">
                             <li>
-                                <a th:href="@{/myData}">내정보</a>
+                                <a th:href="@{/myData/{user_id}(user_id=${user_id})}">내정보</a>
                             </li>
                             <li>
-                                <a th:href="@{/myPage}">리뷰 목록</a>
+                                <a th:href="@{/myPage/{user_id}(user_id=${user_id})}">리뷰 목록</a>
                             </li>
                             <li>
-                                <a th:href="@{/myWish}">찜 목록</a>
+                                <a th:href="@{/myWish/{user_id}(user_id=${user_id})}">찜 목록</a>
                             </li>
                         </ul>
                     </div>
@@ -276,13 +277,11 @@
                         <div class="row align-items-center">
                             <div class="cart-grid-title">
                                 <div class="row">
-                                    <div class="col-lg-1 col-md-1 col-12">
+                                    <div class="col-lg-2 col-md-2 col-12">
+                                        제품 사진
                                     </div>
                                     <div class="col-lg-8 col-md-3 col-12">
                                         <p>제품 이름</p>
-                                    </div>
-                                    <div class="col-lg-1 col-md-2 col-12">
-                                        <p>삭제</p>
                                     </div>
                                 </div>
                             </div>
@@ -293,25 +292,21 @@
                         <div class="tab-pane fade show active" id="nav-grid" role="tabpanel"
                              aria-labelledby="nav-grid-tab">
                             <div class="row">
-                                <div class="col-lg-12 col-12">
+                                <div class="col-lg-12 col-12" th:each="save:${saves}">
                                     <div class="single-product">
                                         <div class="cart-single-list">
                                             <div class="row align-items-center">
-                                                <div class="col-lg-1 col-md-1 col-12">
-                                                    <a href="../default/product-details.html"><img
-                                                            src="assets/images/cart/01.jpg" alt="#"></a>
+                                                <div class="col-lg-2 col-md-2 col-12">
+                                                    <a th:href="@{/product/}+${save.product.product_id}"><img
+                                                            th:src="'imgs/product/product_' + ${save.product.product_id} + '.jpg'"
+                                                            alt="#"></a>
                                                 </div>
                                                 <div class="col-lg-8 col-md-3 col-12">
-                                                    <h5 class="product-name"><a href="../default/product-details.html">
-                                                        Canon EOS M50 Mirrorless Camera</a></h5>
-                                                    <p class="product-des">
-                                                        <span><em>Type:</em> Mirrorless</span>
-                                                        <span><em>Color:</em> Black</span>
-                                                    </p>
-                                                </div>
-                                                <div class="col-lg-1 col-md-2 col-12">
-                                                    <a class="remove-item" href="javascript:void(0)"><i
-                                                            class="lni lni-close"></i></a>
+                                                    <h5 class="product-name">
+                                                        <a th:href="@{/product/}+${save.product.product_id}" th:text="${save.product.product_name}">
+                                                            Canon EOS M50 Mirrorless Camera
+                                                        </a>
+                                                    </h5>
                                                 </div>
                                             </div>
                                         </div>

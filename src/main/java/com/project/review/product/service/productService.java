@@ -15,6 +15,8 @@ import java.util.Map;
 public interface productService {
     Product productInfo(Long product_id, HttpServletRequest request);
 
+    List<Save> saveInfo(Long user_id, HttpServletRequest request);
+
     Product productInfoLogin(Long product_id, Long user_id);
 
     ProductImg productImgInfo(Long product_id);
