@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface productService {
+    List<Product> productAll();
+
     Product productInfo(Long product_id, HttpServletRequest request);
 
     List<Save> saveInfo(Long user_id, HttpServletRequest request);

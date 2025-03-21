@@ -35,6 +35,12 @@ public class productServiceImpl implements productService {
 
 
     @Override
+    public List<Product> productAll() {
+        List<Product> all = productRepository.findAll();
+        return all;
+    }
+
+    @Override
     public Product productInfo(Long product_id, HttpServletRequest request) {
         Product product = productRepository.findById(product_id).get();
         return product;

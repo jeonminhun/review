@@ -151,31 +151,18 @@
                     <div class="mega-category-menu">
                         <span class="cat-button"><i class="lni lni-menu"></i>카테고리</span>
                         <ul class="sub-category">
-                            <li><a href="product-grids.html">1 <i class="lni lni-chevron-right"></i></a>
-                                <ul class="inner-sub-category">
-                                    <li><a href="product-grids.html">1</a></li>
-                                    <li><a href="product-grids.html">2</a></li>
-                                    <li><a href="product-grids.html">3</a></li>
-                                    <li><a href="product-grids.html">4</a></li>
-                                    <li><a href="product-grids.html">5</a></li>
-                                    <li><a href="product-grids.html">6</a></li>
-                                    <li><a href="product-grids.html">7</a></li>
-                                    <li><a href="product-grids.html">8</a></li>
-                                    <li><a href="product-grids.html">9</a></li>
-                                    <li><a href="product-grids.html">10</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="product-grids.html">2</a></li>
-                            <li><a href="product-grids.html">3</a></li>
-                            <li><a href="product-grids.html">4</a></li>
-                            <li><a href="product-grids.html">5</a></li>
-                            <li><a href="product-grids.html">6</a></li>
-                            <li><a href="product-grids.html">7</a></li>
-                            <li><a href="product-grids.html">8</a></li>
-                            <li><a href="product-grids.html">9</a></li>
-                            <li><a href="product-grids.html">10 </a></li>
-                            <li><a href="product-grids.html">11 </a></li>
-                            <li><a href="product-grids.html">12 </a></li>
+                            <li><a href="product-grids.html">IT</a></li>
+                            <li><a href="product-grids.html">뷰티</a></li>
+                            <li><a href="product-grids.html">생활</a></li>
+                            <li><a href="product-grids.html">식품</a></li>
+                            <li><a href="product-grids.html">가구</a></li>
+                            <li><a href="product-grids.html">음료</a></li>
+                            <li><a href="product-grids.html">의료</a></li>
+                            <li><a href="product-grids.html">문구</a></li>
+                            <li><a href="product-grids.html">완구</a></li>
+                            <li><a href="product-grids.html">도서/음반/DVD</a></li>
+                            <li><a href="product-grids.html">헬스</a></li>
+                            <li><a href="product-grids.html">스포츠</a></li>
                         </ul>
                     </div>
                     <!-- End Mega Category Menu -->
@@ -361,279 +348,33 @@
                         <div class="tab-pane fade show active" id="nav-grid" role="tabpanel"
                              aria-labelledby="nav-grid-tab">
                             <div class="row">
-                                <div class="col-lg-4 col-md-6 col-12">
+                                <div class="col-lg-4 col-md-6 col-12" th:each="product:${products}">
                                     <!-- Start Single Product -->
                                     <div class="single-product">
                                         <div class="product-image">
-                                            <img src="assets/images/products/product-1.jpg" alt="#">
+                                            <img th:src="'imgs/product/product_'+ ${product.product_id} + '.jpg'"
+                                                 alt="#">
                                             <div class="button">
-                                                <a th:href="@{/shop}" class="btn"><i
-                                                        class="lni lni-cart"></i> Add to Cart</a>
+                                                <a th:href="@{/product/}+${product.product_id}" class="btn"><i
+                                                        class="lni lni-cart"></i> 자세히 보기</a>
                                             </div>
                                         </div>
                                         <div class="product-info">
-                                            <span class="category">Watches</span>
+                                            <span class="category">IT</span>
                                             <h4 class="title">
-                                                <a href="product-grids.html">Xiaomi Mi Band 5</a>
+                                                <a href="product-grids.html" th:text="${product.product_name}">제품 이름</a>
                                             </h4>
                                             <ul class="review">
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star"></i></li>
-                                                <li><span>4.0 Review(s)</span></li>
+                                                <span th:if="${product.product_total_rating > 0}"
+                                                      th:each="i : ${#numbers.sequence(1, product.product_total_rating)}">
+                                                    <li><i class="lni lni-star-filled"></i></li>
+                                                </span>
+                                                <span th:each="i : ${#numbers.sequence(1, 5 - product.product_total_rating)}">
+                                                    <li><i class="lni lni-star"></i></li>
+                                                </span>
+                                                <li><span th:text="${product.product_total_rating}+'.0 Review(s)'">4.0 Review(s) 이거 리뷰 개수로 하는게 좋을 듯</span>
+                                                </li>
                                             </ul>
-                                            <div class="price">
-                                                <span>$199.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Product -->
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <!-- Start Single Product -->
-                                    <div class="single-product">
-                                        <div class="product-image">
-                                            <img src="assets/images/products/product-2.jpg" alt="#">
-                                            <span class="sale-tag">-25%</span>
-                                            <div class="button">
-                                                <a th:href="@{/shop}" class="btn"><i
-                                                        class="lni lni-cart"></i> Add to Cart</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <span class="category">Speaker</span>
-                                            <h4 class="title">
-                                                <a href="product-grids.html">Bluetooth Speaker</a>
-                                            </h4>
-                                            <ul class="review">
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><span>5.0 Review(s)</span></li>
-                                            </ul>
-                                            <div class="price">
-                                                <span>$275.00</span>
-                                                <span class="discount-price">$300.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Product -->
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <!-- Start Single Product -->
-                                    <div class="single-product">
-                                        <div class="product-image">
-                                            <img src="assets/images/products/product-3.jpg" alt="#">
-                                            <div class="button">
-                                                <a th:href="@{/shop}" class="btn"><i
-                                                        class="lni lni-cart"></i> Add to Cart</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <span class="category">Camera</span>
-                                            <h4 class="title">
-                                                <a href="product-grids.html">WiFi Security Camera</a>
-                                            </h4>
-                                            <ul class="review">
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><span>5.0 Review(s)</span></li>
-                                            </ul>
-                                            <div class="price">
-                                                <span>$399.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Product -->
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <!-- Start Single Product -->
-                                    <div class="single-product">
-                                        <div class="product-image">
-                                            <img src="assets/images/products/product-4.jpg" alt="#">
-                                            <span class="new-tag">New</span>
-                                            <div class="button">
-                                                <a th:href="@{/shop}" class="btn"><i
-                                                        class="lni lni-cart"></i> Add to Cart</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <span class="category">Phones</span>
-                                            <h4 class="title">
-                                                <a href="product-grids.html">iphone 6x plus</a>
-                                            </h4>
-                                            <ul class="review">
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><span>5.0 Review(s)</span></li>
-                                            </ul>
-                                            <div class="price">
-                                                <span>$400.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Product -->
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <!-- Start Single Product -->
-                                    <div class="single-product">
-                                        <div class="product-image">
-                                            <img src="assets/images/products/product-5.jpg" alt="#">
-                                            <div class="button">
-                                                <a th:href="@{/shop}" class="btn"><i
-                                                        class="lni lni-cart"></i> Add to Cart</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <span class="category">Headphones</span>
-                                            <h4 class="title">
-                                                <a href="product-grids.html">Wireless Headphones</a>
-                                            </h4>
-                                            <ul class="review">
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><span>5.0 Review(s)</span></li>
-                                            </ul>
-                                            <div class="price">
-                                                <span>$350.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Product -->
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <!-- Start Single Product -->
-                                    <div class="single-product">
-                                        <div class="product-image">
-                                            <img src="assets/images/products/product-6.jpg" alt="#">
-                                            <div class="button">
-                                                <a th:href="@{/shop}" class="btn"><i
-                                                        class="lni lni-cart"></i> Add to Cart</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <span class="category">Speaker</span>
-                                            <h4 class="title">
-                                                <a href="product-grids.html">Mini Bluetooth Speaker</a>
-                                            </h4>
-                                            <ul class="review">
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star"></i></li>
-                                                <li><span>4.0 Review(s)</span></li>
-                                            </ul>
-                                            <div class="price">
-                                                <span>$70.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Product -->
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <!-- Start Single Product -->
-                                    <div class="single-product">
-                                        <div class="product-image">
-                                            <img src="assets/images/products/product-7.jpg" alt="#">
-                                            <span class="sale-tag">-50%</span>
-                                            <div class="button">
-                                                <a th:href="@{/shop}" class="btn"><i
-                                                        class="lni lni-cart"></i> Add to Cart</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <span class="category">Headphones</span>
-                                            <h4 class="title">
-                                                <a href="product-grids.html">Wireless Headphones</a>
-                                            </h4>
-                                            <ul class="review">
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star"></i></li>
-                                                <li><span>4.0 Review(s)</span></li>
-                                            </ul>
-                                            <div class="price">
-                                                <span>$100.00</span>
-                                                <span class="discount-price">$200.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Product -->
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <!-- Start Single Product -->
-                                    <div class="single-product">
-                                        <div class="product-image">
-                                            <img src="assets/images/products/product-8.jpg" alt="#">
-                                            <div class="button">
-                                                <a th:href="@{/shop}" class="btn"><i
-                                                        class="lni lni-cart"></i> Add to Cart</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <span class="category">Laptop</span>
-                                            <h4 class="title">
-                                                <a href="product-grids.html">Apple MacBook Air</a>
-                                            </h4>
-                                            <ul class="review">
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><span>5.0 Review(s)</span></li>
-                                            </ul>
-                                            <div class="price">
-                                                <span>$899.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Product -->
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <!-- Start Single Product -->
-                                    <div class="single-product">
-                                        <div class="product-image">
-                                            <img src="assets/images/products/product-2.jpg" alt="#">
-                                            <span class="sale-tag">-25%</span>
-                                            <div class="button">
-                                                <a th:href="@{/shop}" class="btn"><i
-                                                        class="lni lni-cart"></i> Add to Cart</a>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <span class="category">Speaker</span>
-                                            <h4 class="title">
-                                                <a href="product-grids.html">Bluetooth Speaker</a>
-                                            </h4>
-                                            <ul class="review">
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><i class="lni lni-star-filled"></i></li>
-                                                <li><span>5.0 Review(s)</span></li>
-                                            </ul>
-                                            <div class="price">
-                                                <span>$275.00</span>
-                                                <span class="discount-price">$300.00</span>
-                                            </div>
                                         </div>
                                     </div>
                                     <!-- End Single Product -->
