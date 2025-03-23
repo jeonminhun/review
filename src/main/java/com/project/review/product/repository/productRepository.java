@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface productRepository extends JpaRepository<Product, Long> {
 
@@ -21,4 +23,8 @@ public interface productRepository extends JpaRepository<Product, Long> {
             "p.product_design_rating = (SELECT AVG(r.design_rating) FROM Review r WHERE r.product.product_id =:product_id)" +
             "WHERE p.product_id =:product_id")
     int productRatingUpdate(@Param("product_id") Long product_id);
+
+    @Transactional
+    @Query("select u from Product u where u.product_name LIKE %:product_name%")
+    List<Product> productSearchName(@Param("product_name") String product_name);
 }

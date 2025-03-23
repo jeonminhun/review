@@ -47,12 +47,6 @@ public class productServiceImpl implements productService {
     }
 
     @Override
-    public List<Save> saveInfo(Long user_id, HttpServletRequest request) {
-        List<Save> saves = saveRepository.findByUser_id(user_id);
-        return saves;
-    }
-
-    @Override
     public Product productInfoLogin(Long product_id, Long user_id) {
 
         Product product = productRepository.findById(product_id).get();
@@ -63,6 +57,24 @@ public class productServiceImpl implements productService {
             product.setSaved(true);
         }
         return product;
+    }
+
+    @Override
+    public List<Product> productSearch(String product_name) {
+        List<Product> products = productRepository.productSearchName(product_name);
+
+        return products;
+    }
+
+    @Override
+    public List<Save> saveInfo(Long user_id, HttpServletRequest request) {
+        List<Save> saves = saveRepository.findByUser_id(user_id);
+        return saves;
+    }
+
+    @Override
+    public List<Save> saveCategory(String category) {
+        return List.of();
     }
 
     @Override

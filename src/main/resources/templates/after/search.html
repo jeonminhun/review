@@ -112,22 +112,11 @@
                     <div class="main-menu-search">
                         <!-- navbar search start -->
                         <!--검색기능 미완성 미리 만들어놓음-->
-                        <form th:action="@{/search}"> <!--th:object="${MemberRequestDto}"-->
+                        <form th:action="@{/search}" method="get"> <!--th:object="${MemberRequestDto}"-->
                             <div class="navbar-search search-style-5">
-                                <div class="search-select">
-                                    <div class="select-position">
-                                        <select id="select1">
-                                            <option selected>All</option>
-                                            <option value="1">option 01</option>
-                                            <option value="2">option 02</option>
-                                            <option value="3">option 03</option>
-                                            <option value="4">option 04</option>
-                                            <option value="5">option 05</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="search-input">
-                                    <input type="text" placeholder="Search">
+                                    <input type="text" name="query" placeholder="Search">
+                                    <input type="hidden" name="menu" value="1">
                                 </div>
                                 <div class="search-btn">
                                     <button type="submit"><i class="lni lni-search-alt"></i></button>

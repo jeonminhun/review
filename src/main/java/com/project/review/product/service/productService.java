@@ -17,9 +17,13 @@ public interface productService {
 
     Product productInfo(Long product_id, HttpServletRequest request);
 
+    Product productInfoLogin(Long product_id, Long user_id);
+
+    List<Product> productSearch(String product_name);
+
     List<Save> saveInfo(Long user_id, HttpServletRequest request);
 
-    Product productInfoLogin(Long product_id, Long user_id);
+    List<Save> saveCategory(String category);
 
     ProductImg productImgInfo(Long product_id);
 
