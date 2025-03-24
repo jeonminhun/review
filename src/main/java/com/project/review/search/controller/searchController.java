@@ -22,18 +22,6 @@ public class searchController {
 
     private final productService productService;
 
-   /* @GetMapping("/search") // 페이지 확인용 임시 컨트롤러
-    public String search(Model model, HttpServletRequest request) {
-        Cookie authCookie = WebUtils.getCookie(request, "Authorization");
-        List<Product> products = productService.productAll();
-        model.addAttribute("products", products);
-
-        if (authCookie != null) {
-            return "after/search";
-        }
-        return "default/search";
-    }*/
-
     @GetMapping("/search") // 검색 기능
     public String search(@RequestParam("query") String query, @RequestParam("menu")Integer menu, Model model, HttpServletRequest request) {
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
@@ -41,9 +29,6 @@ public class searchController {
             List<Product> products = productService.productSearch(query);
             model.addAttribute("products", products);
         }
-
-
-
         if (authCookie != null) {
             return "after/search";
         }
