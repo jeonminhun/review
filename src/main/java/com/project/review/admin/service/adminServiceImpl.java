@@ -4,6 +4,9 @@ import com.project.review.admin.dto.UserGradeDto;
 import com.project.review.admin.dto.productCreateDto;
 import com.project.review.admin.entity.adminProductUpdateDto;
 import com.project.review.admin.entity.productAdminDto;
+import com.project.review.category.dto.categoryEnum;
+import com.project.review.category.entity.Category;
+import com.project.review.category.repository.categoryRepository;
 import com.project.review.product.dto.productImgDto;
 import com.project.review.product.entity.Product;
 import com.project.review.product.entity.ProductImg;
@@ -16,6 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
@@ -28,6 +32,7 @@ import java.nio.file.StandardCopyOption;
 public class adminServiceImpl implements adminService { // adminServiceImpl 트루 폴스 고치기
     private final productRepository productRepository;
     private final productImgRepository productImgRepository;
+    private final categoryRepository categoryRepository;
     private final userRepository userRepository;
     private final TokenProvider tokenProvider;
 
@@ -53,6 +58,12 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
             ProductImg productImg = imgSave(files, request, product, filename);
 
             productImgRepository.save(productImg);
+
+            int codeByCategory = categoryEnum.getCodeByCategory(productCreateDto.getCategory_no());
+
+            Category category = Category.builder().product(product).category_no(codeByCategory).build();
+
+            categoryRepository.save(category);
 
             return true;
 
@@ -92,30 +103,37 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
     }
 
     @Override
+    @Transactional
     public boolean productUpdate(adminProductUpdateDto adminProductUpdateDto, MultipartFile files, HttpServletRequest request) {
         try {
             log.info("프로덕트 수정 서비스 시작");
-            Product product = Product.builder()
-                    .product_id(adminProductUpdateDto.getProduct_id())
-                    .product_name(adminProductUpdateDto.getProduct_name())
-                    .product_manu(adminProductUpdateDto.getProduct_manu())
-                    .product_coef_rating(adminProductUpdateDto.getProduct_coef_rating())
-                    .product_durability_rating(adminProductUpdateDto.getProduct_durability_rating())
-                    .product_quality_rating(adminProductUpdateDto.getProduct_quality_rating())
-                    .product_design_rating(adminProductUpdateDto.getProduct_design_rating())
-                    .product_total_rating(adminProductUpdateDto.getProduct_total_rating())
-                    .build();
 
-            product =  productRepository.save(product);
+            Product product = productRepository.findById(adminProductUpdateDto.getProduct_id()).orElseThrow(() -> new IllegalArgumentException("해당 제품이 존재하지 않습니다: " + adminProductUpdateDto.getProduct_id()));
 
-            String filename = "product_" + product.getProduct_id() + ".jpg";
+            product.updateProduct(
+                    adminProductUpdateDto.getProduct_name(),
+                    adminProductUpdateDto.getProduct_manu(),
+                    adminProductUpdateDto.getProduct_coef_rating(),
+                    adminProductUpdateDto.getProduct_durability_rating(),
+                    adminProductUpdateDto.getProduct_quality_rating(),
+                    adminProductUpdateDto.getProduct_design_rating(),
+                    adminProductUpdateDto.getProduct_total_rating()
+            );
+            // 이미지 업데이트
+            if (!files.isEmpty()) {
+                String filename = "product_" + product.getProduct_id() + ".jpg";
 
-            ProductImg productImg = imgSave(files, request, product, filename);
+                ProductImg productImg = imgSave(files, request, product, filename);
 
-            productImgRepository.save(productImg);
+                productImgRepository.save(productImg);
+            }
 
+            // 카테고리 업데이트
+            Category category = categoryRepository.findByProduct_id(product.getProduct_id());
 
+            int codeByCategory = categoryEnum.getCodeByCategory(adminProductUpdateDto.getCategory());
 
+            category.updateCategory(codeByCategory);
 
             return true;
         } catch (Exception e) {

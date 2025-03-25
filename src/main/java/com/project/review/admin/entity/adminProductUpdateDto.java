@@ -15,4 +15,5 @@ public class adminProductUpdateDto {
     private int product_quality_rating;
     private int product_design_rating;
     private int product_total_rating;
+    private String category;
 }

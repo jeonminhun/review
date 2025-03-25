@@ -3,7 +3,6 @@ package com.project.review.admin.controller;
 import com.project.review.admin.dto.UserGradeDto;
 import com.project.review.admin.dto.productCreateDto;
 import com.project.review.admin.entity.adminProductUpdateDto;
-import com.project.review.admin.entity.productAdminDto;
 import com.project.review.admin.service.adminService;
 import com.project.review.product.entity.Product;
 import com.project.review.product.entity.ProductImg;
@@ -11,7 +10,6 @@ import com.project.review.product.entity.Review;
 import com.project.review.product.service.productService;
 import com.project.review.user.entity.User;
 import com.project.review.user.service.userService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.WebUtils;
 
 import java.util.List;
 

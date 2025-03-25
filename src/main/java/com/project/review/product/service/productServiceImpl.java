@@ -1,5 +1,8 @@
 package com.project.review.product.service;
 
+import com.project.review.category.dto.categoryEnum;
+import com.project.review.category.entity.Category;
+import com.project.review.category.repository.categoryRepository;
 import com.project.review.product.dto.*;
 import com.project.review.product.entity.*;
 import com.project.review.product.repository.*;
@@ -30,6 +33,7 @@ public class productServiceImpl implements productService {
     private final productReviewImgRepository productReviewImgRepository;
     private final userRepository userRepository;
     private final ReviewLikeRepository reviewLikeRepository;
+    private final categoryRepository categoryRepository;
     private final saveRepository saveRepository;
     private final TokenProvider tokenProvider;
 
@@ -111,7 +115,16 @@ public class productServiceImpl implements productService {
 
     @Override
     public List<Product> ProductAll() {
-        return productRepository.findAll();
+        List<Product> products = productRepository.findAll();
+
+        for (Product product : products) {
+            Category category = categoryRepository.findByProduct_id(product.getProduct_id());
+            String categoryByCode = categoryEnum.getCategoryByCode(category.getCategory_no());
+            log.info("테스트용" + categoryByCode);
+            product.setCategory(categoryByCode);
+        }
+
+        return products;
     }
 
     @Override
