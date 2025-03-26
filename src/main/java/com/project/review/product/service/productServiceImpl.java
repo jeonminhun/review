@@ -67,6 +67,25 @@ public class productServiceImpl implements productService {
     public List<Product> productSearch(String product_name) {
         List<Product> products = productRepository.productSearchName(product_name);
 
+        for (Product product : products) {
+            Category category = categoryRepository.findByProduct_id(product.getProduct_id());
+            String categoryByCode = categoryEnum.getCategoryByCode(category.getCategory_no());
+            product.setCategory(categoryByCode);
+        }
+
+        return products;
+    }
+
+    @Override
+    public List<Product> productCategory(String category) {
+        int codeByCategory = categoryEnum.getCodeByCategory(category);
+        List<Product> products = categoryRepository.findByCategory(codeByCategory);
+
+        for (Product product : products) {
+            Category forCategory = categoryRepository.findByProduct_id(product.getProduct_id());
+            String categoryByCode = categoryEnum.getCategoryByCode(forCategory.getCategory_no());
+            product.setCategory(categoryByCode);
+        }
         return products;
     }
 
@@ -120,7 +139,6 @@ public class productServiceImpl implements productService {
         for (Product product : products) {
             Category category = categoryRepository.findByProduct_id(product.getProduct_id());
             String categoryByCode = categoryEnum.getCategoryByCode(category.getCategory_no());
-            log.info("테스트용" + categoryByCode);
             product.setCategory(categoryByCode);
         }
 

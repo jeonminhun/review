@@ -21,6 +21,8 @@ public interface productService {
 
     List<Product> productSearch(String product_name);
 
+    List<Product> productCategory(String category);
+
     List<Save> saveInfo(Long user_id, HttpServletRequest request);
 
     List<Save> saveCategory(String category);
