@@ -15,6 +15,10 @@ import java.util.Map;
 public interface productService {
     List<Product> productAll();
 
+    List<Product> productRank();
+
+    List<Product> productSlide();
+
     Product productInfo(Long product_id, HttpServletRequest request);
 
     Product productInfoLogin(Long product_id, Long user_id);

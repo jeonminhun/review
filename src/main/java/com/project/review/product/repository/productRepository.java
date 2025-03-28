@@ -1,6 +1,7 @@
 package com.project.review.product.repository;
 
 import com.project.review.product.entity.Product;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,8 @@ public interface productRepository extends JpaRepository<Product, Long> {
     @Transactional
     @Query("select u from Product u where u.product_name LIKE %:product_name%")
     List<Product> productSearchName(@Param("product_name") String product_name);
+
+    @Transactional
+    @Query("SELECT p FROM Product p LEFT JOIN Review r ON r.product.id = p.id GROUP BY p.id ORDER BY COUNT(r) DESC")
+    List<Product> productRank(Pageable pageable);
 }

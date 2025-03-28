@@ -12,6 +12,7 @@ import com.project.review.user.repository.userRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +43,17 @@ public class productServiceImpl implements productService {
     public List<Product> productAll() {
         List<Product> all = productRepository.findAll();
         return all;
+    }
+
+    @Override
+    public List<Product> productRank() {
+
+        return productRepository.productRank(PageRequest.of(0, 8));
+    }
+
+    @Override
+    public List<Product> productSlide() {
+        return productRepository.productRank(PageRequest.of(0, 4));
     }
 
     @Override
