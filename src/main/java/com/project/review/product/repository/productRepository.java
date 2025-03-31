@@ -27,7 +27,7 @@ public interface productRepository extends JpaRepository<Product, Long> {
 
     @Transactional
     @Query("select u from Product u where u.product_name LIKE %:query%")
-    List<Product> productSearchName(@Param("product_name") String query);
+    List<Product> productSearchName(@Param("query") String query);
 
     @Transactional
     @Query("SELECT p FROM Product p LEFT JOIN Review r ON r.product.id = p.id GROUP BY p.id ORDER BY COUNT(r) DESC")
