@@ -23,7 +23,7 @@ public interface productService {
 
     Product productInfoLogin(Long product_id, Long user_id);
 
-    List<Product> productSearch(String product_name);
+    List<Product> productSearch(String query);
 
     List<Product> productCategory(String category);
 
