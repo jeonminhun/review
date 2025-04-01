@@ -7,6 +7,8 @@ import com.project.review.product.dto.saveDto;
 import com.project.review.product.entity.*;
 import com.project.review.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -23,9 +25,9 @@ public interface productService {
 
     Product productInfoLogin(Long product_id, Long user_id);
 
-    List<Product> productSearch(String query);
+    Page<Product> productSearch(String query, Pageable pageable);
 
-    List<Product> productCategory(String category);
+    Page<Product>  productCategory(String category, Pageable pageable);
 
     List<Save> saveInfo(Long user_id, HttpServletRequest request);
 

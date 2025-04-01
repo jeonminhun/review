@@ -246,13 +246,12 @@
                             <div class="col-lg-7 col-md-8 col-12">
                                 <div class="product-sorting">
                                     <label for="sorting">정렬:</label>
-                                    <select class="form-control" id="sorting">
-                                        <option>가성비 순</option>
-                                        <option>내구성 순</option>
-                                        <option>품질 순</option>
-                                        <option>디자인 순</option>
-                                        <option>총점 순</option>
-                                        <option>리뷰량 순</option>
+                                    <select class="form-control" id="sorting" onchange="changeSort()">
+                                        <option value="coef" th:selected="${sort == 'coef'}">가성비 순</option>
+                                        <option value="durability" th:selected="${sort == 'durability'}">내구성 순</option>
+                                        <option value="quality" th:selected="${sort == 'quality'}">품질 순</option>
+                                        <option value="design" th:selected="${sort == 'design'}">디자인 순</option>
+                                        <option value="total" th:selected="${sort == 'total'}">총점 순</option>
                                     </select>
                                 </div>
                             </div>
@@ -313,12 +312,24 @@
                                     <!-- Pagination -->
                                     <div class="pagination left">
                                         <ul class="pagination-list">
-                                            <li><a href="javascript:void(0)">1</a></li>
-                                            <li class="active"><a href="javascript:void(0)">2</a></li>
-                                            <li><a href="javascript:void(0)">3</a></li>
-                                            <li><a href="javascript:void(0)">4</a></li>
-                                            <li><a href="javascript:void(0)"><i
-                                                    class="lni lni-chevron-right"></i></a></li>
+                                            <!-- 이전 페이지 버튼 -->
+                                            <li th:if="${currentPage > 0}">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${currentPage - 1})}">
+                                                    <i class="lni lni-chevron-left"></i>
+                                                </a>
+                                            </li>
+
+                                            <!-- 페이지 번호 -->
+                                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active' : ''">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${i})}" th:text="${i + 1}"></a>
+                                            </li>
+
+                                            <!-- 다음 페이지 버튼 -->
+                                            <li th:if="${currentPage < totalPages - 1}">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${currentPage + 1})}">
+                                                    <i class="lni lni-chevron-right"></i>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <!--/ End Pagination -->
@@ -523,6 +534,29 @@
                                     <!-- Pagination -->
                                     <div class="pagination left">
                                         <ul class="pagination-list">
+                                            <!-- 이전 페이지 버튼 -->
+                                            <li th:if="${currentPage > 0}">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${currentPage - 1})}">
+                                                    <i class="lni lni-chevron-left"></i>
+                                                </a>
+                                            </li>
+
+                                            <!-- 페이지 번호 -->
+                                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active' : ''">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${i})}" th:text="${i + 1}"></a>
+                                            </li>
+
+                                            <!-- 다음 페이지 버튼 -->
+                                            <li th:if="${currentPage < totalPages - 1}">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${currentPage + 1})}">
+                                                    <i class="lni lni-chevron-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!--<div class="pagination left">
+                                        <ul class="pagination-list">
                                             <li><a href="javascript:void(0)">1</a></li>
                                             <li class="active"><a href="javascript:void(0)">2</a></li>
                                             <li><a href="javascript:void(0)">3</a></li>
@@ -530,7 +564,7 @@
                                             <li><a href="javascript:void(0)"><i
                                                     class="lni lni-chevron-right"></i></a></li>
                                         </ul>
-                                    </div>
+                                    </div>-->
                                     <!--/ End Pagination -->
                                 </div>
                             </div>
@@ -662,6 +696,21 @@
 <a href="#" class="scroll-top">
     <i class="lni lni-chevron-up"></i>
 </a>
+
+<script>
+    function changeSort() {
+        let currentPage = /*[[${currentPage}]]*/ 0;
+        let selectedSort = document.getElementById("sorting").value;
+        let url = new URL(window.location.href);
+
+        url.searchParams.set("sort", selectedSort);
+        url.searchParams.set("page", currentPage);
+        window.location.href = url.toString();
+
+    }
+</script>
+
+
 
 <!-- ========================= JS here ========================= -->
 <script src="assets/js/bootstrap.min.js"></script>

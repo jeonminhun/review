@@ -12,7 +12,9 @@ import com.project.review.user.repository.userRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -76,8 +78,8 @@ public class productServiceImpl implements productService {
     }
 
     @Override
-    public List<Product> productSearch(String query) {
-        List<Product> products = productRepository.productSearchName(query);
+    public Page<Product> productSearch(String query, Pageable pageable) {
+        Page<Product>  products = productRepository.productSearchName(query, pageable);
 
         for (Product product : products) {
             Category category = categoryRepository.findByProduct_id(product.getProduct_id());
@@ -89,9 +91,9 @@ public class productServiceImpl implements productService {
     }
 
     @Override
-    public List<Product> productCategory(String category) {
+    public Page<Product>  productCategory(String category, Pageable pageable) {
         int codeByCategory = categoryEnum.getCodeByCategory(category);
-        List<Product> products = categoryRepository.findByCategory(codeByCategory);
+        Page<Product>  products = productRepository.findByCategory(codeByCategory, pageable);
 
         for (Product product : products) {
             Category forCategory = categoryRepository.findByProduct_id(product.getProduct_id());

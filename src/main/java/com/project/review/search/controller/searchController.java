@@ -8,6 +8,11 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,18 +31,42 @@ public class searchController {
     private final categoryService categoryService;
 
     @GetMapping("/search") // 검색 기능
-    public String search(@RequestParam("query") String query, @RequestParam("menu")Integer menu, Model model, HttpServletRequest request) {
+    public String search(@RequestParam("query") String query,
+                         @RequestParam("menu")Integer menu,
+                         @RequestParam(value = "sort", required = false, defaultValue = "total") String sort,
+                         @PageableDefault(size = 9) Pageable pageable,
+                         Model model, HttpServletRequest request) {
+
+
+        Sort sorting = switch (sort) {
+            case "coef" -> Sort.by("product_coef_rating").descending();
+            case "durability" -> Sort.by("product_durability_rating").descending();
+            case "quality" -> Sort.by("product_quality_rating").descending();
+            case "design" -> Sort.by("product_design_rating").descending();
+            default -> Sort.by("product_total_rating").descending();
+        };
+
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sorting);
+
+
+
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         List<categoryReviewDto> categoryReviews = categoryService.categoryReviewCount();
         model.addAttribute("categoryReviews", categoryReviews);
+        Page<Product> products;
 
         if (menu == 1) {
-            List<Product> products = productService.productSearch(query);
-            model.addAttribute("products", products);
-        }if (menu == 2) {
-            List<Product> products = productService.productCategory(query);
-            model.addAttribute("products", products);
+            products = productService.productSearch(query, sortedPageable);
+        }else  {
+            products = productService.productCategory(query, sortedPageable);
         }
+        model.addAttribute("products", products);
+        model.addAttribute("currentPage", products.getNumber());
+        model.addAttribute("totalPages", products.getTotalPages());
+        model.addAttribute("sort", sort);
+        model.addAttribute("query", query);
+        model.addAttribute("menu", menu);
+
         if (authCookie != null) {
             return "after/search";
         }
