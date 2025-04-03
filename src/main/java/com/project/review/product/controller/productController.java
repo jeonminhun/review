@@ -86,7 +86,9 @@ public class productController {
     {
         log.info("리뷰 생성 시작 : "+reviewCreateDto.getUser_id());
         if (productService.reviewCreate(reviewCreateDto, files, request)) {
-            return "redirect:/product/"+reviewCreateDto.getProduct_id();
+
+            String referer = request.getHeader("Referer");
+            return "redirect:"+referer;
         } else {
             return "redirect:/";
         }
@@ -98,7 +100,8 @@ public class productController {
             HttpServletRequest request)
     {
         if (productService.reviewUpdate(reviewTotalDto, files, request)) {
-            return "redirect:/product/"+reviewTotalDto.getProductId();
+            String referer = request.getHeader("Referer");
+            return "redirect:"+referer;
         } else {
             return "redirect:/";
         }

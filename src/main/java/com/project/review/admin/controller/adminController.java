@@ -104,7 +104,8 @@ public class adminController { // 사진 받는것도 추가 해야함
     ) {
         log.info("유저 설정 : " + userGradeDto.getUser_name());
         if (adminService.userGradeUpdate(userGradeDto, request)) {
-            return "redirect:/admin/adminUser";
+            String referer = request.getHeader("Referer");
+            return "redirect:"+referer;
         } else {
             return "redirect:/";
         }
@@ -116,7 +117,8 @@ public class adminController { // 사진 받는것도 추가 해야함
     ) {
         log.info("유저 삭제 : " + user_id);
         if (adminService.userDelete(user_id, request)) {
-            return "redirect:/admin/adminUser";
+            String referer = request.getHeader("Referer");
+            return "redirect:"+referer;
         } else {
             return "redirect:/";
         }

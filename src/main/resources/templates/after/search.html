@@ -237,62 +237,11 @@
                     <div class="single-widget">
                         <h3>카테고리</h3>
                         <ul class="list">
-                            <li><a href="/search?query=IT&menu=2">IT</a><span>(1138)</span></li>
-                            <li><a href="/search?query=뷰티&menu=2">뷰티</a><span>(1138)</span></li>
-                            <li><a href="/search?query=생활&menu=2">생활</a><span>(1138)</span></li>
-                            <li><a href="/search?query=식품&menu=2">식품</a><span>(1138)</span></li>
-                            <li><a href="/search?query=가구&menu=2">가구</a><span>(1138)</span></li>
-                            <li><a href="/search?query=의료&menu=2">의료</a><span>(1138)</span></li>
-                            <li><a href="/search?query=문구&menu=2">문구</a><span>(1138)</span></li>
-                            <li><a href="/search?query=완구&menu=2">완구</a><span>(1138)</span></li>
-                            <li><a href="/search?query=도서/음반/DVD&menu=2">도서/음반/DVD</a><span>(1138)</span></li>
-                            <li><a href="/search?query=헬스&menu=2">헬스</a><span>(1138)</span></li>
-                            <li><a href="/search?query=스포츠&menu=2">스포츠</a><span>(1138)</span></li>
+                            <li th:each="categoryReview : ${categoryReviews}">
+                                <a th:href="@{/search(query=${categoryReview.category}, menu=2)}" th:text="${categoryReview.category}">카테고리</a>
+                                <span th:text="'('+${categoryReview.reviewCount}+')'"></span>
+                            </li>
                         </ul>
-                    </div>
-                    <!-- End Single Widget -->
-
-                    <!-- Start Single Widget -->
-                    <div class="single-widget range">
-                        <h3>가성비</h3>
-                        <input type="range" class="form-range" name="range" step="0.5" min="0" max="5"
-                               value="5" onchange="rangePrimary.value=value">
-                        <div class="range-inner">
-                            <input type="text" id="rangePrimary" placeholder="5"/>
-                        </div>
-                    </div>
-                    <!-- End Single Widget -->
-
-                    <!-- Start Single Widget -->
-                    <div class="single-widget range">
-                        <h3>내구성</h3>
-                        <input type="range" class="form-range" name="range" step="0.5" min="0" max="5"
-                               value="5" onchange="rangePrimary2.value=value">
-                        <div class="range-inner">
-                            <input type="text" id="rangePrimary2" placeholder="5" 점/>
-                        </div>
-                    </div>
-                    <!-- End Single Widget -->
-
-                    <!-- Start Single Widget -->
-                    <div class="single-widget range">
-                        <h3>품질</h3>
-                        <input type="range" class="form-range" name="range" step="0.5" min="0" max="5"
-                               value="5" onchange="rangePrimary3.value=value">
-                        <div class="range-inner">
-                            <input type="text" id="rangePrimary3" placeholder="5"/>
-                        </div>
-                    </div>
-                    <!-- End Single Widget -->
-
-                    <!-- Start Single Widget -->
-                    <div class="single-widget range">
-                        <h3>디자인</h3>
-                        <input type="range" class="form-range" name="range" step="0.5" min="0" max="5"
-                               value="5" onchange="rangePrimary4.value=value">
-                        <div class="range-inner">
-                            <input type="text" id="rangePrimary4" placeholder="5"/>
-                        </div>
                     </div>
                     <!-- End Single Widget -->
                 </div>
@@ -305,10 +254,12 @@
                             <div class="col-lg-7 col-md-8 col-12">
                                 <div class="product-sorting">
                                     <label for="sorting">정렬:</label>
-                                    <select class="form-control" id="sorting">
-                                        <option>별점 높은 순</option>
-                                        <option>별점 낮은 순</option>
-                                        <option>리뷰량 순</option>
+                                    <select class="form-control" id="sorting" onchange="changeSort()">
+                                        <option value="coef" th:selected="${sort == 'coef'}">가성비 순</option>
+                                        <option value="durability" th:selected="${sort == 'durability'}">내구성 순</option>
+                                        <option value="quality" th:selected="${sort == 'quality'}">품질 순</option>
+                                        <option value="design" th:selected="${sort == 'design'}">디자인 순</option>
+                                        <option value="total" th:selected="${sort == 'total'}">총점 순</option>
                                     </select>
                                 </div>
                             </div>
@@ -344,9 +295,9 @@
                                             </div>
                                         </div>
                                         <div class="product-info">
-                                            <span class="category">IT</span>
+                                            <span class="category" th:text="${product.category}">IT</span>
                                             <h4 class="title">
-                                                <a th:href="@{/product/}+${productRank.product_id}" th:text="${product.product_name}">제품 이름</a>
+                                                <a href="product-grids.html" th:text="${product.product_name}">제품 이름</a>
                                             </h4>
                                             <ul class="review">
                                                 <span th:if="${product.product_total_rating > 0}"
@@ -369,12 +320,24 @@
                                     <!-- Pagination -->
                                     <div class="pagination left">
                                         <ul class="pagination-list">
-                                            <li><a href="javascript:void(0)">1</a></li>
-                                            <li class="active"><a href="javascript:void(0)">2</a></li>
-                                            <li><a href="javascript:void(0)">3</a></li>
-                                            <li><a href="javascript:void(0)">4</a></li>
-                                            <li><a href="javascript:void(0)"><i
-                                                    class="lni lni-chevron-right"></i></a></li>
+                                            <!-- 이전 페이지 버튼 -->
+                                            <li th:if="${currentPage > 0}">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${currentPage - 1})}">
+                                                    <i class="lni lni-chevron-left"></i>
+                                                </a>
+                                            </li>
+
+                                            <!-- 페이지 번호 -->
+                                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active' : ''">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${i})}" th:text="${i + 1}"></a>
+                                            </li>
+
+                                            <!-- 다음 페이지 버튼 -->
+                                            <li th:if="${currentPage < totalPages - 1}">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${currentPage + 1})}">
+                                                    <i class="lni lni-chevron-right"></i>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <!--/ End Pagination -->
@@ -391,7 +354,7 @@
                                                 <div class="product-image">
                                                     <img src="assets/images/products/product-1.jpg" alt="#">
                                                     <div class="button">
-                                                        <a th:href="@{/shop}" class="btn"><i
+                                                        <a href="product-details.html" class="btn"><i
                                                                 class="lni lni-cart"></i> Add to
                                                             Cart</a>
                                                     </div>
@@ -429,7 +392,7 @@
                                                     <img src="assets/images/products/product-2.jpg" alt="#">
                                                     <span class="sale-tag">-25%</span>
                                                     <div class="button">
-                                                        <a th:href="@{/shop}" class="btn"><i
+                                                        <a href="product-details.html" class="btn"><i
                                                                 class="lni lni-cart"></i> Add to
                                                             Cart</a>
                                                     </div>
@@ -467,7 +430,7 @@
                                                 <div class="product-image">
                                                     <img src="assets/images/products/product-3.jpg" alt="#">
                                                     <div class="button">
-                                                        <a th:href="@{/shop}" class="btn"><i
+                                                        <a href="product-details.html" class="btn"><i
                                                                 class="lni lni-cart"></i> Add to
                                                             Cart</a>
                                                     </div>
@@ -505,7 +468,7 @@
                                                     <img src="assets/images/products/product-4.jpg" alt="#">
                                                     <span class="new-tag">New</span>
                                                     <div class="button">
-                                                        <a th:href="@{/shop}" class="btn"><i
+                                                        <a href="product-details.html" class="btn"><i
                                                                 class="lni lni-cart"></i> Add to
                                                             Cart</a>
                                                     </div>
@@ -543,7 +506,7 @@
                                                     <img src="assets/images/products/product-7.jpg" alt="#">
                                                     <span class="sale-tag">-50%</span>
                                                     <div class="button">
-                                                        <a th:href="@{/shop}" class="btn"><i
+                                                        <a href="product-details.html" class="btn"><i
                                                                 class="lni lni-cart"></i> Add to
                                                             Cart</a>
                                                     </div>
@@ -579,6 +542,29 @@
                                     <!-- Pagination -->
                                     <div class="pagination left">
                                         <ul class="pagination-list">
+                                            <!-- 이전 페이지 버튼 -->
+                                            <li th:if="${currentPage > 0}">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${currentPage - 1})}">
+                                                    <i class="lni lni-chevron-left"></i>
+                                                </a>
+                                            </li>
+
+                                            <!-- 페이지 번호 -->
+                                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active' : ''">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${i})}" th:text="${i + 1}"></a>
+                                            </li>
+
+                                            <!-- 다음 페이지 버튼 -->
+                                            <li th:if="${currentPage < totalPages - 1}">
+                                                <a th:href="@{/search(query=${query}, menu=${menu}, sort=${sort}, page=${currentPage + 1})}">
+                                                    <i class="lni lni-chevron-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!--<div class="pagination left">
+                                        <ul class="pagination-list">
                                             <li><a href="javascript:void(0)">1</a></li>
                                             <li class="active"><a href="javascript:void(0)">2</a></li>
                                             <li><a href="javascript:void(0)">3</a></li>
@@ -586,7 +572,7 @@
                                             <li><a href="javascript:void(0)"><i
                                                     class="lni lni-chevron-right"></i></a></li>
                                         </ul>
-                                    </div>
+                                    </div>-->
                                     <!--/ End Pagination -->
                                 </div>
                             </div>
@@ -718,6 +704,21 @@
 <a href="#" class="scroll-top">
     <i class="lni lni-chevron-up"></i>
 </a>
+
+
+<script>
+    function changeSort() {
+        let currentPage = /*[[${currentPage}]]*/ 0;
+        let selectedSort = document.getElementById("sorting").value;
+        let url = new URL(window.location.href);
+
+        url.searchParams.set("sort", selectedSort);
+        url.searchParams.set("page", currentPage);
+        window.location.href = url.toString();
+
+    }
+</script>
+
 
 <!-- ========================= JS here ========================= -->
 <script src="assets/js/bootstrap.min.js"></script>
