@@ -3,16 +3,13 @@ package com.project.review.admin.service;
 import com.project.review.admin.dto.UserGradeDto;
 import com.project.review.admin.dto.productCreateDto;
 import com.project.review.admin.entity.adminProductUpdateDto;
-import com.project.review.admin.entity.productAdminDto;
 import com.project.review.category.dto.categoryEnum;
 import com.project.review.category.entity.Category;
 import com.project.review.category.repository.categoryRepository;
-import com.project.review.product.dto.productImgDto;
 import com.project.review.product.entity.Product;
 import com.project.review.product.entity.ProductImg;
 import com.project.review.product.repository.productImgRepository;
 import com.project.review.product.repository.productRepository;
-import com.project.review.user.entity.User;
 import com.project.review.user.jwt.TokenProvider;
 import com.project.review.user.repository.userRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +26,7 @@ import java.nio.file.StandardCopyOption;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class adminServiceImpl implements adminService { // adminServiceImpl 트루 폴스 고치기
+public class adminServiceImpl implements adminService {
     private final productRepository productRepository;
     private final productImgRepository productImgRepository;
     private final categoryRepository categoryRepository;
@@ -53,12 +50,14 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
 
             product =  productRepository.save(product);
 
+            //제품 이미지 저장
             String filename = "product_" + product.getProduct_id() + ".jpg";
 
             ProductImg productImg = imgSave(files, request, product, filename);
 
             productImgRepository.save(productImg);
 
+            // 제품 카테고리 등록
             int codeByCategory = categoryEnum.getCodeByCategory(productCreateDto.getCategory_no());
 
             Category category = Category.builder().product(product).category_no(codeByCategory).build();
@@ -84,15 +83,12 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
             Product product = productRepository.findById(product_id).get();
             ProductImg productImg = productImgRepository.findByProduct_id(product_id);
 
-
             productImgRepository.delete(productImg);
             productRepository.delete(product);
 
             imgDelete(productImg);
 
             return true;
-
-
         } catch (Exception e) {
             log.info("프로덕트 삭제 실패 : "+ product_id);
             e.printStackTrace();
@@ -125,7 +121,9 @@ public class adminServiceImpl implements adminService { // adminServiceImpl 트�
 
                 ProductImg productImg = imgSave(files, request, product, filename);
 
-                productImgRepository.save(productImg);
+                if (productImgRepository.findByProduct_id(product.getProduct_id()) == null) {
+                    productImgRepository.save(productImg);
+                }
             }
 
             // 카테고리 업데이트

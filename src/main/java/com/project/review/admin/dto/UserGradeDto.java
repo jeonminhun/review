@@ -10,7 +10,7 @@ public class UserGradeDto {
 
     private Long user_id;
     private String user_name;
-    @JsonProperty("Change_role") // 이름 매핑
+    @JsonProperty("Change_role")
     private int Change_role;
 
 

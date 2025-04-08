@@ -4,6 +4,8 @@ import com.project.review.category.dto.categoryReviewDto;
 import com.project.review.category.service.categoryService;
 import com.project.review.product.entity.Product;
 import com.project.review.product.service.productService;
+import com.project.review.user.entity.User;
+import com.project.review.user.service.userService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 
@@ -26,7 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class searchController {
-
+    private final userService userService;
     private final productService productService;
     private final categoryService categoryService;
 
@@ -68,6 +69,9 @@ public class searchController {
         model.addAttribute("menu", menu);
 
         if (authCookie != null) {
+            Long user_id = userService.getUserId(request);
+            User user = userService.userInfo(user_id, request);
+            model.addAttribute("user", user);
             return "after/search";
         }
         return "default/search";

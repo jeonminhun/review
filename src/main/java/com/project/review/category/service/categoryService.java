@@ -16,5 +16,4 @@ import java.util.Map;
 
 public interface categoryService {
     List<categoryReviewDto> categoryReviewCount();
-
 }

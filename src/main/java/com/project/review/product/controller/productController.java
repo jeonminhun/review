@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -117,7 +115,6 @@ public class productController {
         if (product_id != null) {
             log.info("리뷰 삭제성공 : " + product_id);
             String referer = request.getHeader("Referer");
-
             return "redirect:" + referer;
         } else {
             log.info("리뷰 삭제 실패");

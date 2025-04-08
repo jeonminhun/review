@@ -31,8 +31,6 @@ public interface productService {
 
     List<Save> saveInfo(Long user_id, HttpServletRequest request);
 
-    List<Save> saveCategory(String category);
-
     ProductImg productImgInfo(Long product_id);
 
     List<Review> ReviewInfo(Long product_id, HttpServletRequest request);

@@ -2,6 +2,7 @@ package com.project.review;
 
 import com.project.review.product.entity.Product;
 import com.project.review.product.service.productService;
+import com.project.review.user.entity.User;
 import com.project.review.user.service.userService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ public class Homepage {
     private final productService productService;
     @RequestMapping("/")
     public String main(Model model, HttpServletRequest request){
+        log.info("홉 화면 접근");
         Cookie authCookie = WebUtils.getCookie(request, "Authorization");
         List<Product> productRanks = productService.productRank();
         model.addAttribute("productRanks", productRanks);
@@ -30,7 +32,8 @@ public class Homepage {
 
         if (authCookie != null) {
             Long user_id = userService.getUserId(request);
-            model.addAttribute("user_id", user_id);
+            User user = userService.userInfo(user_id, request);
+            model.addAttribute("user", user);
             return "after/index";
         }
         model.addAttribute("data","hi my name is review!");

@@ -25,9 +25,7 @@ public class categoryServiceImpl implements categoryService {
 
         for (int i = 1; i < 12; i++) {
             String categoryByCode = categoryEnum.getCategoryByCode(i);
-            log.info("테스트 : "+categoryByCode);
             Long count = categoryRepository.categoryReviewCount(i);
-            log.info("테스트2 : "+count);
             categoryReviewDto reviewDto = new categoryReviewDto();
             reviewDto.setCategory(categoryByCode);
             reviewDto.setReviewCount(count);

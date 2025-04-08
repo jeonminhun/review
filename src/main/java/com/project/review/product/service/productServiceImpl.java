@@ -109,10 +109,7 @@ public class productServiceImpl implements productService {
         return saves;
     }
 
-    @Override
-    public List<Save> saveCategory(String category) {
-        return List.of();
-    }
+
 
     @Override
     public ProductImg productImgInfo(Long product_id) {

@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 
 import java.util.List;
@@ -33,6 +31,8 @@ public class myPageController {
             List<Review> reviews = productService.myReview(user_id, request);
             model.addAttribute("user_id",user_id);
             model.addAttribute("reviews",reviews);
+            User user = userService.userInfo(user_id, request);
+            model.addAttribute("user", user);
             return "after/myReview";
         }
         return "default/index";
@@ -58,6 +58,8 @@ public class myPageController {
             List<Save> saves = productService.saveInfo(user_id, request);
             model.addAttribute("saves",saves);
             model.addAttribute("user_id",user_id);
+            User user = userService.userInfo(user_id, request);
+            model.addAttribute("user", user);
             return "after/myWishProduct";
         }
         return "default/index";

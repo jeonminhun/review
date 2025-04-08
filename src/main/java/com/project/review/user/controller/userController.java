@@ -151,11 +151,4 @@ public class userController {
 
         response.addCookie(refreshCookie);
     }
-
-   /*@PostMapping("/test")
-    public ResponseEntity<TokenDto> test_form(@ModelAttribute MemberRequestDto memberRequestDto, HttpServletRequest request, Model model) {
-        log.info("로그인 시도 전 로그"+memberRequestDto.getUser_email()+"비번"+memberRequestDto.getUser_password());
-        return ResponseEntity.ok(userService.login(request,memberRequestDto));
-    }*/
-
 }

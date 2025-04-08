@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/admin")
-public class adminController { // 사진 받는것도 추가 해야함
+public class adminController {
     private final adminService adminService;
     private final productService productService;
     private final userService userService;
@@ -38,7 +38,6 @@ public class adminController { // 사진 받는것도 추가 해야함
             List<Review> reviews = productService.ReviewAll();
             List<Product> Product = productService.ProductAll();
             List<ProductImg> productImgs = productService.ProductImgAll();
-            log.info("로그 확인용 입니다. : "+Users.get(0).getUser_name());
             model.addAttribute("Users", Users);
             model.addAttribute("reviews", reviews);
             model.addAttribute("Product", Product);
@@ -98,7 +97,7 @@ public class adminController { // 사진 받는것도 추가 해야함
     }
 
     @PostMapping("/user/grade")
-    public String userGrade( // adminServiceImpl 트루 폴스 고치기
+    public String userGrade(
             @RequestBody UserGradeDto userGradeDto,
             HttpServletRequest request
     ) {
@@ -111,7 +110,7 @@ public class adminController { // 사진 받는것도 추가 해야함
         }
     }
     @PostMapping("/user/delete/{user_id}")
-    public String userDelete( // adminServiceImpl 트루 폴스 고치기
+    public String userDelete(
             @PathVariable("user_id") Long user_id,
             HttpServletRequest request
     ) {

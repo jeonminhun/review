@@ -1,6 +1,5 @@
 package com.project.review.product.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.review.user.entity.User;
 import jakarta.persistence.*;

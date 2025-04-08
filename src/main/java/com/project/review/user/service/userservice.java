@@ -3,9 +3,7 @@ package com.project.review.user.service;
 import com.project.review.user.dto.*;
 import com.project.review.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 

@@ -1,10 +1,8 @@
 package com.project.review.product.dto;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.ColumnDefault;
 
 @Slf4j
 @Getter @Setter

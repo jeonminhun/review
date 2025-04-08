@@ -37,14 +37,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserDetails createUserDetails(User user) {
         log.info("createUserDetails 로그 = "+user.getUserEmail());
         return new CustomUserDetails(user);
-
         // 기존 코드 : UserDetailsService 사용자를 데이터베이스에서 불러오는 역할이기 떄문에 UserDetails 따로 구현해서 권한 처리하는게 적합
-        /*
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(String.valueOf(user.getUserRole()));
-        new org.springframework.security.core.userdetails.User(
-                user.getUserEmail(),
-                user.getUser_password(),
-                Collections.singleton(grantedAuthority)
-        );*/
     }
 }

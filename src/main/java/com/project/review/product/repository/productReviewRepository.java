@@ -3,7 +3,6 @@ package com.project.review.product.repository;
 import com.project.review.product.dto.ReviewRatingCountDto;
 import com.project.review.product.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
