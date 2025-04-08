@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### Spring ###
+application.properties
+
 ### STS ###
 .apt_generated
 .classpath
@@ -25,6 +28,22 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+# Java
+*.class
+*.log
+*.jar
+*.war
+*.zip
+
+# Build
+build/
+.gradle/
+target/
+
+# System
+.DS_Store
+Thumbs.db
 
 ### NetBeans ###
 /nbproject/private/
