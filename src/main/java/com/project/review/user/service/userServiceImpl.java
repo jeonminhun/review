@@ -262,7 +262,7 @@ public class userServiceImpl implements userService {
 
 //                String fileExtension = files.getOriginalFilename().substring(files.getOriginalFilename().lastIndexOf("."));
 
-                String filename = user.getUser_name() + "_userImg" + ".jpg";
+                String filename = user.getUser_id() + "_userImg" + ".jpg";
                 log.info("유저 이미지 파일 네임 메소드 : " + filename);
 
                 Path filepath = uploadPath.resolve(filename);
