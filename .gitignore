@@ -7,6 +7,7 @@ build/
 
 ### Spring ###
 application.properties
+application-dev.properties
 .properties
 
 ### STS ###
