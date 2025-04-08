@@ -273,7 +273,7 @@ public class productServiceImpl implements productService {
 
     @Override
     @Transactional
-    public boolean reviewUpdate(reviewTotalDto reviewTotalDto, MultipartFile[] files, HttpServletRequest request) {
+    public boolean reviewUpdate(ReviewTotalDto reviewTotalDto, MultipartFile[] files, HttpServletRequest request) {
 
         ReviewCreateDto reviewCreateDto = new ReviewCreateDto();
         reviewCreateDto.setCoef_rating(reviewTotalDto.getCoefRating());

@@ -2,7 +2,7 @@ package com.project.review.product.service;
 
 import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
-import com.project.review.product.dto.reviewTotalDto;
+import com.project.review.product.dto.ReviewTotalDto;
 import com.project.review.product.dto.saveDto;
 import com.project.review.product.entity.*;
 import com.project.review.user.entity.User;
@@ -55,7 +55,7 @@ public interface productService {
 
     boolean reviewCreate(ReviewCreateDto reviewCreateDto, MultipartFile[] files, HttpServletRequest request);
 
-    boolean reviewUpdate(reviewTotalDto reviewTotalDto, MultipartFile[] files, HttpServletRequest request);
+    boolean reviewUpdate(ReviewTotalDto reviewTotalDto, MultipartFile[] files, HttpServletRequest request);
 
     Long reviewDelete(Long review_id, HttpServletRequest request);
 

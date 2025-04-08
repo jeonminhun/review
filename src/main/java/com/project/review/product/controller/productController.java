@@ -2,7 +2,7 @@ package com.project.review.product.controller;
 
 import com.project.review.product.dto.ReviewCreateDto;
 import com.project.review.product.dto.ReviewLikeDto;
-import com.project.review.product.dto.reviewTotalDto;
+import com.project.review.product.dto.ReviewTotalDto;
 import com.project.review.product.dto.saveDto;
 import com.project.review.product.entity.*;
 import com.project.review.product.service.productService;
@@ -93,7 +93,7 @@ public class productController {
     }
     @PostMapping("/reviewUpdate")
     public String reviewUpdate(
-            @ModelAttribute reviewTotalDto reviewTotalDto,
+            @ModelAttribute ReviewTotalDto reviewTotalDto,
             @RequestPart("files") MultipartFile[] files,
             HttpServletRequest request)
     {

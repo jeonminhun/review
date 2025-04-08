@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Getter @Setter
-public class reviewTotalDto {
+public class ReviewTotalDto {
     private Long reviewId;
     private Long userId;
     private Long productId;
