@@ -2,9 +2,7 @@ package com.project.review.category.service;
 
 import com.project.review.category.dto.categoryEnum;
 import com.project.review.category.dto.categoryReviewDto;
-import com.project.review.category.entity.Category;
 import com.project.review.category.repository.categoryRepository;
-import com.project.review.product.repository.productRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 public class categoryServiceImpl implements categoryService {
     private final categoryRepository categoryRepository;
-    private final productRepository productRepository;
 
     @Override
     public List<categoryReviewDto> categoryReviewCount() {
