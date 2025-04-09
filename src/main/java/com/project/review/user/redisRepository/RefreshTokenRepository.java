@@ -1,4 +1,4 @@
-package com.project.review.user.repository;
+package com.project.review.user.redisRepository;
 
 
 import com.project.review.user.entity.RefreshToken;

@@ -6,7 +6,7 @@ import com.project.review.user.jwt.TokenProvider;
 import com.project.review.user.Helper;
 import com.project.review.user.entity.RefreshToken;
 import com.project.review.user.entity.User;
-import com.project.review.user.repository.RefreshTokenRepository;
+import com.project.review.user.redisRepository.RefreshTokenRepository;
 import com.project.review.user.repository.userImgRepository;
 import com.project.review.user.repository.userRepository;
 import jakarta.servlet.http.HttpServletRequest;
