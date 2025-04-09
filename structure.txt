@@ -1,0 +1,998 @@
+My Passport 볼륨에 대한 폴더 경로의 목록입니다.
+볼륨 일련 번호는 3C7D-0C88입니다.
+F:.
+│  .gitattributes
+│  .gitignore
+│  build.gradle
+│  gradlew
+│  gradlew.bat
+│  HELP.md
+│  settings.gradle
+│  structure.txt
+│  
+├─.gradle
+│  │  file-system.probe
+│  │  
+│  ├─8.11.1
+│  │  │  gc.properties
+│  │  │  
+│  │  ├─checksums
+│  │  │      checksums.lock
+│  │  │      md5-checksums.bin
+│  │  │      sha1-checksums.bin
+│  │  │      
+│  │  ├─executionHistory
+│  │  │      executionHistory.bin
+│  │  │      executionHistory.lock
+│  │  │      
+│  │  ├─expanded
+│  │  ├─fileChanges
+│  │  │      last-build.bin
+│  │  │      
+│  │  ├─fileHashes
+│  │  │      fileHashes.bin
+│  │  │      fileHashes.lock
+│  │  │      resourceHashesCache.bin
+│  │  │      
+│  │  └─vcsMetadata
+│  ├─buildOutputCleanup
+│  │      buildOutputCleanup.lock
+│  │      cache.properties
+│  │      outputFiles.bin
+│  │      
+│  └─vcs-1
+│          gc.properties
+│          
+├─.idea
+│  │  .gitignore
+│  │  compiler.xml
+│  │  gradle.xml
+│  │  jarRepositories.xml
+│  │  misc.xml
+│  │  vcs.xml
+│  │  workspace.xml
+│  │  
+│  └─inspectionProfiles
+│          Project_Default.xml
+│          
+├─gradle
+│  └─wrapper
+│          gradle-wrapper.jar
+│          gradle-wrapper.properties
+│          
+├─out
+│  └─production
+│      ├─classes
+│      │  └─com
+│      │      └─project
+│      │          └─review
+│      │              │  Homepage.class
+│      │              │  ReviewApplication.class
+│      │              │  
+│      │              ├─user
+│      │              │  │  Helper.class
+│      │              │  │  
+│      │              │  ├─service
+│      │              │  │      userService.class
+│      │              │  │      userServiceImpl.class
+│      │              │  │      
+│      │              │  ├─entity
+│      │              │  │      User$UserBuilder.class
+│      │              │  │      User.class
+│      │              │  │      RefreshToken$RefreshTokenBuilder.class
+│      │              │  │      RefreshToken.class
+│      │              │  │      UserImg$UserImgBuilder.class
+│      │              │  │      UserImg.class
+│      │              │  │      
+│      │              │  ├─dto
+│      │              │  │      userCreateDto.class
+│      │              │  │      UserUpdateDto.class
+│      │              │  │      MemberRequestDto.class
+│      │              │  │      TokenDto$TokenDtoBuilder.class
+│      │              │  │      TokenDto.class
+│      │              │  │      TokenRequestDto.class
+│      │              │  │      Role.class
+│      │              │  │      
+│      │              │  ├─controller
+│      │              │  │      userController.class
+│      │              │  │      
+│      │              │  ├─repository
+│      │              │  │      userRepository.class
+│      │              │  │      userImgRepository.class
+│      │              │  │      RefreshTokenRepository.class
+│      │              │  │      
+│      │              │  └─jwt
+│      │              │          TokenProvider.class
+│      │              │          JwtAccessDeniedHandler.class
+│      │              │          JwtFilter.class
+│      │              │          SecurityUtil.class
+│      │              │          JwtAuthenticationEntryPoint.class
+│      │              │          
+│      │              ├─product
+│      │              │  ├─service
+│      │              │  │      productService.class
+│      │              │  │      productServiceImpl.class
+│      │              │  │      
+│      │              │  ├─entity
+│      │              │  │      Product$ProductBuilder.class
+│      │              │  │      Product.class
+│      │              │  │      Save$SaveBuilder.class
+│      │              │  │      Save.class
+│      │              │  │      ProductImg$ProductImgBuilder.class
+│      │              │  │      ProductImg.class
+│      │              │  │      Review$ReviewBuilder.class
+│      │              │  │      Review.class
+│      │              │  │      ReviewImg$ReviewImgBuilder.class
+│      │              │  │      ReviewImg.class
+│      │              │  │      ReviewLike$ReviewLikeBuilder.class
+│      │              │  │      ReviewLike.class
+│      │              │  │      
+│      │              │  ├─dto
+│      │              │  │      saveDto.class
+│      │              │  │      ReviewCreateDto.class
+│      │              │  │      ReviewTotalDto.class
+│      │              │  │      ReviewLikeDto.class
+│      │              │  │      productDto.class
+│      │              │  │      productImgDto.class
+│      │              │  │      ReviewImgDto.class
+│      │              │  │      ReviewRatingCountDto.class
+│      │              │  │      
+│      │              │  ├─repository
+│      │              │  │      productRepository.class
+│      │              │  │      productImgRepository.class
+│      │              │  │      productReviewRepository.class
+│      │              │  │      productReviewImgRepository.class
+│      │              │  │      ReviewLikeRepository.class
+│      │              │  │      saveRepository.class
+│      │              │  │      
+│      │              │  └─controller
+│      │              │          productController.class
+│      │              │          
+│      │              ├─config
+│      │              │      SecurityConfig$FilterChainLogger.class
+│      │              │      SecurityConfig$1.class
+│      │              │      SecurityConfig.class
+│      │              │      WebConfig.class
+│      │              │      CustomUserDetails.class
+│      │              │      CustomUserDetailsService.class
+│      │              │      
+│      │              ├─interceptors
+│      │              │      jwtInterceptor.class
+│      │              │      
+│      │              ├─search
+│      │              │  └─controller
+│      │              │          searchController.class
+│      │              │          
+│      │              ├─category
+│      │              │  ├─service
+│      │              │  │      categoryService.class
+│      │              │  │      categoryServiceImpl.class
+│      │              │  │      
+│      │              │  ├─dto
+│      │              │  │      categoryReviewDto.class
+│      │              │  │      categoryEnum.class
+│      │              │  │      
+│      │              │  ├─repository
+│      │              │  │      categoryRepository.class
+│      │              │  │      
+│      │              │  └─entity
+│      │              │          Category$CategoryBuilder.class
+│      │              │          Category.class
+│      │              │          
+│      │              ├─mypage
+│      │              │  └─controller
+│      │              │          myPageController.class
+│      │              │          
+│      │              └─admin
+│      │                  ├─controller
+│      │                  │      adminController.class
+│      │                  │      
+│      │                  ├─service
+│      │                  │      adminService.class
+│      │                  │      adminServiceImpl.class
+│      │                  │      
+│      │                  ├─dto
+│      │                  │      productCreateDto.class
+│      │                  │      UserGradeDto.class
+│      │                  │      
+│      │                  ├─entity
+│      │                  │      adminProductUpdateDto.class
+│      │                  │      productAdminDto.class
+│      │                  │      
+│      │                  └─repository
+│      │                          adminRepository.class
+│      │                          
+│      └─resources
+│          │  application-dev.properties
+│          │  application-prod.properties
+│          │  application.properties
+│          │  
+│          ├─static
+│          │  ├─assets
+│          │  │  ├─css
+│          │  │  │      bootstrap.min.css
+│          │  │  │      glightbox.min.css
+│          │  │  │      LineIcons.3.0.css
+│          │  │  │      main.css
+│          │  │  │      tiny-slider.css
+│          │  │  │      satoshi.css
+│          │  │  │      style.css
+│          │  │  │      
+│          │  │  ├─fonts
+│          │  │  │      LineIcons.eot
+│          │  │  │      LineIcons.svg
+│          │  │  │      LineIcons.ttf
+│          │  │  │      LineIcons.woff
+│          │  │  │      LineIcons.woff2
+│          │  │  │      
+│          │  │  ├─images
+│          │  │  │  │  favicon.svg
+│          │  │  │  │  
+│          │  │  │  ├─banner
+│          │  │  │  │      banner-1-bg.jpg
+│          │  │  │  │      banner-2-bg.jpg
+│          │  │  │  │      
+│          │  │  │  ├─footer
+│          │  │  │  │      credit-cards-footer.png
+│          │  │  │  │      
+│          │  │  │  ├─header
+│          │  │  │  │  └─cart-items
+│          │  │  │  │          item1.jpg
+│          │  │  │  │          item2.jpg
+│          │  │  │  │          
+│          │  │  │  ├─hero
+│          │  │  │  │      slider-bg1.jpg
+│          │  │  │  │      slider-bg2.jpg
+│          │  │  │  │      slider-bnr.jpg
+│          │  │  │  │      small-banner-bg.png
+│          │  │  │  │      
+│          │  │  │  ├─logo
+│          │  │  │  │      white-logo.svg
+│          │  │  │  │      logo.svg
+│          │  │  │  │      
+│          │  │  │  ├─product-details
+│          │  │  │  │      01.jpg
+│          │  │  │  │      02.jpg
+│          │  │  │  │      03.jpg
+│          │  │  │  │      04.jpg
+│          │  │  │  │      05.jpg
+│          │  │  │  │      
+│          │  │  │  └─products
+│          │  │  │          product-1.jpg
+│          │  │  │          product-2.jpg
+│          │  │  │          product-3.jpg
+│          │  │  │          product-4.jpg
+│          │  │  │          product-5.jpg
+│          │  │  │          product-6.jpg
+│          │  │  │          product-7.jpg
+│          │  │  │          product-8.jpg
+│          │  │  │          
+│          │  │  ├─js
+│          │  │  │      bootstrap.min.js
+│          │  │  │      glightbox.min.js
+│          │  │  │      main.js
+│          │  │  │      tiny-slider.js
+│          │  │  │      dataChart.js
+│          │  │  │      ReviewLike.js
+│          │  │  │      bundle.js
+│          │  │  │      productSave.js
+│          │  │  │      
+│          │  │  └─mail
+│          │  │          mail.php
+│          │  │          
+│          │  └─imgs
+│          │      ├─product
+│          │      │      product_12.jpg
+│          │      │      product_14.jpg
+│          │      │      product_19.jpg
+│          │      │      product_20.jpg
+│          │      │      product_27.jpg
+│          │      │      product_13.jpg
+│          │      │      product_28.jpg
+│          │      │      product_29.jpg
+│          │      │      product_30.jpg
+│          │      │      product_31.jpg
+│          │      │      
+│          │      ├─review
+│          │      │      1741446522145_265_1.jpg
+│          │      │      1741446522184_265_1.jpg
+│          │      │      1741446522217_265_1.jpg
+│          │      │      1741446522253_265_1.jpg
+│          │      │      1741446613988_270_1.jpg
+│          │      │      1741446614030_270_1.jpg
+│          │      │      1741446614074_270_1.jpg
+│          │      │      1741446614105_270_1.jpg
+│          │      │      1741446882072_267_1.jpg
+│          │      │      1741446882114_267_1.jpg
+│          │      │      1741446882154_267_1.jpg
+│          │      │      1741446882187_267_1.jpg
+│          │      │      1742034113857_263_19.jpg
+│          │      │      1742034113916_263_19.jpg
+│          │      │      1742034178283_263_19.jpg
+│          │      │      1742034178297_263_19.jpg
+│          │      │      1742034296774_261_19.jpg
+│          │      │      1742034296785_261_19.jpg
+│          │      │      1742034296791_261_19.jpg
+│          │      │      1742034296796_261_19.jpg
+│          │      │      1742232006885_273_1.jpg
+│          │      │      1743691143529_275_1.jpg
+│          │      │      1743692247843_274_1.jpg
+│          │      │      1744076930707_276_22.jpg
+│          │      │      
+│          │      └─user
+│          │              1_userImg.jpg
+│          │              19_userImg.jpg
+│          │              
+│          └─templates
+│              ├─past
+│              │      asdf.html
+│              │      shop_item.html
+│              │      
+│              ├─license
+│              │      license.txt
+│              │      
+│              ├─after
+│              │      index.html
+│              │      product-details.html
+│              │      search.html
+│              │      myReview.html
+│              │      myWishProduct.html
+│              │      mypage.html
+│              │      adminPage.html
+│              │      
+│              └─default
+│                      search.html
+│                      product-details.html
+│                      Register.html
+│                      login.html
+│                      index.html
+│                      
+├─src
+│  ├─main
+│  │  ├─generated
+│  │  ├─java
+│  │  │  └─com
+│  │  │      └─project
+│  │  │          └─review
+│  │  │              │  Homepage.java
+│  │  │              │  ReviewApplication.java
+│  │  │              │  
+│  │  │              ├─user
+│  │  │              │  │  Helper.java
+│  │  │              │  │  
+│  │  │              │  ├─controller
+│  │  │              │  │      userController.java
+│  │  │              │  │      
+│  │  │              │  ├─dto
+│  │  │              │  │      userCreateDto.java
+│  │  │              │  │      TokenDto.java
+│  │  │              │  │      TokenRequestDto.java
+│  │  │              │  │      MemberRequestDto.java
+│  │  │              │  │      Role.java
+│  │  │              │  │      UserUpdateDto.java
+│  │  │              │  │      
+│  │  │              │  ├─entity
+│  │  │              │  │      User.java
+│  │  │              │  │      RefreshToken.java
+│  │  │              │  │      UserImg.java
+│  │  │              │  │      
+│  │  │              │  ├─repository
+│  │  │              │  │      userRepository.java
+│  │  │              │  │      RefreshTokenRepository.java
+│  │  │              │  │      userImgRepository.java
+│  │  │              │  │      
+│  │  │              │  ├─service
+│  │  │              │  │      userService.java
+│  │  │              │  │      userServiceImpl.java
+│  │  │              │  │      
+│  │  │              │  └─jwt
+│  │  │              │          JwtAccessDeniedHandler.java
+│  │  │              │          TokenProvider.java
+│  │  │              │          JwtFilter.java
+│  │  │              │          SecurityUtil.java
+│  │  │              │          JwtAuthenticationEntryPoint.java
+│  │  │              │          
+│  │  │              ├─config
+│  │  │              │      SecurityConfig.java
+│  │  │              │      WebConfig.java
+│  │  │              │      CustomUserDetails.java
+│  │  │              │      CustomUserDetailsService.java
+│  │  │              │      
+│  │  │              ├─interceptors
+│  │  │              │      jwtInterceptor.java
+│  │  │              │      
+│  │  │              ├─search
+│  │  │              │  ├─dto
+│  │  │              │  ├─controller
+│  │  │              │  │      searchController.java
+│  │  │              │  │      
+│  │  │              │  ├─repository
+│  │  │              │  ├─entity
+│  │  │              │  └─service
+│  │  │              ├─mypage
+│  │  │              │  ├─dto
+│  │  │              │  ├─entity
+│  │  │              │  ├─repository
+│  │  │              │  ├─service
+│  │  │              │  └─controller
+│  │  │              │          myPageController.java
+│  │  │              │          
+│  │  │              ├─packageDEMO
+│  │  │              │  ├─controller
+│  │  │              │  ├─dto
+│  │  │              │  ├─entity
+│  │  │              │  ├─repository
+│  │  │              │  └─service
+│  │  │              ├─admin
+│  │  │              │  ├─controller
+│  │  │              │  │      adminController.java
+│  │  │              │  │      
+│  │  │              │  ├─dto
+│  │  │              │  │      productCreateDto.java
+│  │  │              │  │      UserGradeDto.java
+│  │  │              │  │      
+│  │  │              │  ├─entity
+│  │  │              │  │      productAdminDto.java
+│  │  │              │  │      adminProductUpdateDto.java
+│  │  │              │  │      
+│  │  │              │  ├─repository
+│  │  │              │  │      adminRepository.java
+│  │  │              │  │      
+│  │  │              │  └─service
+│  │  │              │          adminService.java
+│  │  │              │          adminServiceImpl.java
+│  │  │              │          
+│  │  │              ├─product
+│  │  │              │  ├─controller
+│  │  │              │  │      productController.java
+│  │  │              │  │      
+│  │  │              │  ├─dto
+│  │  │              │  │      productDto.java
+│  │  │              │  │      productImgDto.java
+│  │  │              │  │      ReviewCreateDto.java
+│  │  │              │  │      ReviewImgDto.java
+│  │  │              │  │      ReviewLikeDto.java
+│  │  │              │  │      ReviewRatingCountDto.java
+│  │  │              │  │      saveDto.java
+│  │  │              │  │      ReviewTotalDto.java
+│  │  │              │  │      
+│  │  │              │  ├─entity
+│  │  │              │  │      ProductImg.java
+│  │  │              │  │      Product.java
+│  │  │              │  │      Review.java
+│  │  │              │  │      ReviewImg.java
+│  │  │              │  │      ReviewLike.java
+│  │  │              │  │      Save.java
+│  │  │              │  │      
+│  │  │              │  ├─repository
+│  │  │              │  │      productRepository.java
+│  │  │              │  │      productImgRepository.java
+│  │  │              │  │      productReviewRepository.java
+│  │  │              │  │      productReviewImgRepository.java
+│  │  │              │  │      ReviewLikeRepository.java
+│  │  │              │  │      saveRepository.java
+│  │  │              │  │      
+│  │  │              │  └─service
+│  │  │              │          productService.java
+│  │  │              │          productServiceImpl.java
+│  │  │              │          
+│  │  │              └─category
+│  │  │                  ├─dto
+│  │  │                  │      categoryEnum.java
+│  │  │                  │      categoryReviewDto.java
+│  │  │                  │      
+│  │  │                  ├─entity
+│  │  │                  │      Category.java
+│  │  │                  │      
+│  │  │                  ├─service
+│  │  │                  │      categoryService.java
+│  │  │                  │      categoryServiceImpl.java
+│  │  │                  │      
+│  │  │                  ├─controller
+│  │  │                  └─repository
+│  │  │                          categoryRepository.java
+│  │  │                          
+│  │  └─resources
+│  │      │  application.properties
+│  │      │  application-dev.properties
+│  │      │  application-prod.properties
+│  │      │  
+│  │      ├─static
+│  │      │  ├─assets
+│  │      │  │  ├─css
+│  │      │  │  │      bootstrap.min.css
+│  │      │  │  │      glightbox.min.css
+│  │      │  │  │      LineIcons.3.0.css
+│  │      │  │  │      main.css
+│  │      │  │  │      tiny-slider.css
+│  │      │  │  │      satoshi.css
+│  │      │  │  │      style.css
+│  │      │  │  │      
+│  │      │  │  ├─fonts
+│  │      │  │  │      LineIcons.eot
+│  │      │  │  │      LineIcons.svg
+│  │      │  │  │      LineIcons.ttf
+│  │      │  │  │      LineIcons.woff
+│  │      │  │  │      LineIcons.woff2
+│  │      │  │  │      
+│  │      │  │  ├─images
+│  │      │  │  │  │  favicon.svg
+│  │      │  │  │  │  
+│  │      │  │  │  ├─banner
+│  │      │  │  │  │      banner-1-bg.jpg
+│  │      │  │  │  │      banner-2-bg.jpg
+│  │      │  │  │  │      
+│  │      │  │  │  ├─footer
+│  │      │  │  │  │      credit-cards-footer.png
+│  │      │  │  │  │      
+│  │      │  │  │  ├─header
+│  │      │  │  │  │  └─cart-items
+│  │      │  │  │  │          item1.jpg
+│  │      │  │  │  │          item2.jpg
+│  │      │  │  │  │          
+│  │      │  │  │  ├─hero
+│  │      │  │  │  │      slider-bg1.jpg
+│  │      │  │  │  │      slider-bg2.jpg
+│  │      │  │  │  │      slider-bnr.jpg
+│  │      │  │  │  │      small-banner-bg.png
+│  │      │  │  │  │      
+│  │      │  │  │  ├─logo
+│  │      │  │  │  │      white-logo.svg
+│  │      │  │  │  │      logo.svg
+│  │      │  │  │  │      
+│  │      │  │  │  ├─product-details
+│  │      │  │  │  │      01.jpg
+│  │      │  │  │  │      02.jpg
+│  │      │  │  │  │      03.jpg
+│  │      │  │  │  │      04.jpg
+│  │      │  │  │  │      05.jpg
+│  │      │  │  │  │      
+│  │      │  │  │  └─products
+│  │      │  │  │          product-1.jpg
+│  │      │  │  │          product-2.jpg
+│  │      │  │  │          product-3.jpg
+│  │      │  │  │          product-4.jpg
+│  │      │  │  │          product-5.jpg
+│  │      │  │  │          product-6.jpg
+│  │      │  │  │          product-7.jpg
+│  │      │  │  │          product-8.jpg
+│  │      │  │  │          
+│  │      │  │  ├─js
+│  │      │  │  │      bootstrap.min.js
+│  │      │  │  │      glightbox.min.js
+│  │      │  │  │      main.js
+│  │      │  │  │      tiny-slider.js
+│  │      │  │  │      dataChart.js
+│  │      │  │  │      ReviewLike.js
+│  │      │  │  │      bundle.js
+│  │      │  │  │      productSave.js
+│  │      │  │  │      
+│  │      │  │  └─mail
+│  │      │  │          mail.php
+│  │      │  │          
+│  │      │  └─imgs
+│  │      │      ├─product
+│  │      │      │      product_12.jpg
+│  │      │      │      product_14.jpg
+│  │      │      │      product_19.jpg
+│  │      │      │      product_20.jpg
+│  │      │      │      product_27.jpg
+│  │      │      │      product_13.jpg
+│  │      │      │      product_28.jpg
+│  │      │      │      product_29.jpg
+│  │      │      │      product_30.jpg
+│  │      │      │      product_31.jpg
+│  │      │      │      
+│  │      │      ├─review
+│  │      │      │      1741446522145_265_1.jpg
+│  │      │      │      1741446522184_265_1.jpg
+│  │      │      │      1741446522217_265_1.jpg
+│  │      │      │      1741446522253_265_1.jpg
+│  │      │      │      1741446613988_270_1.jpg
+│  │      │      │      1741446614030_270_1.jpg
+│  │      │      │      1741446614074_270_1.jpg
+│  │      │      │      1741446614105_270_1.jpg
+│  │      │      │      1741446882072_267_1.jpg
+│  │      │      │      1741446882114_267_1.jpg
+│  │      │      │      1741446882154_267_1.jpg
+│  │      │      │      1741446882187_267_1.jpg
+│  │      │      │      1742034113857_263_19.jpg
+│  │      │      │      1742034113916_263_19.jpg
+│  │      │      │      1742034178283_263_19.jpg
+│  │      │      │      1742034178297_263_19.jpg
+│  │      │      │      1742034296774_261_19.jpg
+│  │      │      │      1742034296785_261_19.jpg
+│  │      │      │      1742034296791_261_19.jpg
+│  │      │      │      1742034296796_261_19.jpg
+│  │      │      │      1742232006885_273_1.jpg
+│  │      │      │      1743691143529_275_1.jpg
+│  │      │      │      1743692247843_274_1.jpg
+│  │      │      │      1744076930707_276_22.jpg
+│  │      │      │      
+│  │      │      └─user
+│  │      │              1_userImg.jpg
+│  │      │              19_userImg.jpg
+│  │      │              
+│  │      └─templates
+│  │          ├─past
+│  │          │      asdf.html
+│  │          │      shop_item.html
+│  │          │      
+│  │          ├─license
+│  │          │      license.txt
+│  │          │      
+│  │          ├─default
+│  │          │      index.html
+│  │          │      login.html
+│  │          │      product-details.html
+│  │          │      Register.html
+│  │          │      search.html
+│  │          │      
+│  │          └─after
+│  │                  index.html
+│  │                  product-details.html
+│  │                  search.html
+│  │                  myReview.html
+│  │                  myWishProduct.html
+│  │                  mypage.html
+│  │                  adminPage.html
+│  │                  
+│  └─test
+│      └─java
+│          └─com
+│              └─project
+│                  └─review
+│                          ReviewApplicationTests.java
+│                          
+└─build
+    │  resolvedMainClassName
+    │  
+    ├─classes
+    │  └─java
+    │      ├─main
+    │      │  └─com
+    │      │      └─project
+    │      │          └─review
+    │      │              │  Homepage.class
+    │      │              │  ReviewApplication.class
+    │      │              │  
+    │      │              ├─user
+    │      │              │  │  Helper.class
+    │      │              │  │  
+    │      │              │  ├─service
+    │      │              │  │      userService.class
+    │      │              │  │      userServiceImpl.class
+    │      │              │  │      
+    │      │              │  ├─entity
+    │      │              │  │      User$UserBuilder.class
+    │      │              │  │      User.class
+    │      │              │  │      RefreshToken$RefreshTokenBuilder.class
+    │      │              │  │      RefreshToken.class
+    │      │              │  │      UserImg$UserImgBuilder.class
+    │      │              │  │      UserImg.class
+    │      │              │  │      
+    │      │              │  ├─dto
+    │      │              │  │      userCreateDto.class
+    │      │              │  │      UserUpdateDto.class
+    │      │              │  │      MemberRequestDto.class
+    │      │              │  │      TokenDto$TokenDtoBuilder.class
+    │      │              │  │      TokenDto.class
+    │      │              │  │      TokenRequestDto.class
+    │      │              │  │      Role.class
+    │      │              │  │      
+    │      │              │  ├─controller
+    │      │              │  │      userController.class
+    │      │              │  │      
+    │      │              │  ├─repository
+    │      │              │  │      userRepository.class
+    │      │              │  │      RefreshTokenRepository.class
+    │      │              │  │      userImgRepository.class
+    │      │              │  │      
+    │      │              │  └─jwt
+    │      │              │          TokenProvider.class
+    │      │              │          JwtAccessDeniedHandler.class
+    │      │              │          JwtFilter.class
+    │      │              │          SecurityUtil.class
+    │      │              │          JwtAuthenticationEntryPoint.class
+    │      │              │          
+    │      │              ├─product
+    │      │              │  ├─service
+    │      │              │  │      productService.class
+    │      │              │  │      productServiceImpl.class
+    │      │              │  │      
+    │      │              │  ├─entity
+    │      │              │  │      Product$ProductBuilder.class
+    │      │              │  │      Product.class
+    │      │              │  │      Save$SaveBuilder.class
+    │      │              │  │      Save.class
+    │      │              │  │      ProductImg$ProductImgBuilder.class
+    │      │              │  │      ProductImg.class
+    │      │              │  │      Review$ReviewBuilder.class
+    │      │              │  │      Review.class
+    │      │              │  │      ReviewImg$ReviewImgBuilder.class
+    │      │              │  │      ReviewImg.class
+    │      │              │  │      ReviewLike$ReviewLikeBuilder.class
+    │      │              │  │      ReviewLike.class
+    │      │              │  │      
+    │      │              │  ├─dto
+    │      │              │  │      saveDto.class
+    │      │              │  │      ReviewCreateDto.class
+    │      │              │  │      ReviewTotalDto.class
+    │      │              │  │      ReviewLikeDto.class
+    │      │              │  │      productDto.class
+    │      │              │  │      productImgDto.class
+    │      │              │  │      ReviewImgDto.class
+    │      │              │  │      ReviewRatingCountDto.class
+    │      │              │  │      
+    │      │              │  ├─repository
+    │      │              │  │      productRepository.class
+    │      │              │  │      productImgRepository.class
+    │      │              │  │      productReviewRepository.class
+    │      │              │  │      productReviewImgRepository.class
+    │      │              │  │      ReviewLikeRepository.class
+    │      │              │  │      saveRepository.class
+    │      │              │  │      
+    │      │              │  └─controller
+    │      │              │          productController.class
+    │      │              │          
+    │      │              ├─config
+    │      │              │      SecurityConfig$FilterChainLogger.class
+    │      │              │      SecurityConfig$1.class
+    │      │              │      SecurityConfig.class
+    │      │              │      WebConfig.class
+    │      │              │      CustomUserDetails.class
+    │      │              │      CustomUserDetailsService.class
+    │      │              │      
+    │      │              ├─interceptors
+    │      │              │      jwtInterceptor.class
+    │      │              │      
+    │      │              ├─search
+    │      │              │  └─controller
+    │      │              │          searchController.class
+    │      │              │          
+    │      │              ├─category
+    │      │              │  ├─service
+    │      │              │  │      categoryService.class
+    │      │              │  │      categoryServiceImpl.class
+    │      │              │  │      
+    │      │              │  ├─dto
+    │      │              │  │      categoryReviewDto.class
+    │      │              │  │      categoryEnum.class
+    │      │              │  │      
+    │      │              │  ├─repository
+    │      │              │  │      categoryRepository.class
+    │      │              │  │      
+    │      │              │  └─entity
+    │      │              │          Category$CategoryBuilder.class
+    │      │              │          Category.class
+    │      │              │          
+    │      │              ├─mypage
+    │      │              │  └─controller
+    │      │              │          myPageController.class
+    │      │              │          
+    │      │              └─admin
+    │      │                  ├─controller
+    │      │                  │      adminController.class
+    │      │                  │      
+    │      │                  ├─service
+    │      │                  │      adminService.class
+    │      │                  │      adminServiceImpl.class
+    │      │                  │      
+    │      │                  ├─dto
+    │      │                  │      productCreateDto.class
+    │      │                  │      UserGradeDto.class
+    │      │                  │      
+    │      │                  ├─entity
+    │      │                  │      adminProductUpdateDto.class
+    │      │                  │      productAdminDto.class
+    │      │                  │      
+    │      │                  └─repository
+    │      │                          adminRepository.class
+    │      │                          
+    │      └─test
+    │          └─com
+    │              └─project
+    │                  └─review
+    │                          ReviewApplicationTests.class
+    │                          
+    ├─generated
+    │  └─sources
+    │      ├─annotationProcessor
+    │      │  └─java
+    │      │      ├─main
+    │      │      └─test
+    │      └─headers
+    │          └─java
+    │              ├─main
+    │              └─test
+    ├─tmp
+    │  ├─compileJava
+    │  │      previous-compilation-data.bin
+    │  │      
+    │  ├─bootJar
+    │  │      MANIFEST.MF
+    │  │      
+    │  ├─jar
+    │  │      MANIFEST.MF
+    │  │      
+    │  ├─compileTestJava
+    │  │      previous-compilation-data.bin
+    │  │      
+    │  └─test
+    ├─resources
+    │  └─main
+    │      │  application.properties
+    │      │  application-dev.properties
+    │      │  application-prod.properties
+    │      │  
+    │      ├─static
+    │      │  ├─assets
+    │      │  │  ├─css
+    │      │  │  │      bootstrap.min.css
+    │      │  │  │      glightbox.min.css
+    │      │  │  │      LineIcons.3.0.css
+    │      │  │  │      main.css
+    │      │  │  │      tiny-slider.css
+    │      │  │  │      satoshi.css
+    │      │  │  │      style.css
+    │      │  │  │      
+    │      │  │  ├─fonts
+    │      │  │  │      LineIcons.eot
+    │      │  │  │      LineIcons.svg
+    │      │  │  │      LineIcons.ttf
+    │      │  │  │      LineIcons.woff
+    │      │  │  │      LineIcons.woff2
+    │      │  │  │      
+    │      │  │  ├─images
+    │      │  │  │  │  favicon.svg
+    │      │  │  │  │  
+    │      │  │  │  ├─banner
+    │      │  │  │  │      banner-1-bg.jpg
+    │      │  │  │  │      banner-2-bg.jpg
+    │      │  │  │  │      
+    │      │  │  │  ├─footer
+    │      │  │  │  │      credit-cards-footer.png
+    │      │  │  │  │      
+    │      │  │  │  ├─header
+    │      │  │  │  │  └─cart-items
+    │      │  │  │  │          item1.jpg
+    │      │  │  │  │          item2.jpg
+    │      │  │  │  │          
+    │      │  │  │  ├─hero
+    │      │  │  │  │      slider-bg1.jpg
+    │      │  │  │  │      slider-bg2.jpg
+    │      │  │  │  │      slider-bnr.jpg
+    │      │  │  │  │      small-banner-bg.png
+    │      │  │  │  │      
+    │      │  │  │  ├─logo
+    │      │  │  │  │      white-logo.svg
+    │      │  │  │  │      logo.svg
+    │      │  │  │  │      
+    │      │  │  │  ├─product-details
+    │      │  │  │  │      01.jpg
+    │      │  │  │  │      02.jpg
+    │      │  │  │  │      03.jpg
+    │      │  │  │  │      04.jpg
+    │      │  │  │  │      05.jpg
+    │      │  │  │  │      
+    │      │  │  │  └─products
+    │      │  │  │          product-1.jpg
+    │      │  │  │          product-2.jpg
+    │      │  │  │          product-3.jpg
+    │      │  │  │          product-4.jpg
+    │      │  │  │          product-5.jpg
+    │      │  │  │          product-6.jpg
+    │      │  │  │          product-7.jpg
+    │      │  │  │          product-8.jpg
+    │      │  │  │          
+    │      │  │  ├─js
+    │      │  │  │      bootstrap.min.js
+    │      │  │  │      glightbox.min.js
+    │      │  │  │      main.js
+    │      │  │  │      tiny-slider.js
+    │      │  │  │      dataChart.js
+    │      │  │  │      ReviewLike.js
+    │      │  │  │      bundle.js
+    │      │  │  │      productSave.js
+    │      │  │  │      
+    │      │  │  └─mail
+    │      │  │          mail.php
+    │      │  │          
+    │      │  └─imgs
+    │      │      ├─product
+    │      │      │      product_12.jpg
+    │      │      │      product_14.jpg
+    │      │      │      product_19.jpg
+    │      │      │      product_20.jpg
+    │      │      │      product_27.jpg
+    │      │      │      product_13.jpg
+    │      │      │      product_28.jpg
+    │      │      │      product_29.jpg
+    │      │      │      product_30.jpg
+    │      │      │      product_31.jpg
+    │      │      │      
+    │      │      ├─review
+    │      │      │      1741446522145_265_1.jpg
+    │      │      │      1741446522184_265_1.jpg
+    │      │      │      1741446522217_265_1.jpg
+    │      │      │      1741446522253_265_1.jpg
+    │      │      │      1741446613988_270_1.jpg
+    │      │      │      1741446614030_270_1.jpg
+    │      │      │      1741446614074_270_1.jpg
+    │      │      │      1741446614105_270_1.jpg
+    │      │      │      1741446882072_267_1.jpg
+    │      │      │      1741446882114_267_1.jpg
+    │      │      │      1741446882154_267_1.jpg
+    │      │      │      1741446882187_267_1.jpg
+    │      │      │      1742034113857_263_19.jpg
+    │      │      │      1742034113916_263_19.jpg
+    │      │      │      1742034178283_263_19.jpg
+    │      │      │      1742034178297_263_19.jpg
+    │      │      │      1742034296774_261_19.jpg
+    │      │      │      1742034296785_261_19.jpg
+    │      │      │      1742034296791_261_19.jpg
+    │      │      │      1742034296796_261_19.jpg
+    │      │      │      1742232006885_273_1.jpg
+    │      │      │      1743691143529_275_1.jpg
+    │      │      │      1743692247843_274_1.jpg
+    │      │      │      1744076930707_276_22.jpg
+    │      │      │      
+    │      │      └─user
+    │      │              1_userImg.jpg
+    │      │              19_userImg.jpg
+    │      │              
+    │      └─templates
+    │          ├─past
+    │          │      asdf.html
+    │          │      shop_item.html
+    │          │      
+    │          ├─license
+    │          │      license.txt
+    │          │      
+    │          ├─default
+    │          │      index.html
+    │          │      login.html
+    │          │      product-details.html
+    │          │      Register.html
+    │          │      search.html
+    │          │      
+    │          └─after
+    │                  index.html
+    │                  product-details.html
+    │                  search.html
+    │                  myReview.html
+    │                  myWishProduct.html
+    │                  mypage.html
+    │                  adminPage.html
+    │                  
+    ├─libs
+    ├─test-results
+    │  └─test
+    │      │  TEST-com.project.review.ReviewApplicationTests.xml
+    │      │  
+    │      └─binary
+    │              output.bin
+    │              output.bin.idx
+    │              results.bin
+    │              
+    └─reports
+        ├─tests
+        │  └─test
+        │      │  index.html
+        │      │  
+        │      ├─packages
+        │      │      com.project.review.html
+        │      │      
+        │      ├─classes
+        │      │      com.project.review.ReviewApplicationTests.html
+        │      │      
+        │      ├─css
+        │      │      style.css
+        │      │      base-style.css
+        │      │      
+        │      └─js
+        │              report.js
+        │              
+        └─problems
+                problems-report.html
+                
