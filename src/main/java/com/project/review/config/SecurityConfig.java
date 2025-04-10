@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -94,8 +95,10 @@ public class SecurityConfig {
 
                 //경로별 인가 작업
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/","/assets/**","/chart-data","/chart-data/**","/imgs/**").permitAll()
-                        .requestMatchers("/","/Register","/login", "/product","/product/**","/search").permitAll()
+                        .requestMatchers(
+                                "/", "/Register", "/login", "/product", "/product/**", "/search",
+                                "/assets/**", "/imgs/**", "/chart-data", "/chart-data/**"
+                        ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
 
@@ -113,6 +116,15 @@ public class SecurityConfig {
 
                 .addFilterBefore(new FilterChainLogger(), SecurityContextPersistenceFilter.class);
         return http.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+                .requestMatchers(
+                        "/assets/**",
+                        "/imgs/**"
+                );
     }
 
 }
