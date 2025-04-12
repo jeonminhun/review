@@ -426,7 +426,7 @@ public class productServiceImpl implements productService {
 
     private void imgDelete(ReviewImg reviewImg) {
         try {
-            Path uploadPath = Path.of("src","main","resources","static","imgs", "review");
+            Path uploadPath = Path.of("src","main","resources","static", "assets", "images", "review");
             Path filepath = uploadPath.resolve(reviewImg.getReview_img_name());
             Files.delete(filepath);
         } catch (Exception e) {
@@ -438,7 +438,7 @@ public class productServiceImpl implements productService {
     private ReviewImg imgSave(MultipartFile files, Review review, String filename) {
         try {
             if (files != null) {
-                Path uploadPath = Path.of("src","main","resources","static","imgs", "review");
+                Path uploadPath = Path.of("src","main","resources","static", "assets", "images", "review");
 
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);

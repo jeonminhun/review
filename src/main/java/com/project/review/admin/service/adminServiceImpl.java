@@ -173,7 +173,7 @@ public class adminServiceImpl implements adminService {
 
     private void imgDelete(ProductImg productImg) {
         try {
-            Path uploadPath = Path.of("src","main","resources","static","imgs", "product");
+            Path uploadPath = Path.of("src","main","resources","static", "assets", "images", "product");
             Path filepath = uploadPath.resolve(productImg.getProduct_img_name());
             Files.delete(filepath);
         } catch (Exception e) {
@@ -187,7 +187,7 @@ public class adminServiceImpl implements adminService {
         try {
             if (files != null) {
 
-                Path uploadPath = Path.of("src","main","resources","static","imgs", "product");
+                Path uploadPath = Path.of("src","main","resources","static", "assets", "images", "product");
 
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);

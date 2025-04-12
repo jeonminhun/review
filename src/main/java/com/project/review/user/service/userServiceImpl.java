@@ -241,7 +241,7 @@ public class userServiceImpl implements userService {
 
     private void imgDelete(UserImg userImg) {
         try {
-            Path uploadPath = Path.of("src", "main", "resources", "static", "imgs", "user");
+            Path uploadPath = Path.of("src", "main", "resources", "static", "assets", "images", "user");
             Path filepath = uploadPath.resolve(userImg.getUser_img_name());
             Files.delete(filepath);
         } catch (Exception e) {
@@ -253,7 +253,7 @@ public class userServiceImpl implements userService {
     private UserImg imgSave(MultipartFile files, User user) {
         try {
             if (files != null) {
-                Path uploadPath = Path.of("src", "main", "resources", "static", "imgs", "user");
+                Path uploadPath = Path.of("src", "main", "resources", "static", "assets", "images", "user");
 
 
                 if (!Files.exists(uploadPath)) {
