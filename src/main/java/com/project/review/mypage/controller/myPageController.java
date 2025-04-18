@@ -45,7 +45,7 @@ public class myPageController {
         if (authCookie != null) {
             User user = userService.userInfo(user_id, request);
             model.addAttribute("user", user);
-            return "after/myPage";
+            return "after/mypage";
         }
         return "default/index";
 
