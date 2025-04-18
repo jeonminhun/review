@@ -130,28 +130,31 @@ public class userController {
         Cookie accessCookie = new Cookie("Authorization", accessToken.getGrantType() + accessToken.getAccessToken());
         accessCookie.setMaxAge(60 * 30); // 30분 동안 유효
         accessCookie.setPath("/");
-//        accessCookie.setDomain("localhost");
-//        accessCookie.setSecure(false);
         accessCookie.setDomain("proeval-193714791451.asia-northeast3.run.app");
         accessCookie.setSecure(true);
+        accessCookie.setHttpOnly(true);
         response.addCookie(accessCookie);
+//        accessCookie.setDomain("localhost");
+//        accessCookie.setSecure(false);
 
         Cookie accesstimeCookie = new Cookie("time", accessToken.getAccessTokenExpiresIn().toString());
         accesstimeCookie.setMaxAge(60 * 30); // 30분 동안 유효
         accesstimeCookie.setPath("/");
+        accesstimeCookie.setDomain("proeval-193714791451.asia-northeast3.run.app");
+        accesstimeCookie.setSecure(true);
+        accesstimeCookie.setHttpOnly(true);
+        response.addCookie(accesstimeCookie);
 //        accesstimeCookie.setDomain("localhost");
 //        accessCookie.setSecure(false);
-        accessCookie.setDomain("proeval-193714791451.asia-northeast3.run.app");
-        accessCookie.setSecure(true);
-        response.addCookie(accesstimeCookie);
 
         Cookie refreshCookie = new Cookie("RefreshToken", accessToken.getGrantType() + accessToken.getRefreshToken());
         refreshCookie.setMaxAge(60 * 60 * 24 * 7); // 7일 동안 유효
         refreshCookie.setPath("/");
+        refreshCookie.setDomain("proeval-193714791451.asia-northeast3.run.app");
+        refreshCookie.setSecure(true);
+        refreshCookie.setHttpOnly(true);
+        response.addCookie(refreshCookie);
 //        refreshCookie.setDomain("localhost");
 //        accessCookie.setSecure(false);
-        accessCookie.setDomain("proeval-193714791451.asia-northeast3.run.app");
-        accessCookie.setSecure(true);
-        response.addCookie(refreshCookie);
     }
 }
