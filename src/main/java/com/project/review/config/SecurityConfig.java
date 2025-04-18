@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.ResponseCookie;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -107,32 +106,13 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
                 //로그아웃 설정
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessHandler((request, response, authentication) -> {
-                            // Authorization 쿠키 삭제
-                            ResponseCookie authCookie = ResponseCookie.from("Authorization", "")
-                                    .path("/")              // 기존과 동일하게
-                                    .maxAge(0)
-                                    .httpOnly(true)
-                                    .secure(true)          // 기존 쿠키가 Secure=true였다면
-                                    .sameSite("Strict")    // 기존 쿠키와 동일하게
-                                    .build();
-
-                            ResponseCookie refreshCookie = ResponseCookie.from("RefreshToken", "")
-                                    .path("/")
-                                    .maxAge(0)
-                                    .httpOnly(true)
-                                    .secure(true)
-                                    .sameSite("Strict")
-                                    .build();
-
-                            response.setHeader("Set-Cookie", authCookie.toString());
-                            response.addHeader("Set-Cookie", refreshCookie.toString());
-
-                            response.sendRedirect("/");
-                        })
-                )
+                .logout((logout)->
+                        logout.logoutUrl("/logout")// 로그아웃 요청 URL
+                                .logoutSuccessUrl("/")// 로그아웃 후 리다이렉트 경로 설정
+                                .deleteCookies("Authorization")// 로그아웃 시 쿠키 삭제
+                                .deleteCookies("time")// 로그아웃 시 쿠키 삭제
+                                .deleteCookies("RefreshToken")// 로그아웃 시 쿠키 삭제
+                                .invalidateHttpSession(true))// 세션 무효화
 
                 // tokenProvider 주입
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
