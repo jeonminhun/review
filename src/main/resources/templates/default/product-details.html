@@ -182,14 +182,10 @@
                     <div class="product-images">
                         <main id="gallery">
                             <div class="main-img">
-                                <img th:src="'imgs/product/'+ ${productImg.product_img_name}"  id="current" alt="#">
+                                <img th:src="'assets/images/product/'+ ${productImg.product_img_name}"  id="current" alt="#">
                             </div>
                             <div class="images">
-                                <img th:src="'imgs/product/'+ ${productImg.product_img_name}" class="img" alt="#">
-                                <img src="assets/images/product-details/02.jpg" class="img" alt="#">
-                                <img src="assets/images/product-details/03.jpg" class="img" alt="#">
-                                <img src="assets/images/product-details/04.jpg" class="img" alt="#">
-                                <img src="assets/images/product-details/05.jpg" class="img" alt="#">
+                                <img th:src="'assets/images/product/'+ ${productImg.product_img_name}" class="img" alt="#">
                             </div>
                         </main>
                     </div>
@@ -510,7 +506,7 @@
                             <!-- Start Single Review -->
                             <div th:each="review:${reviews}">
                                 <div class="single-review">
-                                    <img th:src="'imgs/user/'+ ${review.user.user_name}+'_userImg.jpg'" alt="#">
+                                    <img th:src="'assets/images/user/'+ ${review.user.user_name}+'_userImg.jpg'" alt="#">
                                     <div class="review-info">
                                         <h4 th:text="${review.content}">Awesome quality for the price
                                         </h4>
@@ -579,7 +575,7 @@
 
                                         <div th:if="${review.review_id} == ${reviewImg.review.review_id}"
                                               th:each="reviewImg:${reviewImgs}">
-                                            <img class="h-50 w-50 review_img" th:src="'imgs/review/'+ ${reviewImg.review_img_name}">
+                                            <img class="h-50 w-50 review_img" th:src="'assets/images/review/'+ ${reviewImg.review_img_name}">
                                         </div>
 
                                         <p th:text="${product.product_name}">Lorem ipsum dolor sit amet, consectetur

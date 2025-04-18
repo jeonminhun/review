@@ -432,7 +432,7 @@
                                         <div class="mb-4 flex items-center gap-3">
                                             <div class="h-14 w-14 rounded-full">
                                                 <img id="profile"
-                                                     th:src="'imgs/user/'+ ${user.user_name}+'_userImg.jpg'"
+                                                     th:src="'assets/images/user/'+ ${user.user_name}+'_userImg.jpg'"
                                                      class="h-14 w-14 rounded-full"
                                                      alt="User"/>
                                             </div>
@@ -489,7 +489,7 @@
                                                 </span>
 
                                                 <!-- 이미지 미리보기 -->
-                                                <img id="previewImg" src="/imgs/default.jpg" alt="미리보기"
+                                                <img id="previewImg" src="assets/images/default.jpg" alt="미리보기"
                                                      class="h-14 w-14 rounded-full object-cover hidden"/>
 
                                                 <p class="text-sm font-medium">
@@ -685,7 +685,7 @@
             .then(response => {
                 if (response.ok) {
                     alert("이미지가 삭제되었습니다.");
-                    document.getElementById("profile").src = "/imgs/default.jpg"; // 기본 이미지로 변경 - 그냥 없는 이미지로 일단 둠
+                    document.getElementById("profile").src = "assets/images/default.jpg"; // 기본 이미지로 변경 - 그냥 없는 이미지로 일단 둠
                 } else {
                     alert("삭제 실패!");
                 }

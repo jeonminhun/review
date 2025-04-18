@@ -165,7 +165,7 @@
                 <div class="hero-slider">
                     <!-- Start Single Slider -->
                     <div class="single-slider" th:each="productSlide:${productSlides}"
-                         th:style="|background-image: url('imgs/product/product_${productSlide.product_id}.jpg');|">
+                         th:style="|background-image: url('assets/images/product/product_${productSlide.product_id}.jpg');|">
                         <div class="content">
                             <h2 th:text="${productSlide.product_name}" >
                                 M75 Sport Watch
@@ -204,7 +204,7 @@
                 <!-- Start Single Product -->
                 <div class="single-product">
                     <div class="product-image">
-                        <img th:src="'imgs/product/product_'+ ${productRank.product_id} + '.jpg'"
+                        <img th:src="'assets/images/product/product_'+ ${productRank.product_id} + '.jpg'"
                              alt="#">
                         <div class="button">
                             <a th:href="@{/product/}+${productRank.product_id}" class="btn"><i
