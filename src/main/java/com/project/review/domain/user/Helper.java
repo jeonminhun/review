@@ -1,11 +1,12 @@
 package com.project.review.domain.user;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class Helper {
     public static String getClientIp(HttpServletRequest request) {
         String clientIp = null;
