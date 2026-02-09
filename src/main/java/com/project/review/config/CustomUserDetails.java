@@ -1,6 +1,6 @@
 package com.project.review.config;
 
-import com.project.review.user.entity.User;
+import com.project.review.domain.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

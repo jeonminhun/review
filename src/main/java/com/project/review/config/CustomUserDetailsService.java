@@ -1,9 +1,9 @@
 package com.project.review.config;
 
 
-import com.project.review.user.entity.User;
+import com.project.review.domain.user.entity.User;
 
-import com.project.review.user.repository.userRepository;
+import com.project.review.domain.user.repository.userRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

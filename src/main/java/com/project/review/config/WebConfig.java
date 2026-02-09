@@ -1,10 +1,9 @@
 package com.project.review.config;
 
 import com.project.review.interceptors.jwtInterceptor;
-import com.project.review.user.controller.userController;
+import com.project.review.domain.user.controller.userController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

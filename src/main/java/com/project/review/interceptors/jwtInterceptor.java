@@ -1,18 +1,16 @@
 package com.project.review.interceptors;
 
-import com.project.review.user.controller.userController;
-import com.project.review.user.dto.TokenRequestDto;
+import com.project.review.domain.user.controller.userController;
+import com.project.review.domain.user.dto.TokenRequestDto;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.WebUtils;
 
 import java.util.Date;
-import static com.project.review.user.jwt.JwtFilter.BEARER_PREFIX;
 
 @RequiredArgsConstructor
 @Slf4j

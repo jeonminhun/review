@@ -1,9 +1,9 @@
 package com.project.review.config;
 
-import com.project.review.user.jwt.JwtAccessDeniedHandler;
-import com.project.review.user.jwt.JwtAuthenticationEntryPoint;
-import com.project.review.user.jwt.JwtFilter;
-import com.project.review.user.jwt.TokenProvider;
+import com.project.review.domain.user.jwt.JwtAccessDeniedHandler;
+import com.project.review.domain.user.jwt.JwtAuthenticationEntryPoint;
+import com.project.review.domain.user.jwt.JwtFilter;
+import com.project.review.domain.user.jwt.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;

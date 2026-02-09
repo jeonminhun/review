@@ -1,9 +1,9 @@
 package com.project.review;
 
-import com.project.review.product.entity.Product;
-import com.project.review.product.service.productService;
-import com.project.review.user.entity.User;
-import com.project.review.user.service.userService;
+import com.project.review.domain.product.entity.Product;
+import com.project.review.domain.product.service.productService;
+import com.project.review.domain.user.entity.User;
+import com.project.review.domain.user.service.userService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
