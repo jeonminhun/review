@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:10.11
+    container_name: review-db
+    restart: always
+    environment:
+      MARIADB_DATABASE: review
+      MARIADB_ROOT_PASSWORD: mi0818
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+    container_name: review-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  app:
+    build: .
+    container_name: review-app
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      # 핵심: 스프링 프로파일을 prod로 설정합니다.
+      SPRING_PROFILES_ACTIVE: prod
+      DB_HOST: db
+      DB_USERNAME: root
+      DB_PASSWORD: mi0818
+      REDIS_HOST: redis
+      JWT_SECRET: your_actual_secure_key_here
+    depends_on:
+      - db
+      - redis
