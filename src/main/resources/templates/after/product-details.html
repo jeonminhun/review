@@ -519,7 +519,7 @@
                             <!-- Start Single Review -->
                             <div th:each="review:${reviews}">
                                 <div class="single-review">
-                                    <img th:src="'assets/images/user/'+ ${review.user.user_name}+'_userImg.jpg'" alt="#">
+                                    <img th:src="'assets/images/user/'+ ${review.user.user_id}+'_userImg.jpg'" alt="#">
                                     <div class="review-info">
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
                                             <h4 th:text="${review.content}">Awesome quality for the price
