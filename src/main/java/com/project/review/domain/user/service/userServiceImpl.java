@@ -211,7 +211,7 @@ public class userServiceImpl implements userService {
         log.info("검증 성공");
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
         TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
-        log.info("jwt 토큰 생성 성공");
+        log.info("jwt 토큰 생성 성공 : {}", tokenDto);
         // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder()
                 .key(authentication.getName())

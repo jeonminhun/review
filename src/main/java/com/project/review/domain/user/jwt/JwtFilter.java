@@ -55,6 +55,7 @@ public class JwtFilter extends OncePerRequestFilter {
             Cookie[] cookies = request.getCookies(); // 모든 쿠키 가져오기
             if (cookies != null) {
                 for (Cookie c : cookies) {
+                    log.info("들어온 쿠키 이름: {}, 값: {}", c.getName(), c.getValue());
                     String name = c.getName(); // 쿠키 이름 가져오기
 
                     String value = c.getValue(); // 쿠키 값 가져오기

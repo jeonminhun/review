@@ -130,8 +130,8 @@ public class userController {
         Cookie accessCookie = new Cookie("Authorization", accessToken.getGrantType() + accessToken.getAccessToken());
         accessCookie.setMaxAge(60 * 30); // 30분 동안 유효
         accessCookie.setPath("/");
-        accessCookie.setDomain("proeval-193714791451.asia-northeast3.run.app");
-        accessCookie.setSecure(true);
+        accessCookie.setDomain(""); // 도메인이 없음으로 인해 설정 제거
+        accessCookie.setSecure(false); // http 설정 으로 인해 없앰
         accessCookie.setHttpOnly(true);
         response.addCookie(accessCookie);
 //        accessCookie.setDomain("localhost");
@@ -140,8 +140,8 @@ public class userController {
         Cookie accesstimeCookie = new Cookie("time", accessToken.getAccessTokenExpiresIn().toString());
         accesstimeCookie.setMaxAge(60 * 30); // 30분 동안 유효
         accesstimeCookie.setPath("/");
-        accesstimeCookie.setDomain("proeval-193714791451.asia-northeast3.run.app");
-        accesstimeCookie.setSecure(true);
+        accesstimeCookie.setDomain(""); // 도메인이 없음으로 인해 설정 제거
+        accesstimeCookie.setSecure(false);// http 설정 으로 인해 없앰
         accesstimeCookie.setHttpOnly(true);
         response.addCookie(accesstimeCookie);
 //        accesstimeCookie.setDomain("localhost");
@@ -150,8 +150,8 @@ public class userController {
         Cookie refreshCookie = new Cookie("RefreshToken", accessToken.getGrantType() + accessToken.getRefreshToken());
         refreshCookie.setMaxAge(60 * 60 * 24 * 7); // 7일 동안 유효
         refreshCookie.setPath("/");
-        refreshCookie.setDomain("proeval-193714791451.asia-northeast3.run.app");
-        refreshCookie.setSecure(true);
+        refreshCookie.setDomain(""); // 도메인이 없음으로 인해 설정 제거
+        refreshCookie.setSecure(false);// http 설정 으로 인해 없앰
         refreshCookie.setHttpOnly(true);
         response.addCookie(refreshCookie);
 //        refreshCookie.setDomain("localhost");
