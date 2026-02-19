@@ -3,6 +3,7 @@ package com.project.review.global.util;
 import com.project.review.domain.user.entity.User;
 import com.project.review.domain.user.entity.UserImg;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,10 @@ import java.nio.file.StandardCopyOption;
 public class FileService {
     // 이미지 파일 저장, 삭제 메소드 구조 개선 및 통합 및 별도 디렉토리 및 클래스 분리
 
-    private final String rootPath = "src/main/resources/static/assets/images/";
+//    private final String rootPath = "src/main/resources/static/assets/images/";
+    // @Value를 사용해 설정 파일에 있는 'file.upload-dir' 값을 가져옵니다.
+    @Value("${file.upload-dir}")
+    private String rootPath;
 
     public void imgDelete(String domain, String fileName) {
         try {
