@@ -101,7 +101,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(
                                 "/", "/Register", "/login", "/product", "/product/**", "/search",
-                                "/assets/**", "/imgs/**", "/chart-data", "/chart-data/**"
+                                "/assets/**", "/imgs/**", "/chart-data", "/chart-data/**","/error"
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())

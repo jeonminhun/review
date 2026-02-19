@@ -22,9 +22,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/login", "/Register","/assets/**", "/imgs/**","/error"); // 예외 적용
     }
 
+
+    // aws에 맞춰 경로 수정
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/imgs/**")
+        registry.addResourceHandler("/assets/images/**")
                 .addResourceLocations("file:/app/assets/images/") // 실제 경로
                 .setCachePeriod(0); // 캐시 무효화
     }
