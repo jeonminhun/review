@@ -121,15 +121,6 @@ public class SecurityConfig {
                 .addFilterBefore(new FilterChainLogger(), SecurityContextPersistenceFilter.class);
         return http.build();
     }
-
-    // aws 서버 등록시 이미지 파일 권한 오류로 인한 수정
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 주소창에 /assets/images/** 라고 치면
-        // 서버의 실제 경로 /home/ubuntu/assets/images/ 폴더 안의 파일을 보여줌
-        registry.addResourceHandler("/assets/images/**")
-                .addResourceLocations("file:/app/assets/images/"); // 서버의 실제 절대 경로
-    }
-
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
