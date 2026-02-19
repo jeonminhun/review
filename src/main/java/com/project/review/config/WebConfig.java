@@ -3,6 +3,7 @@ package com.project.review.config;
 import com.project.review.interceptors.jwtInterceptor;
 import com.project.review.domain.user.controller.userController;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -13,7 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     private final userController userController;
-
+    // 여기서도 똑같이 설정 값을 읽어옵니다.
+    @Value("${file.upload-dir}")
+    private String uploadDir;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -27,7 +30,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/assets/images/**")
-                .addResourceLocations("file:/app/assets/images/") // 실제 경로
+                .addResourceLocations("file:" + uploadDir) // 실제 경로
                 .setCachePeriod(0); // 캐시 무효화
     }
 }
