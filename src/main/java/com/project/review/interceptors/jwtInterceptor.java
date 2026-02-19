@@ -40,13 +40,20 @@ public class jwtInterceptor implements HandlerInterceptor {
                 log.info("accessToken 유효시간이 {}분 남았습니다.", diffInMillis);
 
                 if (5 >= diffInMillis) { // 토큰 유효시간이 5분미만이면 갱신시작
-                    log.info("accessToken 갱신 :{}", cookies[0].getValue());
+                    try {// reissue 호출 부분을 try-catch로 감싸서 인터셉터 때문에 앱이 죽지 않게 합니다.
+                        log.info("accessToken 갱신 :{}", cookies[0].getValue());
 
-                    Cookie authCookie = WebUtils.getCookie(request, "Authorization");
-                    Cookie RefCookie = WebUtils.getCookie(request, "RefreshToken");
-                    tokenRequestDto.setAccessToken(authCookie.getValue().substring(6));
-                    tokenRequestDto.setRefreshToken(RefCookie.getValue().substring(6));
-                    userController.reissue(tokenRequestDto, request, response);
+                        Cookie authCookie = WebUtils.getCookie(request, "Authorization");
+                        Cookie RefCookie = WebUtils.getCookie(request, "RefreshToken");
+                        tokenRequestDto.setAccessToken(authCookie.getValue().substring(6));
+                        tokenRequestDto.setRefreshToken(RefCookie.getValue().substring(6));
+                        userController.reissue(tokenRequestDto, request, response);
+                    }catch (Exception e){
+                        // 여기서 에러가 나도 throw 하지 않고 로그만 찍습니다.
+                        // 그래야 다음 단계(이미지 핸들러나 에러 핸들러)로 넘어갈 수 있습니다.
+                        log.error("인터셉터 토큰 갱신 중 에러 발생(무시하고 진행): {}", e.getMessage());
+                    }
+
 
                 }
             }
