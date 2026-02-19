@@ -19,13 +19,13 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new jwtInterceptor(userController))
                 .addPathPatterns("/**") // 모든 요청에 대해 인터셉터를 적용
-                .excludePathPatterns("/login", "/Register","/assets/**", "/imgs/**"); // 예외 적용
+                .excludePathPatterns("/login", "/Register","/assets/**", "/imgs/**","/error"); // 예외 적용
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/imgs/**")
-                .addResourceLocations("file:///F:/project/review/src/main/resources/static/imgs/") // 실제 경로
+                .addResourceLocations("file:/app/assets/images/") // 실제 경로
                 .setCachePeriod(0); // 캐시 무효화
     }
 }
