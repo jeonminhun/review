@@ -30,6 +30,7 @@ public class AdminInitializer {
                         .userRole(9)
                         .build();
 
+
                 userRepository.save(admin);
                 System.out.println("어드민 계정이 생성되었습니다: admin@test.com");
             }
