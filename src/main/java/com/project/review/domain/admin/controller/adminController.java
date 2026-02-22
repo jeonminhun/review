@@ -34,10 +34,13 @@ public class adminController {
         log.info("관리자 페이지 접근 입니다.");
         if (adminService.checkAdmin(request)) {
             log.info("관리자 확인했습니다.");
+            Long userId = userService.getUserId(request);
+            User user = userService.userInfo(userId, request);
             List<User> Users = userService.findAllUser();
             List<Review> reviews = productService.ReviewAll();
             List<Product> Product = productService.ProductAll();
             List<ProductImg> productImgs = productService.ProductImgAll();
+            model.addAttribute("user", user);
             model.addAttribute("Users", Users);
             model.addAttribute("reviews", reviews);
             model.addAttribute("Product", Product);
