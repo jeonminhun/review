@@ -166,7 +166,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-12">
                 <ul class="breadcrumb-nav">
-                    <li><a href="../default/index.html"><i class="lni lni-home"></i> 홈</a></li>
+                    <li><a th:href="@{/}"><i class="lni lni-home"></i> 홈</a></li>
                     <li><a th:href="@{/myPage/{user_id}(user_id=${user_id})}">마이페이지</a></li>
                     <li><a th:href="@{/myWish/{user_id}(user_id=${user_id})}">찜 목록</a></li>
                 </ul>
