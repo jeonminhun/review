@@ -70,10 +70,29 @@
                     <div class="row align-items-center">
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="top-left">
+                                <a class="navbar-brand" th:href="@{/}">
+                                    <img src="assets/images/logo/logo.svg" alt="Logo">
+                                </a>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-12">
                             <div class="top-middle">
+                                <div class="main-menu-search">
+                                    <!-- navbar search start -->
+                                    <!--검색기능 미완성 미리 만들어놓음-->
+                                    <form th:action="@{/search}" method="get"> <!--th:object="${MemberRequestDto}"-->
+                                        <div class="navbar-search search-style-5">
+                                            <div class="search-input">
+                                                <input type="text" name="query" placeholder="Search">
+                                                <input type="hidden" name="menu" value="1">
+                                            </div>
+                                            <div class="search-btn">
+                                                <button type="submit"><i class="lni lni-search-alt"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- navbar search Ends -->
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-12">

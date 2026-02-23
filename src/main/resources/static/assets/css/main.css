@@ -1455,7 +1455,7 @@ ol {
 }
 
 .header .topbar {
-  background-color: #081828;
+  background-color: #fff;
   padding: 18px 0;
 }
 
@@ -1573,7 +1573,7 @@ ol {
 }
 
 .header .topbar .top-end .user i {
-  color: #fff;
+  color: #000;
   display: inline-block;
   margin-right: 5px;
   font-size: 16px;
@@ -1586,7 +1586,7 @@ ol {
 
 .header .topbar .top-end .user-login li {
   display: inline-block;
-  border-right: 1px solid rgba(255, 255, 255, 0.459);
+  border-right: 1px solid rgba(0, 0, 0, 0.459);
   padding: 0px 10px;
   white-space: nowrap;
 }
@@ -1602,7 +1602,7 @@ ol {
 }
 
 .header .topbar .top-end .user-login li a {
-  color: #fff;
+  color: #000;
   font-weight: 500;
   font-size: 14px;
   white-space: nowrap;
