@@ -255,9 +255,13 @@ public class productServiceImpl implements productService {
 
             review = productReviewRepository.save(review);
 
+            // 이미지 미등록시에도 이미지 저장로직 호출 오류 해결
             productRatingUpdate(reviewCreateDto.getProduct_id());
 
-            if (files != null) {
+            MultipartFile multipartFile = Arrays.stream(files).findFirst().get();
+
+            if (multipartFile.getSize() > 0) {
+                log.info("리뷰 이미지 없을떄 호출됨{}",multipartFile.getSize());
                 for (MultipartFile file : files) {
                     String fileName = System.currentTimeMillis() + "_" + valueOf(review.getReview_id()) + "_" + valueOf(review.getUser().getUser_id()) + ".jpg";
 
