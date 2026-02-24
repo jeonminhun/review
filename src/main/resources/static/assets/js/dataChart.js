@@ -74,38 +74,85 @@ let chartTwo, chartThree;
 
     // 차트 03 초기화 함수
     function chart03() {
-        const chartThreeOptions = {
-            series: [95, 1, 1, 1, 1], // 초기 데이터
-            chart: {
-                type: "donut",
-                width: 380
-            },
-            colors: ["#3C50E0", "#6577F3", "#8FD0EF", "#0FADCF", "#FF6F61"],
-            labels: ["5점", "4점", "3점", "2점", "1점"],
-            legend: {
-                show: false,
-                position: "bottom"
-            },
-            plotOptions: {
-                pie: {
-                    donut: {
-                        size: "65%",
-                        background: "transparent"
-                    }
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            responsive: [{
-                breakpoint: 640,
-                options: {
-                    chart: {
-                        width: 200
-                    }
-                }
-            }]
-        };
+       const chartThreeOptions = {
+           series: [95, 1, 1, 1, 1],
+           chart: {
+               type: "donut",
+               width: "100%", // 부모 컨테이너에 맞게 조정
+               height: 350
+           },
+           colors: ["#3C50E0", "#6577F3", "#8FD0EF", "#0FADCF", "#FF6F61"],
+           labels: ["5점", "4점", "3점", "2점", "1점"],
+
+
+           // 1. 범례 활성화: 각 색상이 어떤 점수인지 표시
+           legend: {
+               show: true,
+               position: "bottom",
+               fontFamily: "SBCSNeoBD", // 프로젝트 폰트에 맞춰 변경
+               fontWeight: 500,
+               labels: {
+                   colors: ["#64748B"],
+                   useSeriesColors: false
+               },
+               markers: {
+                   radius: 12
+               }
+           },
+
+           // 2. 툴팁 설정 (마우스 오버 가시성 개선 핵심)
+                   tooltip: {
+                       enabled: true,
+                       theme: 'light',
+                       style: {
+                           fontSize: '14px',
+                           fontFamily: 'SBCSNeoBD',
+                       },
+                       // 커스텀 HTML 툴팁 사용 (가장 예쁘게 나옵니다)
+                       custom: function({series, seriesIndex, dataPointIndex, w}) {
+                           const stars = ["★★★★★", "★★★★☆", "★★★☆☆", "★★☆☆☆", "★☆☆☆☆"];
+                           const color = w.config.colors[seriesIndex];
+                           const label = w.config.labels[seriesIndex];
+                           const value = series[seriesIndex];
+
+                           return `
+                               <div style="background: #fff; border: 1px solid ${color}; padding: 10px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                                   <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                                       <span style="background-color: ${color}; width: 10px; height: 10px; border-radius: 50%; display: inline-block;"></span>
+                                       <span style="font-weight: 600; color: #1C2434;">${stars[seriesIndex]} (${label})</span>
+                                   </div>
+                                   <div style="padding-left: 18px; font-size: 16px; color: ${color}; font-weight: 800;">
+                                       ${value}%
+                                   </div>
+                               </div>
+                           `;
+                       }
+                   },
+
+
+           // 3. 차트 위에 백분율 표시 (선택 사항)
+           dataLabels: {
+               enabled: true, // 작게라도 백분율을 보여주면 가시성이 좋아집니다
+               formatter: function (val) {
+                   return val.toFixed(0) + "%";
+               },
+               dropShadow: {
+                   enabled: false
+               }
+           },
+
+           responsive: [{
+               breakpoint: 640,
+               options: {
+                   chart: {
+                       width: 250
+                   },
+                   legend: {
+                       position: "bottom"
+                   }
+               }
+           }]
+       };
 
         const chartSelector = document.querySelectorAll("#chartThree");
         if (chartSelector.length) {
