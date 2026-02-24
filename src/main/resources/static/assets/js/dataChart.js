@@ -129,6 +129,30 @@ let chartTwo, chartThree;
                        }
                    },
 
+                   plotOptions: {
+                       pie: {
+                           donut: {
+                               size: "70%", // 중앙 공간 확보
+                               labels: {
+                                   // 2. 도넛 중앙에 라벨 표시
+                                   show: true,
+                                   total: {
+                                       show: true,
+                                       showAlways: true,
+                                       label: "총 별점", // 중앙 상단 텍스트
+                                       fontSize: "16px",
+                                       fontWeight: 600,
+                                       color: "#64748B",
+                                       formatter: function (w) {
+                                           // 가장 높은 첫 번째 데이터(5점)의 비율 표시
+                                           return w.globals.series[0]+w.globals.series[1]+w.globals.series[2]+w.globals.series[3]+w.globals.series[4] + "개";
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   },
+
 
            // 3. 차트 위에 백분율 표시 (선택 사항)
            dataLabels: {
