@@ -17,6 +17,8 @@ public interface userService {
 
     boolean checkPassWord(userCreateDto userCreateDto);
 
+    boolean checkEmail(String email);
+
     boolean createUser(userCreateDto userCreateDto);
 
     boolean userUpdate(UserUpdateDto userUpdateDto, HttpServletRequest request);

@@ -39,10 +39,17 @@ public class userController {
     @PostMapping("/Register")
     public String create_form(@ModelAttribute userCreateDto userCreateDto, BindingResult bindingResult, Model model) {
         if (!userService.checkPassWord(userCreateDto)) {
-            bindingResult.addError(new FieldError("userCreateDto", "user_password", "비밀번호가 다릅니다."));
+            bindingResult.rejectValue("user_password", "error.password", "비밀번호가 다릅니다.");
+        }
+        if (userService.checkEmail(userCreateDto.getUser_email())) {
+            bindingResult.rejectValue("user_email", "error.email", "이메일이 중복됩니다.");
+        }
+        if (bindingResult.hasErrors()) {
+            log.info("검증 에러 발생: {}", bindingResult.getAllErrors());
             return "default/Register";
         }
         userService.createUser(userCreateDto);
+
         return "redirect:/login";
 
     }

@@ -95,6 +95,10 @@ public class userServiceImpl implements userService {
         return userRepository.findAll();
     }
 
+    public boolean checkEmail(String email) {
+        return userRepository.findByuserEmail(email).isPresent();
+    }
+
     @Override
     public boolean checkPassWord(userCreateDto userCreateDto) {
         return userCreateDto.getUser_password().equals(userCreateDto.getUser_password_check());

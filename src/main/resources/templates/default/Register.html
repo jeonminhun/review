@@ -175,7 +175,10 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="user_email">이메일</label>
-                                <input class="form-control" type="email" id="user_email" name="user_email" required>
+                                <input class="form-control" th:field="*{user_email}" th:errorclass="field-error" type="email" id="user_email" name="user_email" required>
+                                <div class="field-error" th:errors="*{user_email}">
+                                    이메일 중복
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
