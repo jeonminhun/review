@@ -1,7 +1,7 @@
     function likeReview(button) {
         const reviewId = button.getAttribute("data-review-id");
         const userId = button.getAttribute("data-user-id");
-
+        const isCurrentlySaved = button.classList.contains("liked");
         fetch(`/reviewLike`, {
             method: "POST",
             headers: {
@@ -15,13 +15,13 @@
         }).then(response => response.json())
           .then(data => {
               if (data != null) {
-                  alert("좋아요 성공!");
                   button.querySelector("span").innerText = data.likeCount; // 좋아요 수 업데이트
-
                    // 좋아요가 눌렸으면 버튼 상태 변경
-                  if (data.isLiked) {
+                  if (!isCurrentlySaved) {
+                    alert("좋아요 성공!");
                     button.classList.add("liked");
                    } else {
+                    alert("좋아요 해제!");
                     button.classList.remove("liked");
                   }
 
